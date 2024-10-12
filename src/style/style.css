@@ -2,35 +2,75 @@
     padding: 0px;
     margin: 0px;
 }
+
+/* Temporary colors for spacing planning purposes */
+#playing-area { background-color: gray; }
+#factory-displays { background-color: lightcoral; }
+#factory-center { background-color: blueviolet; }
+#scorecards { background-color: lightsalmon; }
+header { background-color: lightblue; }
+main { background-color: whitesmoke; }
+footer { background-color: lightgreen; }
+
+#playing-area {
+
+}
 #factory-displays, #factory-center, #scorecards {
     padding: 2rem;
 }
 .tile {
-    border: 0px solid black;
-    background-color: darkred;
+    border: 1px solid black;
+    border-radius: 5px;
     height: 4rem;
     width: 4rem;
     display: inline-block;
 }
-.factory-display {
-    height: 10rem;
-    width: 10rem;
-    border: 1px solid black;
-    margin-right: 2rem;
-    padding: 1rem;
-    display: inline-block;
+.tile-style-0 {
+    background-color: black;;
 }
-.factory-center {
-    padding: 1rem;
+.tile-style-1 {
+    background-color: darkred;
+}
+.tile-style-2 {
+    background-color: yellow;
+}
+.tile-style-3 {
+    background-color: cyan;
+}
+.tile-style-4 {
+    background-color: darkblue;
+}
+#factory-displays {
+    display: flex;
+    justify-content: space-around;
+}
+.factory-display {
+    border: 15px solid gold;
+    border-radius: 50px;
+    background-color: white;
+    padding: 2rem;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+#factory-center {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
 }
 .scorecard {
     width: 40vw;
     border: 1px solid black;
+    margin: 1rem;
     display: inline-block;
 }
 .scorepip {
     border: 1px solid black;
     background-color: khaki;
     display: inline-block;
-    padding: 1rem;
+    height: 2rem;
+    width: 2rem;
+    align-content: center;
+    text-align: center;
 }
