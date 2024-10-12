@@ -1,0 +1,122 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+/* Temporary colors for spacing planning purposes */
+/* #playing-area { background-color: gray; }
+#factory-displays { background-color: lightcoral; }
+#factory-center { background-color: blueviolet; }
+#scorecards { background-color: lightsalmon; }
+header { background-color: lightblue; }
+main { background-color: whitesmoke; }
+footer { background-color: lightgreen; }
+.patternlines { background-color: gray; }
+.wall { background-color: brown; } */
+
+#factory-displays, #factory-center, #scorecards {
+    padding: 2rem;
+}
+.tile {
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 2rem;
+    width: 2rem;
+    display: inline-block;
+}
+.tile-style-0 {
+    background-color: black;;
+}
+.tile-style-1 {
+    background-color: darkred;
+}
+.tile-style-2 {
+    background-color: yellow;
+}
+.tile-style-3 {
+    background-color: cyan;
+}
+.tile-style-4 {
+    background-color: darkblue;
+}
+#factory-displays {
+    display: flex;
+    justify-content: space-around;
+}
+.factory-display {
+    border: 15px solid gold;
+    border-radius: 50px;
+    background-color: white;
+    padding: 2rem;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+#factory-center {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+#scorecards {
+    display: flex;
+    justify-content: space-around;
+}
+.scorecard {
+    width: 30vw;
+    padding: 1rem;
+    border: 1px solid black;
+    border-radius: 15px;
+    background-color: royalblue;
+    display: inline-block;
+}
+.scorecard-header {
+    padding: 0.5rem;
+    background-color: powderblue;
+    border-radius: 5px 5px 0px 0px;
+    border: 1px solid black;
+}
+.scorepip-row {
+    display: flex;
+}
+.scorepip {
+    border: 1px solid black;
+    background-color: khaki;
+    flex: 1 1;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    align-content: center;
+    text-align: center;
+}
+.scorecard-main {
+    display: flex;
+    gap: 2rem;
+    background-color: beige;
+    padding: 1rem;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+.scorecard-main .patternlines, .scorecard-main .wall {
+    flex: 1 1;
+}
+.patternlines, .patternline-row, .wall, .wall-row {
+    display: flex;
+    justify-content: center;
+    gap: 0.25rem;
+}
+.patternlines, .wall {
+    flex-direction: column;
+}
+.patternline-row {
+    justify-content: right;
+}
+.scorecard-footer {
+    border: 1px solid black;
+    border-radius: 0px 0px 5px 5px;
+}
+.floorline {
+    background-color: beige;
+    padding: 1rem;
+    display: flex;
+    gap: 0.25rem;
+}
