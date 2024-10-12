@@ -71,15 +71,21 @@ footer { background-color: lightgreen; }
     margin: 1rem;
     display: inline-block;
 }
-.scorecard-row {
+.scorepip-row {
     display: flex;
 }
 .scorepip {
     border: 1px solid black;
     background-color: khaki;
-    flex: 1 1 auto;
+    flex: 1 1;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     align-content: center;
     text-align: center;
+}
+.scorecard-main {
+    display: flex;
+}
+.scorecard-main .patternlines, .scorecard-main .wall {
+    flex: 1 1;
 }
