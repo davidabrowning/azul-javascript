@@ -58,5 +58,17 @@ class TestRunner {
         testGame = new Game(3);
         this.assertEquals(testTitle, 3, testGame.players.length);
 
+        testTitle = "Two player game has five factory displays";
+        testGame = new Game(2);
+        this.assertEquals(testTitle, 5, testGame.factoryDisplays.length);
+
+        testTitle = "Three player game has seven factory displays";
+        testGame = new Game(3);
+        this.assertEquals(testTitle, 7, testGame.factoryDisplays.length);
+
+        testTitle = "Four player game has nine factory displays";
+        testGame = new Game(4);
+        this.assertEquals(testTitle, 8, testGame.factoryDisplays.length);
+
     }
 }
