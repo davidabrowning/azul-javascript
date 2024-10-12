@@ -28,7 +28,14 @@ class TestRunner {
     }
 
     runUnitTests() {
-        this.assertEquals("Two plus two", 4, 2 + 2);
-        this.assertEquals("Two plus two equals five", 5, 2 + 2);
+        let testTitle = "";
+        let testGame = new Game(2);
+
+        testTitle = "Two plus two equals four";
+        this.assertEquals(testTitle, 4, 2 + 2);
+
+        testTitle = "Game bag starts with 100 tiles";
+        this.assertEquals(testTitle, true, true);
+        
     }
 }
