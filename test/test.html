@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Azul Unit Tests</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <header>
+            <h1>Test summary:</h1>
+            <p>Passed: <span id="tests-passed">0</span></p>
+            <p>Failed: <span id="tests-failed">0</span></p>
+        </header>
+        <main id="test-log">
+            <h1>Test results:</h1>
+        </main>
+        <script src="../src/js/domain/Game.js"></script>
+        <script src="../src/js/domain/TileBag.js"></script>
+        <script src="../src/js/domain/Tile.js"></script>
+        <script src="../src/js/domain/Player.js"></script>
+        <script src="../src/js/domain/FactoryDisplay.js"></script>
+        <script src="TestRunner.js"></script>
+        <script>
+            const testRunner = new TestRunner();
+            testRunner.runUnitTests();
+        </script>
+    </body>
+</html>
