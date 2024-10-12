@@ -13,7 +13,15 @@ class Game {
     }
     generateFactoryDisplays(numPlayers) {
         let newFactoryDisplayArray = [];
-        for (let i = 0; i < 5; i++) {
+        let numFactoryDisplaysToCreate = 0;
+        if (numPlayers == 2) {
+            numFactoryDisplaysToCreate = 5;
+        } else if (numPlayers == 3) {
+            numFactoryDisplaysToCreate = 7;
+        } else {
+            numFactoryDisplaysToCreate = 9;
+        }
+        for (let i = 0; i < numFactoryDisplaysToCreate; i++) {
             newFactoryDisplayArray.push(new FactoryDisplay());
         }
         return newFactoryDisplayArray;
