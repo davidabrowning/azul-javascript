@@ -2,3 +2,24 @@
     padding: 0px;
     margin: 0px;
 }
+.factory-display {
+    height: 200px;
+    width: 200px;
+    border: 1px solid black;
+    margin: 2rem;
+    padding: 1rem;
+    display: inline-block;
+}
+.scorecard {
+    width: 40vw;
+    border: 1px solid black;
+    margin: 1rem;
+    display: inline-block;
+}
+.tile {
+    border: 0px solid black;
+    background-color: darkred;
+    height: 40%;
+    width: 40%;
+    display: inline-block;
+}
