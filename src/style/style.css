@@ -67,9 +67,17 @@ footer { background-color: lightgreen; }
 }
 .scorecard {
     width: 40vw;
+    padding: 1rem;
     border: 1px solid black;
-    margin: 1rem;
+    border-radius: 15px;
+    background-color: royalblue;
     display: inline-block;
+}
+.scorecard-header {
+    padding: 0.5rem;
+    background-color: powderblue;
+    border-radius: 5px 5px 0px 0px;
+    border: 1px solid black;
 }
 .scorepip-row {
     display: flex;
@@ -85,7 +93,30 @@ footer { background-color: lightgreen; }
 }
 .scorecard-main {
     display: flex;
+    background-color: beige;
+    padding: 1rem;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
 }
 .scorecard-main .patternlines, .scorecard-main .wall {
     flex: 1 1;
+}
+.patternlines, .patternline-row, .wall, .wall-row {
+    display: flex;
+    justify-content: center;
+    gap: 0.25rem;
+}
+.patternlines, .wall {
+    flex-direction: column;
+}
+.patternline-row {
+    justify-content: right;
+}
+.scorecard-footer {
+    display: flex;
+    border: 1px solid black;
+    border-radius: 0px 0px 5px 5px;
+}
+.floorline, .bonus-explanation {
+    flex: 1 1 auto;
 }
