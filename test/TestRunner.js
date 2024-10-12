@@ -54,7 +54,9 @@ class TestRunner {
         testGame.tileBag.drawTile();
         this.assertEquals(testTitle, 99, testGame.tileBag.size());
 
-        
+        testTitle = "Three player game has three players";
+        testGame = new Game(3);
+        this.assertEquals(testTitle, 3, testGame.players.length);
 
     }
 }
