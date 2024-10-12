@@ -11,6 +11,8 @@
 header { background-color: lightblue; }
 main { background-color: whitesmoke; }
 footer { background-color: lightgreen; }
+.patternlines { background-color: gray; }
+.wall { background-color: brown; }
 
 #playing-area {
 
@@ -59,18 +61,25 @@ footer { background-color: lightgreen; }
     justify-content: center;
     gap: 1rem;
 }
+#scorecards {
+    display: flex;
+    justify-content: space-around;
+}
 .scorecard {
     width: 40vw;
     border: 1px solid black;
     margin: 1rem;
     display: inline-block;
 }
+.scorecard-row {
+    display: flex;
+}
 .scorepip {
     border: 1px solid black;
     background-color: khaki;
-    display: inline-block;
-    height: 2rem;
-    width: 2rem;
+    flex: 1 1 auto;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
     align-content: center;
     text-align: center;
 }
