@@ -4,7 +4,7 @@
 }
 
 /* Temporary colors for spacing planning purposes */
-#playing-area { background-color: gray; }
+/* #playing-area { background-color: gray; }
 #factory-displays { background-color: lightcoral; }
 #factory-center { background-color: blueviolet; }
 #scorecards { background-color: lightsalmon; }
@@ -12,11 +12,8 @@ header { background-color: lightblue; }
 main { background-color: whitesmoke; }
 footer { background-color: lightgreen; }
 .patternlines { background-color: gray; }
-.wall { background-color: brown; }
+.wall { background-color: brown; } */
 
-#playing-area {
-
-}
 #factory-displays, #factory-center, #scorecards {
     padding: 2rem;
 }
@@ -93,6 +90,7 @@ footer { background-color: lightgreen; }
 }
 .scorecard-main {
     display: flex;
+    gap: 2rem;
     background-color: beige;
     padding: 1rem;
     border-left: 1px solid black;
@@ -113,10 +111,12 @@ footer { background-color: lightgreen; }
     justify-content: right;
 }
 .scorecard-footer {
-    display: flex;
     border: 1px solid black;
     border-radius: 0px 0px 5px 5px;
 }
-.floorline, .bonus-explanation {
-    flex: 1 1 auto;
+.floorline {
+    background-color: beige;
+    padding: 1rem;
+    display: flex;
+    gap: 0.25rem;
 }
