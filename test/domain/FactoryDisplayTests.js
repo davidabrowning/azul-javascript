@@ -13,5 +13,10 @@ function runFactoryDisplayTests(testRunner) {
     testGame.factoryDisplays[0].tiles[1] = new Tile(0);
     testGame.factoryDisplays[0].tiles[2] = new Tile(2);
     testGame.factoryDisplays[0].tiles[3] = new Tile(2);
-    testRunner.assertEquals(testTitle, true, false);
+    testGame.claimFactoryDisplay(0, 2, 0);
+    testRunner.assertEquals(testTitle, 0, testGame.factoryDisplays[0].tiles.length);
+
+    testTitle = "FactoryDisplay at array position 4 has id of 4";
+    testGame = new Game(4);
+    testRunner.assertEquals(testTitle, 4, testGame.factoryDisplays[4].id);
 }

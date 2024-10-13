@@ -17,4 +17,21 @@ function runGameTests(testRunner) {
     testTitle = "Four player game has nine factory displays";
     testGame = new Game(4);
     testRunner.assertEquals(testTitle, 9, testGame.factoryDisplays.length);
+
+    testTitle = "First active player is player 0";
+    testGame = new Game(2);
+    testRunner.assertEquals(testTitle, 0, testGame.activePlayerNum);
+
+    testTitle = "Active player after ending one turn is player 1";
+    testGame = new Game(2);
+    testGame.endTurn();
+    testRunner.assertEquals(testTitle, 1, testGame.activePlayerNum);
+
+    testTitle = "Active player after ending every player's turn is player 0";
+    testGame = new Game(4);
+    testGame.endTurn();
+    testGame.endTurn();
+    testGame.endTurn();
+    testGame.endTurn();
+    testRunner.assertEquals(testTitle, 0, testGame.activePlayerNum);
 }

@@ -14,6 +14,13 @@ footer { background-color: lightgreen; }
 .patternlines { background-color: gray; }
 .wall { background-color: brown; } */
 
+#instructions {
+    background-color: lightgray;
+    border-bottom: 1px solid black;
+    height: 2rem;
+    align-content: center;
+    text-align: center;
+}
 #factory-displays, #factory-center, #scorecards {
     padding: 2rem;
 }
@@ -63,7 +70,6 @@ footer { background-color: lightgreen; }
     justify-content: space-around;
 }
 .scorecard {
-    width: 30vw;
     padding: 1rem;
     border: 1px solid black;
     border-radius: 15px;
@@ -99,7 +105,7 @@ footer { background-color: lightgreen; }
 .scorecard-main .patternlines, .scorecard-main .wall {
     flex: 1 1;
 }
-.patternlines, .patternline-row, .wall, .wall-row {
+.patternlines, .patternlines-row, .wall, .wall-row {
     display: flex;
     justify-content: center;
     gap: 0.25rem;
@@ -107,7 +113,7 @@ footer { background-color: lightgreen; }
 .patternlines, .wall {
     flex-direction: column;
 }
-.patternline-row {
+.patternlines-row {
     justify-content: right;
 }
 .scorecard-footer {

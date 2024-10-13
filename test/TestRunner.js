@@ -19,14 +19,14 @@ class TestRunner {
     assertEquals(testName, a, b) {
         let testResultString = "";
         this.testCount++;
-        testResultString = this.testCount + ". " + testName;
         if (a == b) {
             this.testsPassed++;
-            testResultString += ": PASSED.";
+            testResultString += "[ PASSED ] ";
         } else {
             this.testsFailed++;
-            testResultString += ": FAILED.";
+            testResultString += "[[[ FAILED ]]] ";
         }
+        testResultString += this.testCount + ". " + testName;
         testResultString += " Expected: " + a;
         testResultString += ". Actual: " + b + ".";
         this.printTestResult(testResultString);

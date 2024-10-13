@@ -1,5 +1,6 @@
-class TileBag {
+class TileBag extends AbstractTileContainer {
     constructor() {
+        super();
         this.tiles = this.generateNewTiles();
     }
     generateNewTiles() {
@@ -12,9 +13,6 @@ class TileBag {
             generatedTiles.push(new Tile(4));
         }
         return generatedTiles;
-    }
-    size() {
-        return this.tiles.length;
     }
     drawTile() {
         let indexToDraw = Math.floor(Math.random() * this.size());

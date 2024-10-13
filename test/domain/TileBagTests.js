@@ -20,5 +20,5 @@ function runTileBagTests(testRunner) {
     testTitle = "TileBag size after drawing one Tile is 99";
     testGame = new Game(2);
     testGame.tileBag.drawTile();
-    this.assertEquals(testTitle, 99, testGame.tileBag.size());
+    testRunner.assertEquals(testTitle, 99, testGame.tileBag.size());
 }

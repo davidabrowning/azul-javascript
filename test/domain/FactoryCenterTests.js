@@ -9,7 +9,7 @@ function runFactoryCenterTests(testRunner) {
     testFactoryCenter.add(new Tile(1));
     testFactoryCenter.add(new Tile(1));
     testFactoryCenter.add(new Tile(1));
-    testRunner.assertEquals(testTitle, 4, testFactoryCenter.claim(1).length);
+    testRunner.assertEquals(testTitle, 4, testFactoryCenter.removeAll(1).length);
 
     testTitle = "Factory center persists discarded tiles";
     testFactoryCenter = new FactoryCenter();
@@ -34,5 +34,11 @@ function runFactoryCenterTests(testRunner) {
     testRunner.assertEquals(testTitle, 0, testGame.factoryCenter.size());
 
     testTitle = "FactoryCenter contains unclaimed FactoryDisplay Tiles";
-    testRunner.assertEquals(testTitle, true, false);
+    testGame = new Game(2);
+    testGame.factoryDisplays[0].tiles[0] = new Tile(0);
+    testGame.factoryDisplays[0].tiles[1] = new Tile(0);
+    testGame.factoryDisplays[0].tiles[2] = new Tile(2);
+    testGame.factoryDisplays[0].tiles[3] = new Tile(2);
+    testGame.claimFactoryDisplay(0, 2, 0);
+    testRunner.assertEquals(testTitle, true, testGame.factoryCenter.contains(0));
 }

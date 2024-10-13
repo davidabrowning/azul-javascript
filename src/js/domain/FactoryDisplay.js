@@ -1,8 +1,6 @@
-class FactoryDisplay {
-    constructor() {
-        this.tiles = [];
-    }
-    add(tile) {
-        this.tiles.push(tile);
+class FactoryDisplay extends AbstractTileContainer {
+    constructor(id) {
+        super();
+        this.id = id;
     }
 }
