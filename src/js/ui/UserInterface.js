@@ -72,7 +72,7 @@ class UserInterface {
                 let patternlineTileDiv = document.createElement("div");
                 patternlineTileDiv.setAttribute("id", "patternline-tile-"
                     + row + "-" + col + "-p" + player.id);
-                patternlineTileDiv.classList.add("tile", "tile-style-3");
+                patternlineTileDiv.classList.add("tile", "tile-style-empty");
                 patternlinesRowDiv.appendChild(patternlineTileDiv);
             }
         }
@@ -91,11 +91,12 @@ class UserInterface {
 
             for (let col = 0; col < 5; col++) {
                 let wallTileNum = row * 5 + col;
+                let wallTileStyleNum = (col + (5 - row)) % 5;
 
                 let wallTileDiv = document.createElement("div");
                 wallTileDiv.setAttribute("id", "wall-row-tile-" + wallTileNum
                     + "-p" + player.id);
-                wallTileDiv.classList.add("tile", "tile-style-1");
+                wallTileDiv.classList.add("tile", "tile-style-" + wallTileStyleNum);
                 wallRowDiv.appendChild(wallTileDiv);
             }
         }
@@ -114,7 +115,7 @@ class UserInterface {
 
         for (let i = 0; i < 3; i++) {
             let floorlineTileDiv = document.createElement("div");
-            floorlineTileDiv.classList.add("tile", "tile-style-0");
+            floorlineTileDiv.classList.add("tile", "tile-style-empty");
             floorlineDiv.appendChild(floorlineTileDiv);
         }
 

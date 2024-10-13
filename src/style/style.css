@@ -32,19 +32,25 @@ footer { background-color: lightgreen; }
     display: inline-block;
 }
 .tile-style-0 {
-    background-color: black;;
+    background-color: rgb(26, 102, 202);
 }
 .tile-style-1 {
-    background-color: darkred;
+    background-color: rgb(252, 227, 8);
 }
 .tile-style-2 {
-    background-color: yellow;
+    background-color: rgb(194, 22, 22);
 }
 .tile-style-3 {
-    background-color: cyan;
+    background-color: black;
 }
 .tile-style-4 {
-    background-color: darkblue;
+    background-color: rgb(84, 221, 231);
+}
+.tile-style-empty {
+    background-color: khaki;
+}
+.tile-style-faded {
+    opacity: 50;
 }
 #factory-displays {
     display: flex;
