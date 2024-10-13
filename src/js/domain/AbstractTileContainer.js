@@ -14,4 +14,7 @@ class AbstractTileContainer {
         });
         return foundNeedle;
     }
+    size() {
+        return this.tiles.length;
+    }
 }
