@@ -44,8 +44,10 @@ class Controller {
     }
 
     handleFactoryDisplayTileClick(factoryDisplayId, tileNum) {
+        // Remove previously selected tiles
         this.userInterface.removeSelectedEffectFromAllTiles();
 
+        // Select these tiles
         let factoryDisplay = this.game.factoryDisplays[factoryDisplayId];
         let tile = factoryDisplay.tiles[tileNum];
         let tileValue = tile.value;
