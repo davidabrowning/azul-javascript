@@ -34,4 +34,12 @@ function runGameTests(testRunner) {
     testGame.endTurn();
     testGame.endTurn();
     testRunner.assertEquals(testTitle, 0, testGame.activePlayerNum);
+
+    testTitle = "GameOver is false at Game start";
+    testGame = new Game(2);
+    testRunner.assertEquals(testTitle, false, testGame.isGameOver());
+
+    testTitle = "RoundOver is false at Game start";
+    testGame = new Game(2);
+    testRunner.assertEquals(testTitle, false, testGame.isRoundOver());
 }

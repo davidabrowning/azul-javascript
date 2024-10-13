@@ -55,4 +55,12 @@ class Game {
         let discardedTiles = factoryDisplay.clear();
         this.factoryCenter.addMultiple(discardedTiles);
     }
+
+    isGameOver() {
+        return false;
+    }
+
+    isRoundOver() {
+        return false;
+    }
 }
