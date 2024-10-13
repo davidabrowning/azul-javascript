@@ -4,6 +4,11 @@ class TestRunner {
         this.testsPassed = 0;
         this.testsFailed = 0;
     }
+    printTestSectionTitle(testSectionTitle) {
+        let testSectionHeader = document.createElement("h2");
+        testSectionHeader.innerText = testSectionTitle;
+        document.querySelector("#test-log").appendChild(testSectionHeader);
+    }
     printTestResult(testResultString) {
         let testResultParagraph = document.createElement("p");
         testResultParagraph.innerText = testResultString;
@@ -28,6 +33,7 @@ class TestRunner {
     }
 
     runUnitTests() {
+        let testSectionTitle = "";
         let testTitle = "";
         let testGame = null;
         let testFactoryCenter = null;
@@ -55,22 +61,6 @@ class TestRunner {
         testGame.tileBag.drawTile();
         this.assertEquals(testTitle, 99, testGame.tileBag.size());
 
-        testTitle = "Three player game has three players";
-        testGame = new Game(3);
-        this.assertEquals(testTitle, 3, testGame.players.length);
-
-        testTitle = "Two player game has five factory displays";
-        testGame = new Game(2);
-        this.assertEquals(testTitle, 5, testGame.factoryDisplays.length);
-
-        testTitle = "Three player game has seven factory displays";
-        testGame = new Game(3);
-        this.assertEquals(testTitle, 7, testGame.factoryDisplays.length);
-
-        testTitle = "Four player game has nine factory displays";
-        testGame = new Game(4);
-        this.assertEquals(testTitle, 9, testGame.factoryDisplays.length);
-
         testTitle = "Factory display starts round with four tiles";
         testGame = new Game(2);
         testGame.prepareRound();
@@ -96,16 +86,39 @@ class TestRunner {
         testFactoryCenter = new FactoryCenter();
         testFactoryCenter.add(new Tile(3));
         let flag = testFactoryCenter.contains(3);
-        console.log("Flag: " + flag);
         this.assertEquals(testTitle, true, testFactoryCenter.contains(3));
 
-        testTitle = "FactoryCenter returns all Tiles of a specified value";
-        testFactoryCenter = new FactoryCenter();
-        testFactoryCenter.add(new Tile(0));
-        testFactoryCenter.add(new Tile(1));
-        testFactoryCenter.add(new Tile(1));
-        testFactoryCenter.add(new Tile(1));
-        testFactoryCenter.add(new Tile(1));
-        this.assertEquals(testTitle, 4, testFactoryCenter.claim(1).length);
+        testTitle = "FactoryDisplay is empty after claiming Tile";
+        testGame = new Game(2);
+        testGame.factoryDisplays[0].tiles[0] = new Tile(0);
+        testGame.factoryDisplays[0].tiles[1] = new Tile(0);
+        testGame.factoryDisplays[0].tiles[2] = new Tile(2);
+        testGame.factoryDisplays[0].tiles[3] = new Tile(2);
+
+        testSectionTitle = "FactoryCenter tests";
+        this.printTestSectionTitle(testSectionTitle);
+        runFactoryCenterTests(this);
+
+        testSectionTitle = "FactoryDisplay tests";
+        this.printTestSectionTitle(testSectionTitle);
+        runFactoryDisplayTests(this);
+
+        testSectionTitle = "Game tests";
+        this.printTestSectionTitle(testSectionTitle);
+        runGameTests(this);
+
+        testSectionTitle = "Player tests";
+        this.printTestSectionTitle(testSectionTitle);
+        runPlayerTests(this);
+
+        testSectionTitle = "Tile tests";
+        this.printTestSectionTitle(testSectionTitle);
+        runTileTests(this);
+
+        testSectionTitle = "TileBag tests";
+        this.printTestSectionTitle(testSectionTitle);
+        runTileBagTests(this);
+
+        testTitle = "FactoryCenter contains unclaimed FactoryDisplay Tiles";
     }
 }

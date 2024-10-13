@@ -13,13 +13,26 @@
         <main id="test-log">
             <h1>Test results:</h1>
         </main>
+
+        <!-- JavaScript domain files -->
         <script src="../src/js/domain/Game.js"></script>
         <script src="../src/js/domain/TileBag.js"></script>
         <script src="../src/js/domain/Tile.js"></script>
         <script src="../src/js/domain/Player.js"></script>
         <script src="../src/js/domain/FactoryDisplay.js"></script>
         <script src="../src/js/domain/FactoryCenter.js"></script>
+
+        <!-- JavaScript test files -->
+        <script src="domain/FactoryCenterTests.js"></script>
+        <script src="domain/FactoryDisplayTests.js"></script>
+        <script src="domain/GameTests.js"></script>
+        <script src="domain/PlayerTests.js"></script>
+        <script src="domain/TileBagTests.js"></script>
+        <script src="domain/TileTests.js"></script>
+
+        <!-- JavaScript test runner -->
         <script src="TestRunner.js"></script>
+
         <script>
             const testRunner = new TestRunner();
             testRunner.runUnitTests();
