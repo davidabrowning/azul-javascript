@@ -1,5 +1,6 @@
 class TileBag extends AbstractTileContainer {
     constructor() {
+        super();
         this.tiles = this.generateNewTiles();
     }
     generateNewTiles() {
