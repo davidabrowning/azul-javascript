@@ -63,7 +63,6 @@ footer { background-color: lightgreen; }
     justify-content: space-around;
 }
 .scorecard {
-    width: 30vw;
     padding: 1rem;
     border: 1px solid black;
     border-radius: 15px;

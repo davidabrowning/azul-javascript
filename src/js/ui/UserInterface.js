@@ -5,7 +5,4 @@ class UserInterface {
     setController(controller) {
         this.controller = controller;
     }
-    build() {
-        alert("Building interface.");
-    }
 }
