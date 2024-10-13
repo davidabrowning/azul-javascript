@@ -1,5 +1,5 @@
 class Controller {
-    constructor() {
-        
+    constructor(userInterface) {
+        this.userInterface = userInterface;
     }
 }

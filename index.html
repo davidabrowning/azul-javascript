@@ -232,5 +232,27 @@
                 </div>                         
             </div>
         </div>
+        <!-- JavaScript domain abstract class files -->
+        <script src="src/js/domain/AbstractTileContainer.js"></script>
+
+        <!-- JavaScript domain class files -->
+        <script src="src/js/domain/Game.js"></script>
+        <script src="src/js/domain/TileBag.js"></script>
+        <script src="src/js/domain/Tile.js"></script>
+        <script src="src/js/domain/Player.js"></script>
+        <script src="src/js/domain/FactoryDisplay.js"></script>
+        <script src="src/js/domain/FactoryCenter.js"></script>
+        
+
+        <!-- JavaScript Controller and UI class files -->
+         <script src="src/js/logic/Controller.js"></script>
+         <script src="src/js/ui/UserInterface.js"></script>
+
+        <script>
+            const userInterface = new UserInterface();
+            const controller = new Controller(userInterface);
+            userInterface.setController(controller);
+            userInterface.build();
+        </script>
     </body>
 </html>
