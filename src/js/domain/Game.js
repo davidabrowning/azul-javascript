@@ -9,7 +9,7 @@ class Game {
     generatePlayers(numPlayers) {
         let newPlayerArray = [];
         for (let i = 0; i < numPlayers; i++) {
-            newPlayerArray.push(new Player());
+            newPlayerArray.push(new Player(i));
         }
         return newPlayerArray;
     }
