@@ -42,9 +42,17 @@ class Game {
             this.activePlayerNum = 0;
         }
     }
+
+    /**
+     * 
+     * @param {*} factoryDisplayNum 
+     * @param {*} tileValue 
+     * @param {*} targetPatternLine 
+     */
     claimFactoryDisplay(factoryDisplayNum, tileValue, targetPatternLine) {
         let factoryDisplay = this.factoryDisplays[factoryDisplayNum];
         let claimedTiles = factoryDisplay.removeAll(tileValue);
         let discardedTiles = factoryDisplay.clear();
+        this.factoryCenter.addMultiple(discardedTiles);
     }
 }

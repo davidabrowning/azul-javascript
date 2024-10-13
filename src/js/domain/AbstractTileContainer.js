@@ -5,6 +5,11 @@ class AbstractTileContainer {
     add(tile) {
         this.tiles.push(tile);
     }
+    addMultiple(tileArray) {
+        tileArray.forEach(tile => {
+            this.add(tile);
+        });
+    }
     contains(tileValue) {
         let foundNeedle = false;
         this.tiles.forEach(tile => {
@@ -27,7 +32,6 @@ class AbstractTileContainer {
     }
 
     removeAll(tileValue) {
-        console.log("removeAll(tileValue)");
         let claimedTiles = [];
         while(this.contains(tileValue)) {
             let tileIndex = this.firstIndexOf(tileValue);
@@ -38,7 +42,6 @@ class AbstractTileContainer {
     }
 
     clear() {
-        console.log("removeAll()");
         let removedTiles = [];
         this.tiles.forEach(tile => {
             removedTiles.push(tile);
