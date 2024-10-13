@@ -8,7 +8,9 @@ class Controller {
 
         // Game preparations
         this.game = new Game(2);
-        
+        this.game.players.forEach(player => {
+            this.userInterface.createScorecard(player);
+        });
 
         // Round preparations
         this.game.prepareRound();
