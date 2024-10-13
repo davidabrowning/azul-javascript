@@ -44,7 +44,7 @@ class Game {
     }
     claimFactoryDisplay(factoryDisplayNum, tileValue, targetPatternLine) {
         let factoryDisplay = this.factoryDisplays[factoryDisplayNum];
-        // let claimedTiles = factoryDisplay.claim(tileValue);
-        // let discardedTiles = factoryDisplay.discard();
+        let claimedTiles = factoryDisplay.removeAll(tileValue);
+        let discardedTiles = factoryDisplay.removeAll();
     }
 }

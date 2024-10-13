@@ -27,6 +27,7 @@ class AbstractTileContainer {
     }
 
     removeAll(tileValue) {
+        console.log("removeAll(tileValue)");
         let claimedTiles = [];
         while(this.contains(tileValue)) {
             let tileIndex = this.firstIndexOf(tileValue);
@@ -34,6 +35,16 @@ class AbstractTileContainer {
             claimedTiles.push(tile);
         }
         return claimedTiles;
+    }
+
+    clear() {
+        console.log("removeAll()");
+        let removedTiles = [];
+        this.tiles.forEach(tile => {
+            removedTiles.push(tile);
+        });
+        this.tiles = [];
+        return removedTiles;
     }
 
     removeAt(tileIndex) {
