@@ -24,6 +24,22 @@ class Controller {
         this.userInterface.printTakeTileMessage(activePlayer);
 
         // Set event listeners
-        this.userInterface.setEventListeners();
+        this.game.factoryDisplays.forEach(factoryDisplay => {
+            this.userInterface.addFactoryDisplayEventListeners(factoryDisplay);
+        });
+    }
+
+    handleFactoryDisplayTileHover(factoryDisplayId, tileNum) {
+        let factoryDisplay = this.game.factoryDisplays[factoryDisplayId];
+        let tile = factoryDisplay.tiles[tileNum];
+        let tileValue = tile.value;
+        this.userInterface.hoverFactoryDisplay(factoryDisplayId, tileValue);
+    }
+
+    handleFactoryDisplayTileMouseout(factoryDisplayId, tileNum) {
+        let factoryDisplay = this.game.factoryDisplays[factoryDisplayId];
+        let tile = factoryDisplay.tiles[tileNum];
+        let tileValue = tile.value;
+        this.userInterface.mouseoutFactoryDisplay(factoryDisplayId, tileValue);
     }
 }
