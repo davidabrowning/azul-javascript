@@ -18,5 +18,8 @@ class Controller {
             this.userInterface.createFactoryDisplay(factoryDisplay);
         });
 
+        // Turn preparations
+        let activePlayer = this.game.players[this.game.activePlayerNum];
+        this.userInterface.printTakeTileMessage(activePlayer);
     }
 }

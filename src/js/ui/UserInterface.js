@@ -120,4 +120,10 @@ class UserInterface {
         }
 
     }
+
+    printTakeTileMessage(activePlayer) {
+        let instructionsHeader = document.querySelector("#instructions");
+        instructionsHeader.innerText = "Player " + (activePlayer.id + 1) 
+            + ", please choose a tile or tiles to take.";
+    }
 }
