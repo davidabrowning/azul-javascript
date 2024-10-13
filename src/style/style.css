@@ -105,7 +105,7 @@ footer { background-color: lightgreen; }
 .scorecard-main .patternlines, .scorecard-main .wall {
     flex: 1 1;
 }
-.patternlines, .patternline-row, .wall, .wall-row {
+.patternlines, .patternlines-row, .wall, .wall-row {
     display: flex;
     justify-content: center;
     gap: 0.25rem;
@@ -113,7 +113,7 @@ footer { background-color: lightgreen; }
 .patternlines, .wall {
     flex-direction: column;
 }
-.patternline-row {
+.patternlines-row {
     justify-content: right;
 }
 .scorecard-footer {
