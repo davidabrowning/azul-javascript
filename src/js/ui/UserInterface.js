@@ -132,6 +132,12 @@ class UserInterface {
             + ", please choose a tile or tiles to take.";
     }
 
+    printPlaceTileMessage(activePlayer) {
+        let instructionsHeader = document.querySelector("#instructions");
+        instructionsHeader.innerText = "Player " + (activePlayer.id + 1) 
+            + ", please choose a pattern or floor line row to place these tiles.";
+    }
+
     addFactoryDisplayEventListeners(factoryDisplay) {
         for (let tileNum = 0; tileNum < 4; tileNum++) {
             let tileDiv = document.querySelector("#factory-display-" 
