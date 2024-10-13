@@ -9,9 +9,7 @@ function runFactoryCenterTests(testRunner) {
     testFactoryCenter.add(new Tile(1));
     testFactoryCenter.add(new Tile(1));
     testFactoryCenter.add(new Tile(1));
-    console.log("Running test");
     testRunner.assertEquals(testTitle, 4, testFactoryCenter.removeAll(1).length);
-    console.log("Test complete");
 
     testTitle = "Factory center persists discarded tiles";
     testFactoryCenter = new FactoryCenter();
@@ -42,6 +40,5 @@ function runFactoryCenterTests(testRunner) {
     testGame.factoryDisplays[0].tiles[2] = new Tile(2);
     testGame.factoryDisplays[0].tiles[3] = new Tile(2);
     testGame.claimFactoryDisplay(0, 2, 0);
-    console.log(testGame.factoryCenter);
     testRunner.assertEquals(testTitle, true, testGame.factoryCenter.contains(0));
 }
