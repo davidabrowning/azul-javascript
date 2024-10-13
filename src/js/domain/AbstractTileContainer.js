@@ -17,11 +17,7 @@ class AbstractTileContainer {
     size() {
         return this.tiles.length;
     }
-    /**
-     * @param {int} tileValue the Tile.value to search for
-     * @returns int representing first found instance of Tile with tileValue
-     */
-    indexOf(tileValue) {
+    firstIndexOf(tileValue) {
         for (let i = 0; i < this.tiles.length; i++) {
             if (this.tiles[i].value == tileValue) {
                 return i;
@@ -33,14 +29,14 @@ class AbstractTileContainer {
     claim(tileValue) {
         let claimedTiles = [];
         while(this.contains(tileValue)) {
-            let tileIndex = this.indexOf(tileValue);
-            let tile = this.remove(tileIndex);
+            let tileIndex = this.firstIndexOf(tileValue);
+            let tile = this.removeAt(tileIndex);
             claimedTiles.push(tile);
         }
         return claimedTiles;
     }
-        
-    remove(tileIndex) {
+
+    removeAt(tileIndex) {
         let tile = this.tiles[tileIndex];
         this.tiles.splice(tileIndex, 1);
         return tile;
