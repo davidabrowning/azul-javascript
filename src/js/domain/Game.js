@@ -24,7 +24,7 @@ class Game {
             numFactoryDisplaysToCreate = 9;
         }
         for (let i = 0; i < numFactoryDisplaysToCreate; i++) {
-            newFactoryDisplayArray.push(new FactoryDisplay());
+            newFactoryDisplayArray.push(new FactoryDisplay(i));
         }
         return newFactoryDisplayArray;
     }
