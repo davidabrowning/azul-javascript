@@ -12,6 +12,7 @@ class Controller {
             this.userInterface.createScorecard(player);
         });
 
+
         // Round preparations
         this.game.prepareRound();
         this.game.factoryDisplays.forEach(factoryDisplay => {
@@ -21,5 +22,8 @@ class Controller {
         // Turn preparations
         let activePlayer = this.game.players[this.game.activePlayerNum];
         this.userInterface.printTakeTileMessage(activePlayer);
+
+        // Set event listeners
+        this.userInterface.setEventListeners();
     }
 }
