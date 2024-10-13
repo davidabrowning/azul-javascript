@@ -27,7 +27,7 @@ class TestRunner {
             testResultString += "[[[ FAILED ]]] ";
         }
         testResultString += this.testCount + ". " + testName;
-        testResultString += " Expected: " + a;
+        testResultString += "... Expected: " + a;
         testResultString += ". Actual: " + b + ".";
         this.printTestResult(testResultString);
     }

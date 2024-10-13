@@ -1,6 +1,8 @@
 class AbstractTileContainer {
     constructor() {
         this.tiles = [];
+        this.isSelected = false;
+        this.selectedTileValue = -1;
     }
     add(tile) {
         this.tiles.push(tile);
@@ -54,5 +56,15 @@ class AbstractTileContainer {
         let tile = this.tiles[tileIndex];
         this.tiles.splice(tileIndex, 1);
         return tile;
-    }    
+    }
+
+    select(tileValue) {
+        this.isSelected = true;
+        this.selectedTileValue = tileValue;
+    }
+
+    unselect() {
+        this.isSelected = false;
+        this.selectedTileValue = -1;
+    }
 }
