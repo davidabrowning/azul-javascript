@@ -86,5 +86,26 @@ class TestRunner {
         testFactoryCenter.add(new Tile(0));
         testFactoryCenter.add(new Tile(2));
         this.assertEquals(testTitle, 2, testFactoryCenter.size());
+
+        testTitle = "FactoryCenter does not contain a Tile that was never discarded";
+        testFactoryCenter = new FactoryCenter();
+        testFactoryCenter.add(new Tile(3));
+        this.assertEquals(testTitle, false, testFactoryCenter.contains(2));
+
+        testTitle = "FactoryCenter does contain a Tile that was discarded";
+        testFactoryCenter = new FactoryCenter();
+        testFactoryCenter.add(new Tile(3));
+        let flag = testFactoryCenter.contains(3);
+        console.log("Flag: " + flag);
+        this.assertEquals(testTitle, true, testFactoryCenter.contains(3));
+
+        testTitle = "FactoryCenter returns all Tiles of a specified value";
+        testFactoryCenter = new FactoryCenter();
+        testFactoryCenter.add(new Tile(0));
+        testFactoryCenter.add(new Tile(1));
+        testFactoryCenter.add(new Tile(1));
+        testFactoryCenter.add(new Tile(1));
+        testFactoryCenter.add(new Tile(1));
+        this.assertEquals(testTitle, 4, testFactoryCenter.claim(1).length);
     }
 }
