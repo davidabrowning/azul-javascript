@@ -9,7 +9,7 @@ function runFactoryCenterTests(testRunner) {
     testFactoryCenter.add(new Tile(1));
     testFactoryCenter.add(new Tile(1));
     testFactoryCenter.add(new Tile(1));
-    testRunner.assertEquals(testTitle, 4, testFactoryCenter.claim(1).length);
+    testRunner.assertEquals(testTitle, 4, testFactoryCenter.removeAll(1).length);
 
     testTitle = "Factory center persists discarded tiles";
     testFactoryCenter = new FactoryCenter();

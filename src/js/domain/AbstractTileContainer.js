@@ -26,7 +26,7 @@ class AbstractTileContainer {
         return -1;
     }
 
-    claim(tileValue) {
+    removeAll(tileValue) {
         let claimedTiles = [];
         while(this.contains(tileValue)) {
             let tileIndex = this.firstIndexOf(tileValue);
