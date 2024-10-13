@@ -38,5 +38,8 @@ class Game {
     }
     endTurn() {
         this.activePlayerNum++;
+        if (this.activePlayerNum == this.players.length) {
+            this.activePlayerNum = 0;
+        }
     }
 }

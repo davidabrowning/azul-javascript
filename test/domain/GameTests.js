@@ -26,4 +26,12 @@ function runGameTests(testRunner) {
     testGame = new Game(2);
     testGame.endTurn();
     testRunner.assertEquals(testTitle, 1, testGame.activePlayerNum);
+
+    testTitle = "Active player after ending every player's turn is player 0";
+    testGame = new Game(4);
+    testGame.endTurn();
+    testGame.endTurn();
+    testGame.endTurn();
+    testGame.endTurn();
+    testRunner.assertEquals(testTitle, 0, testGame.activePlayerNum);
 }
