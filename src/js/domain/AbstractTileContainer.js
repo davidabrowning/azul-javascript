@@ -38,5 +38,11 @@ class AbstractTileContainer {
             claimedTiles.push(tile);
         }
         return claimedTiles;
+    }
+        
+    remove(tileIndex) {
+        let tile = this.tiles[tileIndex];
+        this.tiles.splice(tileIndex, 1);
+        return tile;
     }    
 }
