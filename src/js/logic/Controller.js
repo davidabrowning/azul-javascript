@@ -6,8 +6,9 @@ class Controller {
     startSession() {
         this.userInterface.setController(this);
         this.game = new Game(2);
-        for (let i = 0; i < this.game.factoryDisplays.length; i++) {
-            // this.userInterface.showFactoryDisplay();
-        }
+        this.game.prepareRound();
+        this.game.factoryDisplays.forEach(factoryDisplay => {
+            this.userInterface.createFactoryDisplay(factoryDisplay);
+        });
     }
 }
