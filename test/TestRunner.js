@@ -30,6 +30,7 @@ class TestRunner {
     runUnitTests() {
         let testTitle = "";
         let testGame = null;
+        let testFactoryCenter = null;
 
         testTitle = "Two plus two equals four";
         this.assertEquals(testTitle, 4, 2 + 2);
@@ -79,5 +80,11 @@ class TestRunner {
         testGame = new Game(2);
         testGame.prepareRound();
         this.assertEquals(testTitle, 0, testGame.factoryCenter.size());
+
+        testTitle = "Factory center persists discarded tiles";
+        testFactoryCenter = new FactoryCenter();
+        testFactoryCenter.add(new Tile(0));
+        testFactoryCenter.add(new Tile(2));
+        this.assertEquals(testTitle, 2, testFactoryCenter.size());
     }
 }
