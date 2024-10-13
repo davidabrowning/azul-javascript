@@ -36,4 +36,7 @@ class Game {
             }
         });
     }
+    endTurn() {
+        this.activePlayerNum++;
+    }
 }

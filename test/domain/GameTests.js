@@ -21,4 +21,9 @@ function runGameTests(testRunner) {
     testTitle = "First active player is player 0";
     testGame = new Game(2);
     testRunner.assertEquals(testTitle, 0, testGame.activePlayerNum);
+
+    testTitle = "Active player after ending one turn is player 1";
+    testGame = new Game(2);
+    testGame.endTurn();
+    testRunner.assertEquals(testTitle, 1, testGame.activePlayerNum);
 }
