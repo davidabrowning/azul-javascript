@@ -3,6 +3,7 @@ class Game {
         this.tileBag = new TileBag();
         this.players = this.generatePlayers(numPlayers);
         this.factoryDisplays = this.generateFactoryDisplays(numPlayers);
+        this.factoryCenter = new FactoryCenter();
     }
     generatePlayers(numPlayers) {
         let newPlayerArray = [];
