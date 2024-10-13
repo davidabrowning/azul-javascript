@@ -3,6 +3,7 @@ class Game {
         this.tileBag = new TileBag();
         this.players = this.generatePlayers(numPlayers);
         this.factoryDisplays = this.generateFactoryDisplays(numPlayers);
+        this.factoryCenter = new FactoryCenter();
     }
     generatePlayers(numPlayers) {
         let newPlayerArray = [];
@@ -25,5 +26,13 @@ class Game {
             newFactoryDisplayArray.push(new FactoryDisplay());
         }
         return newFactoryDisplayArray;
+    }
+    prepareRound() {
+        this.factoryDisplays.forEach(factoryDisplay => {
+            for (let i = 0; i < 4; i++) {
+                let tile = this.tileBag.drawTile();
+                factoryDisplay.add(tile);
+            }
+        });
     }
 }

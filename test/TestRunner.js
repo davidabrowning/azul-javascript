@@ -4,6 +4,11 @@ class TestRunner {
         this.testsPassed = 0;
         this.testsFailed = 0;
     }
+    printTestSectionTitle(testSectionTitle) {
+        let testSectionHeader = document.createElement("h2");
+        testSectionHeader.innerText = testSectionTitle;
+        document.querySelector("#test-log").appendChild(testSectionHeader);
+    }
     printTestResult(testResultString) {
         let testResultParagraph = document.createElement("p");
         testResultParagraph.innerText = testResultString;
@@ -28,8 +33,10 @@ class TestRunner {
     }
 
     runUnitTests() {
+        let testSectionTitle = "";
         let testTitle = "";
         let testGame = null;
+        let testFactoryCenter = null;
 
         testTitle = "Two plus two equals four";
         this.assertEquals(testTitle, 4, 2 + 2);
@@ -54,21 +61,64 @@ class TestRunner {
         testGame.tileBag.drawTile();
         this.assertEquals(testTitle, 99, testGame.tileBag.size());
 
-        testTitle = "Three player game has three players";
-        testGame = new Game(3);
-        this.assertEquals(testTitle, 3, testGame.players.length);
-
-        testTitle = "Two player game has five factory displays";
+        testTitle = "Factory display starts round with four tiles";
         testGame = new Game(2);
-        this.assertEquals(testTitle, 5, testGame.factoryDisplays.length);
+        testGame.prepareRound();
+        this.assertEquals(testTitle, 4, testGame.factoryDisplays[2].tiles.length);
 
-        testTitle = "Three player game has seven factory displays";
-        testGame = new Game(3);
-        this.assertEquals(testTitle, 7, testGame.factoryDisplays.length);
+        testTitle = "Factory center starts round with zero tiles";
+        testGame = new Game(2);
+        testGame.prepareRound();
+        this.assertEquals(testTitle, 0, testGame.factoryCenter.size());
 
-        testTitle = "Four player game has nine factory displays";
-        testGame = new Game(4);
-        this.assertEquals(testTitle, 9, testGame.factoryDisplays.length);
+        testTitle = "Factory center persists discarded tiles";
+        testFactoryCenter = new FactoryCenter();
+        testFactoryCenter.add(new Tile(0));
+        testFactoryCenter.add(new Tile(2));
+        this.assertEquals(testTitle, 2, testFactoryCenter.size());
 
+        testTitle = "FactoryCenter does not contain a Tile that was never discarded";
+        testFactoryCenter = new FactoryCenter();
+        testFactoryCenter.add(new Tile(3));
+        this.assertEquals(testTitle, false, testFactoryCenter.contains(2));
+
+        testTitle = "FactoryCenter does contain a Tile that was discarded";
+        testFactoryCenter = new FactoryCenter();
+        testFactoryCenter.add(new Tile(3));
+        let flag = testFactoryCenter.contains(3);
+        this.assertEquals(testTitle, true, testFactoryCenter.contains(3));
+
+        testTitle = "FactoryDisplay is empty after claiming Tile";
+        testGame = new Game(2);
+        testGame.factoryDisplays[0].tiles[0] = new Tile(0);
+        testGame.factoryDisplays[0].tiles[1] = new Tile(0);
+        testGame.factoryDisplays[0].tiles[2] = new Tile(2);
+        testGame.factoryDisplays[0].tiles[3] = new Tile(2);
+
+        testSectionTitle = "FactoryCenter tests";
+        this.printTestSectionTitle(testSectionTitle);
+        runFactoryCenterTests(this);
+
+        testSectionTitle = "FactoryDisplay tests";
+        this.printTestSectionTitle(testSectionTitle);
+        runFactoryDisplayTests(this);
+
+        testSectionTitle = "Game tests";
+        this.printTestSectionTitle(testSectionTitle);
+        runGameTests(this);
+
+        testSectionTitle = "Player tests";
+        this.printTestSectionTitle(testSectionTitle);
+        runPlayerTests(this);
+
+        testSectionTitle = "Tile tests";
+        this.printTestSectionTitle(testSectionTitle);
+        runTileTests(this);
+
+        testSectionTitle = "TileBag tests";
+        this.printTestSectionTitle(testSectionTitle);
+        runTileBagTests(this);
+
+        testTitle = "FactoryCenter contains unclaimed FactoryDisplay Tiles";
     }
 }
