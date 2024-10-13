@@ -45,9 +45,9 @@ class Game {
 
     /**
      * 
-     * @param {*} factoryDisplayNum 
-     * @param {*} tileValue 
-     * @param {*} targetPatternLine 
+     * @param {int} factoryDisplayNum 
+     * @param {int} tileValue 
+     * @param {int} targetPatternLine 
      */
     claimFactoryDisplay(factoryDisplayNum, tileValue, targetPatternLine) {
         let factoryDisplay = this.factoryDisplays[factoryDisplayNum];
