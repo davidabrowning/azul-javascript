@@ -42,4 +42,9 @@ class Game {
             this.activePlayerNum = 0;
         }
     }
+    claimFactoryDisplay(factoryDisplayNum, tileValue, targetPatternLine) {
+        let factoryDisplay = this.factoryDisplays[factoryDisplayNum];
+        // let claimedTiles = factoryDisplay.claim(tileValue);
+        // let discardedTiles = factoryDisplay.discard();
+    }
 }
