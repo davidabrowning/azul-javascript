@@ -118,7 +118,7 @@ class UserInterface {
         floorlineDiv.classList.add("floorline");
         scorecardFooter.appendChild(floorlineDiv);
 
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 8; i++) {
             let floorlineTileDiv = document.createElement("div");
             floorlineTileDiv.classList.add("tile", "tile-style-empty");
             floorlineDiv.appendChild(floorlineTileDiv);
