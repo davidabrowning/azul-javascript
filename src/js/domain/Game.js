@@ -26,4 +26,12 @@ class Game {
         }
         return newFactoryDisplayArray;
     }
+    prepareRound() {
+        this.factoryDisplays.forEach(factoryDisplay => {
+            for (let i = 0; i < 4; i++) {
+                let tile = this.tileBag.drawTile();
+                factoryDisplay.add(tile);
+            }
+        });
+    }
 }

@@ -70,5 +70,9 @@ class TestRunner {
         testGame = new Game(4);
         this.assertEquals(testTitle, 9, testGame.factoryDisplays.length);
 
+        testTitle = "Factory display starts round with four tiles";
+        testGame = new Game(2);
+        testGame.prepareRound();
+        this.assertEquals(testTitle, 4, testGame.factoryDisplays[2].tiles.length);
     }
 }
