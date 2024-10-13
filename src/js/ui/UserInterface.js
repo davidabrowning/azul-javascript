@@ -142,10 +142,13 @@ class UserInterface {
             tileDiv.addEventListener("mouseout", (event) => {
                 this.controller.handleFactoryDisplayTileMouseout(factoryDisplay.id, tileNum);
             });
+            tileDiv.addEventListener("click", (event) => {
+                this.controller.handleFactoryDisplayTileClick(factoryDisplay.id, tileNum);
+            });
         }
     }
 
-    hoverFactoryDisplay(factoryDisplayId, tileValue) {
+    addHoverEffectFactoryDisplay(factoryDisplayId, tileValue) {
         for (let i = 0; i < 4; i++) {
             let tileDivs = document.querySelectorAll("#factory-display-" + factoryDisplayId + " .tile-style-" + tileValue);
             tileDivs.forEach(tileDiv => {
@@ -154,12 +157,28 @@ class UserInterface {
         }
     }
 
-    mouseoutFactoryDisplay(factoryDisplayId, tileValue) {
+    removeHoverEffectFactoryDisplay(factoryDisplayId, tileValue) {
         for (let i = 0; i < 4; i++) {
             let tileDivs = document.querySelectorAll("#factory-display-" + factoryDisplayId + " .tile-style-" + tileValue);
             tileDivs.forEach(tileDiv => {
                 tileDiv.classList.remove("tile-hovered");    
             });
         }
+    }
+
+    addSelectedEffectFactoryDisplay(factoryDisplayId, tileValue) {
+        for (let i = 0; i < 4; i++) {
+            let tileDivs = document.querySelectorAll("#factory-display-" + factoryDisplayId + " .tile-style-" + tileValue);
+            tileDivs.forEach(tileDiv => {
+                tileDiv.classList.add("tile-selected");    
+            });
+        }
+    }
+
+    removeSelectedEffectFromAllTiles() {
+        let tileDivs = document.querySelectorAll(".tile");
+        tileDivs.forEach(tileDiv => {
+            tileDiv.classList.remove("tile-selected");
+        });
     }
 }

@@ -55,6 +55,9 @@ footer { background-color: lightgreen; }
 .tile-hovered {
     border: 1px solid yellow;
 }
+.tile-selected {
+    border: 1px solid red;
+}
 #factory-displays {
     display: flex;
     justify-content: space-around;

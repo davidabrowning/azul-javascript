@@ -33,13 +33,22 @@ class Controller {
         let factoryDisplay = this.game.factoryDisplays[factoryDisplayId];
         let tile = factoryDisplay.tiles[tileNum];
         let tileValue = tile.value;
-        this.userInterface.hoverFactoryDisplay(factoryDisplayId, tileValue);
+        this.userInterface.addHoverEffectFactoryDisplay(factoryDisplayId, tileValue);
     }
 
     handleFactoryDisplayTileMouseout(factoryDisplayId, tileNum) {
         let factoryDisplay = this.game.factoryDisplays[factoryDisplayId];
         let tile = factoryDisplay.tiles[tileNum];
         let tileValue = tile.value;
-        this.userInterface.mouseoutFactoryDisplay(factoryDisplayId, tileValue);
+        this.userInterface.removeHoverEffectFactoryDisplay(factoryDisplayId, tileValue);
+    }
+
+    handleFactoryDisplayTileClick(factoryDisplayId, tileNum) {
+        this.userInterface.removeSelectedEffectFromAllTiles();
+
+        let factoryDisplay = this.game.factoryDisplays[factoryDisplayId];
+        let tile = factoryDisplay.tiles[tileNum];
+        let tileValue = tile.value;
+        this.userInterface.addSelectedEffectFactoryDisplay(factoryDisplayId, tileValue);
     }
 }
