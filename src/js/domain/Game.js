@@ -61,6 +61,22 @@ class Game {
     }
 
     isRoundOver() {
-        return false;
+        let tilesRemain = false;
+
+        this.factoryDisplays.forEach(factoryDisplay => {
+            if (factoryDisplay.size() > 0) {
+                tilesRemain = true;
+            }
+        });
+        if (this.factoryCenter.size() > 0) {
+            tilesRemain = true;
+        }
+
+        if (tilesRemain) {
+            return false;
+        } else {
+            return true;
+        }
+
     }
 }
