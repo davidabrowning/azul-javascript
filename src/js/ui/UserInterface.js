@@ -95,7 +95,7 @@ class UserInterface {
 
                 let wallTileDiv = document.createElement("div");
                 wallTileDiv.setAttribute("id", "wall-row-tile-" + wallTileNum + "-p" + player.id);
-                wallTileDiv.classList.add("tile", "tile-style-" + wallTileStyleNum);
+                wallTileDiv.classList.add("tile", "tile-style-" + wallTileStyleNum, "tile-style-faded");
                 wallRowDiv.appendChild(wallTileDiv);
             }
         }
