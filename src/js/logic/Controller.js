@@ -25,7 +25,12 @@ class Controller {
 
         // Set event listeners
         this.game.factoryDisplays.forEach(factoryDisplay => {
-            this.userInterface.addFactoryDisplayEventListeners(factoryDisplay);
+            for (let tileNum = 0; tileNum < 4; tileNum++) {
+                this.userInterface.addFactoryDisplayTileEventListeners(factoryDisplay, tileNum);
+            }
+        });
+        this.game.players.forEach(player => {
+            this.userInterface.addPatternlineEventListeners(player);
         });
     }
 

@@ -15,8 +15,7 @@ class UserInterface {
             let tile = factoryDisplay.tiles[i];
 
             let tileDiv = document.createElement("div");
-            tileDiv.setAttribute("id", "factory-display-" + factoryDisplay.id
-                + "-tile-" + i);
+            tileDiv.setAttribute("id", "factory-display-" + factoryDisplay.id + "-tile-" + i);
             tileDiv.classList.add("tile", "tile-style-" + tile.value);
             div.appendChild(tileDiv);
         }
@@ -43,8 +42,7 @@ class UserInterface {
 
             for (let col = 0; col < 20; col++) {
                 let scorepipDiv = document.createElement("div");
-                scorepipDiv.setAttribute("id", "scorepip-" + scorepipCounter 
-                    + "-p" + player.id);
+                scorepipDiv.setAttribute("id", "scorepip-" + scorepipCounter + "-p" + player.id);
                 scorepipDiv.classList.add("scorepip");
                 scorepipDiv.innerText = scorepipCounter;
                 scorepipRowDiv.appendChild(scorepipDiv);
@@ -67,15 +65,13 @@ class UserInterface {
 
         for (let row = 0; row < 5; row++) {
             let patternlinesRowDiv = document.createElement("div");
-            patternlinesRowDiv.setAttribute("id", "patternlines-row-" 
-                + row + "-p" + player.id);
+            patternlinesRowDiv.setAttribute("id", "patternlines-row-" + row + "-p" + player.id);
             patternlinesRowDiv.classList.add("patternlines-row");
             patternlinesDiv.appendChild(patternlinesRowDiv);
 
             for (let col = row; col >= 0; col--) {
                 let patternlineTileDiv = document.createElement("div");
-                patternlineTileDiv.setAttribute("id", "patternline-tile-"
-                    + row + "-" + col + "-p" + player.id);
+                patternlineTileDiv.setAttribute("id", "patternline-tile-" + row + "-" + col + "-p" + player.id);
                 patternlineTileDiv.classList.add("tile", "tile-style-empty");
                 patternlinesRowDiv.appendChild(patternlineTileDiv);
             }
@@ -89,8 +85,7 @@ class UserInterface {
 
         for (let row = 0; row < 5; row++) {
             let wallRowDiv = document.createElement("div");
-            wallRowDiv.setAttribute("id", "wall-row-" + row 
-                + "-player-" + player.id);
+            wallRowDiv.setAttribute("id", "wall-row-" + row + "-player-" + player.id);
             wallRowDiv.classList.add("wall-row");
             wallDiv.appendChild(wallRowDiv);
 
@@ -99,8 +94,7 @@ class UserInterface {
                 let wallTileStyleNum = (col + (5 - row)) % 5;
 
                 let wallTileDiv = document.createElement("div");
-                wallTileDiv.setAttribute("id", "wall-row-tile-" + wallTileNum
-                    + "-p" + player.id);
+                wallTileDiv.setAttribute("id", "wall-row-tile-" + wallTileNum + "-p" + player.id);
                 wallTileDiv.classList.add("tile", "tile-style-" + wallTileStyleNum);
                 wallRowDiv.appendChild(wallTileDiv);
             }
@@ -128,30 +122,25 @@ class UserInterface {
 
     printTakeTileMessage(activePlayer) {
         let instructionsHeader = document.querySelector("#instructions");
-        instructionsHeader.innerText = "Player " + (activePlayer.id + 1) 
-            + ", please choose a tile or tiles to take.";
+        instructionsHeader.innerText = "Player " + (activePlayer.id + 1) + ", please choose a tile or tiles to take.";
     }
 
     printPlaceTileMessage(activePlayer) {
         let instructionsHeader = document.querySelector("#instructions");
-        instructionsHeader.innerText = "Player " + (activePlayer.id + 1) 
-            + ", please choose a pattern or floor line row to place these tiles.";
+        instructionsHeader.innerText = "Player " + (activePlayer.id + 1) + ", please choose a pattern or floor line row to place these tiles.";
     }
 
-    addFactoryDisplayEventListeners(factoryDisplay) {
-        for (let tileNum = 0; tileNum < 4; tileNum++) {
-            let tileDiv = document.querySelector("#factory-display-" 
-                + factoryDisplay.id + "-tile-" + tileNum);
-            tileDiv.addEventListener("mouseover", (event) => {
-                this.controller.handleFactoryDisplayTileHover(factoryDisplay.id, tileNum);
-            });
-            tileDiv.addEventListener("mouseout", (event) => {
-                this.controller.handleFactoryDisplayTileMouseout(factoryDisplay.id, tileNum);
-            });
-            tileDiv.addEventListener("click", (event) => {
-                this.controller.handleFactoryDisplayTileClick(factoryDisplay.id, tileNum);
-            });
-        }
+    addFactoryDisplayTileEventListeners(factoryDisplay, tileNum) {
+        let tileDiv = document.querySelector("#factory-display-" + factoryDisplay.id + "-tile-" + tileNum);
+        tileDiv.addEventListener("mouseover", (event) => {
+            this.controller.handleFactoryDisplayTileHover(factoryDisplay.id, tileNum);
+        });
+        tileDiv.addEventListener("mouseout", (event) => {
+            this.controller.handleFactoryDisplayTileMouseout(factoryDisplay.id, tileNum);
+        });
+        tileDiv.addEventListener("click", (event) => {
+            this.controller.handleFactoryDisplayTileClick(factoryDisplay.id, tileNum);
+        });
     }
 
     addHoverEffectFactoryDisplay(factoryDisplayId, tileValue) {
