@@ -65,13 +65,13 @@ class UserInterface {
 
         for (let row = 0; row < 5; row++) {
             let patternlinesRowDiv = document.createElement("div");
-            patternlinesRowDiv.setAttribute("id", "patternlines-row-" + row + "-p" + player.id);
+            patternlinesRowDiv.setAttribute("id", "patternlines-row-" + row + "-player-" + player.id);
             patternlinesRowDiv.classList.add("patternlines-row");
             patternlinesDiv.appendChild(patternlinesRowDiv);
 
             for (let col = row; col >= 0; col--) {
                 let patternlineTileDiv = document.createElement("div");
-                patternlineTileDiv.setAttribute("id", "patternline-tile-" + row + "-" + col + "-p" + player.id);
+                patternlineTileDiv.setAttribute("id", "patternline-tile-row-" + row + "-col-" + col + "-player-" + player.id);
                 patternlineTileDiv.classList.add("tile", "tile-style-empty");
                 patternlinesRowDiv.appendChild(patternlineTileDiv);
             }
@@ -175,5 +175,19 @@ class UserInterface {
         tileDivs.forEach(tileDiv => {
             tileDiv.classList.remove("tile-selected");
         });
+    }
+
+    addPatternlineEventListeners(player, row) {
+        let playerId = player.id;
+        let rowDiv = document.querySelector("#patternlines-row-" + row + "-player-" + playerId);
+        rowDiv.addEventListener("mouseover", (event) => {
+            this.controller.handlePatternLineRowHover(player, row);
+        });
+    }
+
+    addHoverEffectPatternLineRow(player, row) {
+        let playerId = player.id;
+        let rowDiv = document.querySelector("#patternlines-row-" + row + "-player-" + playerId);
+        rowDiv.classList.add("row-hovered");
     }
 }

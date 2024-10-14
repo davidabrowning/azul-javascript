@@ -30,7 +30,9 @@ class Controller {
             }
         });
         this.game.players.forEach(player => {
-            // this.userInterface.addPatternlineEventListeners(player);
+            for (let row = 0; row < 5; row++) {
+                this.userInterface.addPatternlineEventListeners(player, row);
+            }
         });
     }
 
@@ -65,5 +67,9 @@ class Controller {
 
         // Update printed instructions
         this.userInterface.printPlaceTileMessage(this.game.players[this.game.activePlayerNum]);
+    }
+
+    handlePatternLineRowHover(player, row) {
+        this.userInterface.addHoverEffectPatternLineRow(player, row);
     }
 }
