@@ -9,5 +9,6 @@ class PatternLine extends AbstractTileContainer {
             default:
                 break;
         }
+        return [];
     }
 }

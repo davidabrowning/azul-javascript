@@ -16,4 +16,10 @@ function runPatternLineTests(testRunner) {
     testTileArray = [new Tile(1), new Tile(1)];
     testPatternLine.place(testTileArray, 0);
     testRunner.assertEquals(testTitle, 1, testPatternLine.tiles[0].value);
+
+    testTitle = "Attempting to place 3 Tiles on row 0 returns 2 Tiles";
+    testPatternLine = new PatternLine();
+    testTileArray = [new Tile(1), new Tile(1), new Tile(1)];
+    let rejectedTiles = testPatternLine.place(testTileArray, 0);
+    testRunner.assertEquals(testTitle, 2, rejectedTiles.length);
 }
