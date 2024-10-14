@@ -132,33 +132,9 @@ class UserInterface {
 
     addFactoryDisplayTileEventListeners(factoryDisplay, tileNum) {
         let tileDiv = document.querySelector("#factory-display-" + factoryDisplay.id + "-tile-" + tileNum);
-        tileDiv.addEventListener("mouseover", (event) => {
-            this.controller.handleFactoryDisplayTileHover(factoryDisplay.id, tileNum);
-        });
-        tileDiv.addEventListener("mouseout", (event) => {
-            this.controller.handleFactoryDisplayTileMouseout(factoryDisplay.id, tileNum);
-        });
         tileDiv.addEventListener("click", (event) => {
             this.controller.handleFactoryDisplayTileClick(factoryDisplay.id, tileNum);
         });
-    }
-
-    addHoverEffectFactoryDisplay(factoryDisplayId, tileValue) {
-        for (let i = 0; i < 4; i++) {
-            let tileDivs = document.querySelectorAll("#factory-display-" + factoryDisplayId + " .tile-style-" + tileValue);
-            tileDivs.forEach(tileDiv => {
-                tileDiv.classList.add("tile-hovered");    
-            });
-        }
-    }
-
-    removeHoverEffectFactoryDisplay(factoryDisplayId, tileValue) {
-        for (let i = 0; i < 4; i++) {
-            let tileDivs = document.querySelectorAll("#factory-display-" + factoryDisplayId + " .tile-style-" + tileValue);
-            tileDivs.forEach(tileDiv => {
-                tileDiv.classList.remove("tile-hovered");    
-            });
-        }
     }
 
     addSelectedEffectFactoryDisplay(factoryDisplayId, tileValue) {
@@ -179,15 +155,9 @@ class UserInterface {
 
     addPatternlineEventListeners(player, row) {
         let playerId = player.id;
-        let rowDiv = document.querySelector("#patternlines-row-" + row + "-player-" + playerId);
-        rowDiv.addEventListener("mouseover", (event) => {
-            this.controller.handlePatternLineRowHover(player, row);
-        });
-    }
-
-    addHoverEffectPatternLineRow(player, row) {
-        let playerId = player.id;
-        let rowDiv = document.querySelector("#patternlines-row-" + row + "-player-" + playerId);
-        rowDiv.classList.add("row-hovered");
+        let rowDiv = document.querySelector("#patternlines-row-" + row + "-player-" + playerId);        
+        rowDiv.addEventListener("click", (event) => {
+            this.controller.handlePatternLineRowClick(player, row);
+        });        
     }
 }

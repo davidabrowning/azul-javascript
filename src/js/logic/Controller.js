@@ -36,20 +36,6 @@ class Controller {
         });
     }
 
-    handleFactoryDisplayTileHover(factoryDisplayId, tileNum) {
-        let factoryDisplay = this.game.factoryDisplays[factoryDisplayId];
-        let tile = factoryDisplay.tiles[tileNum];
-        let tileValue = tile.value;
-        this.userInterface.addHoverEffectFactoryDisplay(factoryDisplayId, tileValue);
-    }
-
-    handleFactoryDisplayTileMouseout(factoryDisplayId, tileNum) {
-        let factoryDisplay = this.game.factoryDisplays[factoryDisplayId];
-        let tile = factoryDisplay.tiles[tileNum];
-        let tileValue = tile.value;
-        this.userInterface.removeHoverEffectFactoryDisplay(factoryDisplayId, tileValue);
-    }
-
     handleFactoryDisplayTileClick(factoryDisplayId, tileNum) {
         // Remove previously selected tiles
         this.userInterface.removeSelectedEffectFromAllTiles();
@@ -69,7 +55,7 @@ class Controller {
         this.userInterface.printPlaceTileMessage(this.game.players[this.game.activePlayerNum]);
     }
 
-    handlePatternLineRowHover(player, row) {
-        this.userInterface.addHoverEffectPatternLineRow(player, row);
+    handlePatternLineRowClick(player, row) {
+        //this.userInterface.addHoverEffectPatternLineRow(player, row);
     }
 }
