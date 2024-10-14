@@ -30,7 +30,7 @@ class Controller {
             }
         });
         this.game.players.forEach(player => {
-            this.userInterface.addPatternlineEventListeners(player);
+            // this.userInterface.addPatternlineEventListeners(player);
         });
     }
 
