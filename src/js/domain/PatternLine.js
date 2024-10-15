@@ -22,6 +22,9 @@ class PatternLine extends AbstractTileContainer {
     rowMaxCapacity(rowNum) {
         return rowNum + 1;
     }
+    rowCurrentCapacity(rowNum) {
+        return this.rowMaxCapacity(rowNum) - this.rowPlacedTilesNum(rowNum);
+    }
     rowPlacedTilesNum(rowNum) {
         switch (rowNum) {
             case 0:
@@ -54,27 +57,45 @@ class PatternLine extends AbstractTileContainer {
         return -1;
     }
     rowPlacedTilesType(rowNum) {
-
-    }
-    place(tileArray, row) {
-        let thisRowAlreadyHasTiles = false;
-        let rejectedTiles = [];
-        switch(row) {
-            case 0:
-                this.tiles[0] = tileArray[0];
-                break;
-            case 1:
-                break;
-            case 2:
-                this.tiles[3] = tileArray[0];
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            default:
-                break;
+        if (this.rowPlacedTilesNum(rowNum) == 0) {
+            return -1;    
         }
-        return rejectedTiles;
+
+        let firstIndexOnThisRow = this.rowFirstIndex(rowNum);
+        return this.tiles[firstIndexOnThisRow].value;
+    }
+    rowFirstIndex(rowNum) {
+        switch(rowNum) {
+            case 0: return 0;
+            case 1: return 1;
+            case 2: return 3;
+            case 3: return 6;
+            case 4: return 10;
+            default: return -1;
+        }
+    }
+    rowLastIndex(rowNum) {
+        return this.rowFirstIndex(rowNum) + rowNum;
+    }
+    rowFirstOpenTileIndex(rowNum) {
+        for (let i = this.rowFirstIndex(rowNum); i < this.rowLastIndex(rowNum); i++) {
+            if (this.tiles[i] == null) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    place(tileArray, rowNum) {
+        if (this.rowPlacedTilesNum(rowNum) > 0 && this.rowPlacedTilesType(rowNum) != tileArray[0].value) {
+            return tileArray;
+        }
+
+        for (let i = this.rowFirstIndex(rowNum); i <= this.rowLastIndex(rowNum); i++) {
+            if(tileArray.length == 0) {
+                break;
+            }
+            this.tiles[i] = tileArray.pop();
+        }
+        return tileArray;
     }
 }

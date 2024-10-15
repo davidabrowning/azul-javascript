@@ -5,17 +5,6 @@ function runPatternLineTests(testRunner) {
     let testPatternLine = null;
     let testTileArray = null;
 
-    testTitle = "Tile placed on PatternLine row 2 shows at position Tile 3";
-    testPatternLine = new PatternLine();
-    testTileArray = [new Tile(1), new Tile(1)];
-    testPatternLine.place(testTileArray, 2);
-    testRunner.assertEquals(testTitle, 1, testPatternLine.tiles[3].value);
-
-    testTitle = "Tile placed on PatternLine row 0 shows at position Tile 0";
-    testPatternLine = new PatternLine();
-    testTileArray = [new Tile(1), new Tile(1)];
-    testPatternLine.place(testTileArray, 0);
-    testRunner.assertEquals(testTitle, 1, testPatternLine.tiles[0].value);
 
     testTitle = "rowIsEmpty() returns true when no Tiles have been placed";
     testPatternLine = new PatternLine();
@@ -45,17 +34,25 @@ function runPatternLineTests(testRunner) {
     testPatternLine.place(testTileArray, 2);
     testRunner.assertEquals(testTitle, 1, testPatternLine.rowPlacedTilesNum(2));
 
-    testTitle = "rowPlacedTilesNum is 2 after placing 2 tiles";
-
-    testTitle = "rowPlacedTilesNum is 2 after placing 5 tiles (but only 2 fit)";
-
-    testTitle = "rowPlacedTilesType matches tile type that was placed";
+    testTitle = "rowPlacedTilesType matches tile type on that row";
+    testPatternLine = new PatternLine();
+    testTileArray = [new Tile(3)];
+    testPatternLine.place(testTileArray, 2);
+    testRunner.assertEquals(testTitle, 3, testPatternLine.rowPlacedTilesType(2));
 
     testTitle = "canPlace() returns false when a Tile of a different type has been placed";
     testPatternLine = new PatternLine();
+    testRunner.assertEquals(testTitle, true, false);
 
     testTitle = "canPlace() returns true when a Tile of this type has been placed";
     testPatternLine = new PatternLine();
+    testRunner.assertEquals(testTitle, true, false);
+
+    testTitle = "rowPlacedTilesNum is 2 after placing 2 tiles";
+    testRunner.assertEquals(testTitle, true, false);
+
+    testTitle = "rowPlacedTilesNum is 2 after placing 5 tiles (but only 2 fit)";
+    testRunner.assertEquals(testTitle, true, false);
 
     testTitle = "rowIsEmpty() returns false when Tiles have been placed";
     testPatternLine = new PatternLine();
@@ -68,4 +65,16 @@ function runPatternLineTests(testRunner) {
     testTileArray = [new Tile(1), new Tile(1), new Tile(1)];
     let rejectedTiles = testPatternLine.place(testTileArray, 0);
     testRunner.assertEquals(testTitle, 2, rejectedTiles.length);
+
+    testTitle = "Tile placed on PatternLine row 2 shows at position Tile 3";
+    testPatternLine = new PatternLine();
+    testTileArray = [new Tile(1), new Tile(1)];
+    testPatternLine.place(testTileArray, 2);
+    testRunner.assertEquals(testTitle, 1, testPatternLine.tiles[3].value);
+
+    testTitle = "Tile placed on PatternLine row 0 shows at position Tile 0";
+    testPatternLine = new PatternLine();
+    testTileArray = [new Tile(1), new Tile(1)];
+    testPatternLine.place(testTileArray, 0);
+    testRunner.assertEquals(testTitle, 1, testPatternLine.tiles[0].value);
 }
