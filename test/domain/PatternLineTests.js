@@ -29,6 +29,28 @@ function runPatternLineTests(testRunner) {
     testPatternLine = new PatternLine();
     testRunner.assertEquals(testTitle, 5, testPatternLine.rowMaxCapacity(4));
 
+    testTitle = "rowPlacedTilesNum is 0 when tile placed in a different row";
+    testPatternLine = new PatternLine();
+    testPatternLine.tiles[1] = new Tile(4);
+    testRunner.assertEquals(testTitle, 0, testPatternLine.rowPlacedTilesNum(2));
+
+    testTitle = "rowPlacedTilesNum is 1 when row has 1 tile";
+    testPatternLine = new PatternLine();
+    testPatternLine.tiles[3] = new Tile(4);
+    testRunner.assertEquals(testTitle, 1, testPatternLine.rowPlacedTilesNum(2));
+
+    testTitle = "rowPlacedTilesNum is 1 after placing 1 tile";
+    testPatternLine = new PatternLine();
+    testTileArray = [new Tile(1)];
+    testPatternLine.place(testTileArray, 2);
+    testRunner.assertEquals(testTitle, 1, testPatternLine.rowPlacedTilesNum(2));
+
+    testTitle = "rowPlacedTilesNum is 2 after placing 2 tiles";
+
+    testTitle = "rowPlacedTilesNum is 2 after placing 5 tiles (but only 2 fit)";
+
+    testTitle = "rowPlacedTilesType matches tile type that was placed";
+
     testTitle = "canPlace() returns false when a Tile of a different type has been placed";
     testPatternLine = new PatternLine();
 
