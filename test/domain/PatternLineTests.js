@@ -48,13 +48,24 @@ function runPatternLineTests(testRunner) {
 
     testTitle = "canPlace() returns true when a Tile of this type has been placed";
     testPatternLine = new PatternLine();
-    testRunner.assertEquals(testTitle, true, false);
+    testTileArray = [new Tile(3)];
+    testPatternLine.place(testTileArray, 3);
+    testRunner.assertEquals(testTitle, true, testPatternLine.canPlace(new Tile(3), 3));
 
+    console.log("Start");
     testTitle = "rowPlacedTilesNum is 2 after placing 2 tiles";
-    testRunner.assertEquals(testTitle, true, false);
+    testPatternLine = new PatternLine();
+    testTileArray = [new Tile(1), new Tile(1)];
+    testPatternLine.place(testTileArray, 1);
+    testRunner.assertEquals(testTitle, 2, testPatternLine.rowPlacedTilesNum(1));
+    console.log(testPatternLine);
+    console.log("End");
 
     testTitle = "rowPlacedTilesNum is 2 after placing 5 tiles (but only 2 fit)";
-    testRunner.assertEquals(testTitle, true, false);
+    testPatternLine = new PatternLine();
+    testTileArray = [new Tile(1), new Tile(1), new Tile(1), new Tile(1), new Tile(1)];
+    testPatternLine.place(testTileArray, 1);
+    testRunner.assertEquals(testTitle, 2, testPatternLine.rowPlacedTilesNum(1));
 
     testTitle = "rowIsEmpty() returns false when Tiles have been placed";
     testPatternLine = new PatternLine();
