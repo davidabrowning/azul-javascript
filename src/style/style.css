@@ -50,13 +50,10 @@ footer { background-color: lightgreen; }
     background-color: khaki;
 }
 .tile-style-faded {
-    opacity: 50;
-}
-.tile-hovered {
-    border: 1px solid yellow;
+    opacity: 0.25;
 }
 .tile-selected {
-    border: 1px solid red;
+    opacity: 0.25;
 }
 #factory-displays {
     display: flex;

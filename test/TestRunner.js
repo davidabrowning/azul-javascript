@@ -43,9 +43,17 @@ class TestRunner {
         this.printTestSectionTitle(testSectionTitle);
         runFactoryDisplayTests(this);
 
+        testSectionTitle = "FloorLine tests";
+        this.printTestSectionTitle(testSectionTitle);
+        runFloorLineTests(this);
+
         testSectionTitle = "Game tests";
         this.printTestSectionTitle(testSectionTitle);
         runGameTests(this);
+
+        testSectionTitle = "PatternLine tests";
+        this.printTestSectionTitle(testSectionTitle);
+        runPatternLineTests(this);
 
         testSectionTitle = "Player tests";
         this.printTestSectionTitle(testSectionTitle);
@@ -58,5 +66,9 @@ class TestRunner {
         testSectionTitle = "TileBag tests";
         this.printTestSectionTitle(testSectionTitle);
         runTileBagTests(this);
+
+        testSectionTitle = "Wall tests";
+        this.printTestSectionTitle(testSectionTitle);
+        runWallTests(this);
     }
 }

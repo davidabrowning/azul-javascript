@@ -25,22 +25,15 @@ class Controller {
 
         // Set event listeners
         this.game.factoryDisplays.forEach(factoryDisplay => {
-            this.userInterface.addFactoryDisplayEventListeners(factoryDisplay);
+            for (let tileNum = 0; tileNum < 4; tileNum++) {
+                this.userInterface.addFactoryDisplayTileEventListeners(factoryDisplay, tileNum);
+            }
         });
-    }
-
-    handleFactoryDisplayTileHover(factoryDisplayId, tileNum) {
-        let factoryDisplay = this.game.factoryDisplays[factoryDisplayId];
-        let tile = factoryDisplay.tiles[tileNum];
-        let tileValue = tile.value;
-        this.userInterface.addHoverEffectFactoryDisplay(factoryDisplayId, tileValue);
-    }
-
-    handleFactoryDisplayTileMouseout(factoryDisplayId, tileNum) {
-        let factoryDisplay = this.game.factoryDisplays[factoryDisplayId];
-        let tile = factoryDisplay.tiles[tileNum];
-        let tileValue = tile.value;
-        this.userInterface.removeHoverEffectFactoryDisplay(factoryDisplayId, tileValue);
+        this.game.players.forEach(player => {
+            for (let row = 0; row < 5; row++) {
+                this.userInterface.addPatternlineEventListeners(player, row);
+            }
+        });
     }
 
     handleFactoryDisplayTileClick(factoryDisplayId, tileNum) {
@@ -60,5 +53,10 @@ class Controller {
 
         // Update printed instructions
         this.userInterface.printPlaceTileMessage(this.game.players[this.game.activePlayerNum]);
+    }
+
+    handlePatternLineRowClick(player, row) {
+        this.game.placeTilesOnPatternLine(row);
+        //this.userInterface.addHoverEffectPatternLineRow(player, row);
     }
 }
