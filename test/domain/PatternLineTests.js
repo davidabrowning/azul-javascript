@@ -68,7 +68,7 @@ function runPatternLineTests(testRunner) {
     testPatternLine = new PatternLine();
     testTileArray = [new Tile(1), new Tile(1), new Tile(1)];
     testPatternLine.place(testTileArray, 2);
-    testRunner.assertEquals(testTitle, true, testPatternLine.rowIsEmpty(2));
+    testRunner.assertEquals(testTitle, false, testPatternLine.rowIsEmpty(2));
 
     testTitle = "Attempting to place 3 Tiles on row 0 returns 2 Tiles";
     testPatternLine = new PatternLine();
