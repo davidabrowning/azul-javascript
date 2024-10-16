@@ -42,7 +42,9 @@ function runPatternLineTests(testRunner) {
 
     testTitle = "canPlace() returns false when a Tile of a different type has been placed";
     testPatternLine = new PatternLine();
-    testRunner.assertEquals(testTitle, true, false);
+    testTileArray = [new Tile(3)];
+    testPatternLine.place(testTileArray, 3);
+    testRunner.assertEquals(testTitle, false, testPatternLine.canPlace(new Tile(1), 3));
 
     testTitle = "canPlace() returns true when a Tile of this type has been placed";
     testPatternLine = new PatternLine();

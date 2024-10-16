@@ -85,6 +85,15 @@ class PatternLine extends AbstractTileContainer {
         }
         return -1;
     }
+    canPlace(tile, rowNum) {
+        if (this.rowCurrentCapacity(rowNum) == 0) {
+            return false;
+        }
+        if (this.rowPlacedTilesType(rowNum) != tile.value) {
+            return false;
+        }
+        return true;
+    }
     place(tileArray, rowNum) {
         if (this.rowPlacedTilesNum(rowNum) > 0 && this.rowPlacedTilesType(rowNum) != tileArray[0].value) {
             return tileArray;
