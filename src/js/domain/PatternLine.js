@@ -26,7 +26,6 @@ class PatternLine extends AbstractTileContainer {
         return this.rowMaxCapacity(rowNum) - this.rowPlacedTilesNum(rowNum);
     }
     rowPlacedTilesNum(rowNum) {
-        console.log("Rownum: " + rowNum);
         switch (rowNum) {
             case 0:
                 if (this.tiles[0] == null) { return 0; }
