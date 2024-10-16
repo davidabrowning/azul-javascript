@@ -52,14 +52,11 @@ function runPatternLineTests(testRunner) {
     testPatternLine.place(testTileArray, 3);
     testRunner.assertEquals(testTitle, true, testPatternLine.canPlace(new Tile(3), 3));
 
-    console.log("Start");
     testTitle = "rowPlacedTilesNum is 2 after placing 2 tiles";
     testPatternLine = new PatternLine();
     testTileArray = [new Tile(1), new Tile(1)];
     testPatternLine.place(testTileArray, 1);
     testRunner.assertEquals(testTitle, 2, testPatternLine.rowPlacedTilesNum(1));
-    console.log(testPatternLine);
-    console.log("End");
 
     testTitle = "rowPlacedTilesNum is 2 after placing 5 tiles (but only 2 fit)";
     testPatternLine = new PatternLine();
