@@ -155,6 +155,16 @@ class UserInterface {
         }
     }
 
+    redrawFloorLine(player) {
+        let playerId = player.id;
+        let floorLineDiv = document.querySelector("#floorline-player-" + playerId);
+        player.floorLine.tiles.forEach(t => {
+            let tileDiv = document.createElement("div");
+            tileDiv.classList.add("tile", "tile-style-" + t.value);
+            floorLineDiv.appendChild(tileDiv);
+        });
+    }
+
     printTakeTileMessage(activePlayer) {
         let instructionsHeader = document.querySelector("#instructions");
         instructionsHeader.innerText = "Player " + (activePlayer.id + 1) + ", please choose a tile or tiles to take.";
