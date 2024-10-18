@@ -57,6 +57,6 @@ class Controller {
 
     handlePatternLineRowClick(player, row) {
         this.game.placeTilesOnPatternLine(row);
-        //this.userInterface.addHoverEffectPatternLineRow(player, row);
+        this.userInterface.redrawPatternLineRow(player, row);
     }
 }
