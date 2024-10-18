@@ -107,4 +107,30 @@ class PatternLine extends AbstractTileContainer {
         }
         return tileArray;
     }
+    colNum(index) {
+        switch(index) {
+            case 0:
+            case 1:
+            case 3:
+            case 6:
+            case 10:
+                return 0;
+            case 2:
+            case 4:
+            case 7:
+            case 11:
+                return 1;
+            case 5:
+            case 8:
+            case 12:
+                return 2;
+            case 9:
+            case 13:
+                return 3;
+            case 14:
+                return 4;
+            default:
+                return -1;
+        }
+    }
 }
