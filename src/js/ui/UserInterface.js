@@ -129,6 +129,18 @@ class UserInterface {
         }
     }
 
+    resetFactoryCenter() {
+        let factoryCenterDiv = document.querySelector("#factory-center");
+        factoryCenterDiv.innerHTML = "";
+    }
+
+    addTileToFactoryCenter(tileValue) {
+        let factoryCenterDiv = document.querySelector("#factory-center");
+        let tileDiv = document.createElement("div");
+        tileDiv.classList.add("tile", "tile-style-" + tileValue);
+        factoryCenterDiv.appendChild(tileDiv);
+    }
+
     redrawPatternLineRow(player, row) {
         let pl = player.patternLine;
         for (let i = pl.rowFirstIndex(row); i < pl.rowLastIndex(row) + 1; i++) {
