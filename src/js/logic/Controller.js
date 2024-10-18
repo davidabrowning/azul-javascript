@@ -62,6 +62,10 @@ class Controller {
                 this.userInterface.redrawEmptyFactoryDisplay(fd.id);
             }
         });
+        this.userInterface.resetFactoryCenter();
+        this.game.factoryCenter.tiles.forEach(tile => {
+            this.userInterface.addTileToFactoryCenter(tile.value);
+        })
         this.userInterface.redrawPatternLineRow(player, row);
     }
 }
