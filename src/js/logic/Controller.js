@@ -57,6 +57,11 @@ class Controller {
 
     handlePatternLineRowClick(player, row) {
         this.game.placeTilesOnPatternLine(row);
-        //this.userInterface.addHoverEffectPatternLineRow(player, row);
+        this.game.factoryDisplays.forEach(fd => {
+            if (fd.isEmpty()) {
+                this.userInterface.redrawEmptyFactoryDisplay(fd.id);
+            }
+        });
+        this.userInterface.redrawPatternLineRow(player, row);
     }
 }

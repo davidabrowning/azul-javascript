@@ -42,23 +42,33 @@ function runPatternLineTests(testRunner) {
 
     testTitle = "canPlace() returns false when a Tile of a different type has been placed";
     testPatternLine = new PatternLine();
-    testRunner.assertEquals(testTitle, true, false);
+    testTileArray = [new Tile(3)];
+    testPatternLine.place(testTileArray, 3);
+    testRunner.assertEquals(testTitle, false, testPatternLine.canPlace(new Tile(1), 3));
 
     testTitle = "canPlace() returns true when a Tile of this type has been placed";
     testPatternLine = new PatternLine();
-    testRunner.assertEquals(testTitle, true, false);
+    testTileArray = [new Tile(3)];
+    testPatternLine.place(testTileArray, 3);
+    testRunner.assertEquals(testTitle, true, testPatternLine.canPlace(new Tile(3), 3));
 
     testTitle = "rowPlacedTilesNum is 2 after placing 2 tiles";
-    testRunner.assertEquals(testTitle, true, false);
+    testPatternLine = new PatternLine();
+    testTileArray = [new Tile(1), new Tile(1)];
+    testPatternLine.place(testTileArray, 1);
+    testRunner.assertEquals(testTitle, 2, testPatternLine.rowPlacedTilesNum(1));
 
     testTitle = "rowPlacedTilesNum is 2 after placing 5 tiles (but only 2 fit)";
-    testRunner.assertEquals(testTitle, true, false);
+    testPatternLine = new PatternLine();
+    testTileArray = [new Tile(1), new Tile(1), new Tile(1), new Tile(1), new Tile(1)];
+    testPatternLine.place(testTileArray, 1);
+    testRunner.assertEquals(testTitle, 2, testPatternLine.rowPlacedTilesNum(1));
 
     testTitle = "rowIsEmpty() returns false when Tiles have been placed";
     testPatternLine = new PatternLine();
     testTileArray = [new Tile(1), new Tile(1), new Tile(1)];
     testPatternLine.place(testTileArray, 2);
-    testRunner.assertEquals(testTitle, true, testPatternLine.rowIsEmpty(2));
+    testRunner.assertEquals(testTitle, false, testPatternLine.rowIsEmpty(2));
 
     testTitle = "Attempting to place 3 Tiles on row 0 returns 2 Tiles";
     testPatternLine = new PatternLine();
@@ -77,4 +87,20 @@ function runPatternLineTests(testRunner) {
     testTileArray = [new Tile(1), new Tile(1)];
     testPatternLine.place(testTileArray, 0);
     testRunner.assertEquals(testTitle, 1, testPatternLine.tiles[0].value);
+
+    testTitle = "Index 0 has col number 0";
+    testPatternLine = new PatternLine();
+    testRunner.assertEquals(testTitle, 0, testPatternLine.colNum(0));
+
+    testTitle = "Index 6 has col number 0";
+    testPatternLine = new PatternLine();
+    testRunner.assertEquals(testTitle, 0, testPatternLine.colNum(6));
+
+    testTitle = "Index 8 has col number 2";
+    testPatternLine = new PatternLine();
+    testRunner.assertEquals(testTitle, 2, testPatternLine.colNum(8));
+
+    testTitle = "Index 14 has col number 4"
+    testPatternLine = new PatternLine();
+    testRunner.assertEquals(testTitle, 4, testPatternLine.colNum(14));
 }

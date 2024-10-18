@@ -29,11 +29,11 @@ class PatternLine extends AbstractTileContainer {
         switch (rowNum) {
             case 0:
                 if (this.tiles[0] == null) { return 0; }
-                break;
+                return 1;
             case 1:
                 if (this.tiles[1] == null) { return 0; }
                 if (this.tiles[2] == null) { return 1; }
-                break;
+                return 2;
             case 2:
                 if (this.tiles[3] == null) { return 0; }
                 if (this.tiles[4] == null) { return 1; }
@@ -50,7 +50,7 @@ class PatternLine extends AbstractTileContainer {
                 if (this.tiles[12] == null) { return 2; }
                 if (this.tiles[13] == null) { return 3; }
                 if (this.tiles[14] == null) { return 4; }
-                break;
+                return 5;
             default:
                 break;
         }
@@ -85,8 +85,17 @@ class PatternLine extends AbstractTileContainer {
         }
         return -1;
     }
+    canPlace(tile, rowNum) {
+        if (this.rowCurrentCapacity(rowNum) == 0) {
+            return false;
+        }
+        if (this.rowPlacedTilesNum(rowNum) && this.rowPlacedTilesType(rowNum) != tile.value) {
+            return false;
+        }
+        return true;
+    }
     place(tileArray, rowNum) {
-        if (this.rowPlacedTilesNum(rowNum) > 0 && this.rowPlacedTilesType(rowNum) != tileArray[0].value) {
+        if (this.canPlace(tileArray[0], rowNum) == false) {
             return tileArray;
         }
 
@@ -97,5 +106,31 @@ class PatternLine extends AbstractTileContainer {
             this.tiles[i] = tileArray.pop();
         }
         return tileArray;
+    }
+    colNum(index) {
+        switch(index) {
+            case 0:
+            case 1:
+            case 3:
+            case 6:
+            case 10:
+                return 0;
+            case 2:
+            case 4:
+            case 7:
+            case 11:
+                return 1;
+            case 5:
+            case 8:
+            case 12:
+                return 2;
+            case 9:
+            case 13:
+                return 3;
+            case 14:
+                return 4;
+            default:
+                return -1;
+        }
     }
 }
