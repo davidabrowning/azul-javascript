@@ -120,6 +120,19 @@ class UserInterface {
 
     }
 
+    redrawPatternLineRow(player, row) {
+        let pl = player.patternLine;
+        for (let i = pl.rowFirstIndex(row); i < pl.rowLastIndex(row) + 1; i++) {
+            let colNum = pl.colNum(i);
+            let tileValue = pl.tiles[i].value;
+            if (tileValue > -1) {
+                let tileDiv = document.querySelector("#patternline-tile-row-" + row + "-col-" + colNum + "-player-" + player.id);
+                tileDiv.classList.remove("tile-style-empty");
+                tileDiv.classList.add("tile-style-" + tileValue);
+            }
+        }
+    }
+
     printTakeTileMessage(activePlayer) {
         let instructionsHeader = document.querySelector("#instructions");
         instructionsHeader.innerText = "Player " + (activePlayer.id + 1) + ", please choose a tile or tiles to take.";
