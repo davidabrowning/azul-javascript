@@ -87,4 +87,20 @@ function runPatternLineTests(testRunner) {
     testTileArray = [new Tile(1), new Tile(1)];
     testPatternLine.place(testTileArray, 0);
     testRunner.assertEquals(testTitle, 1, testPatternLine.tiles[0].value);
+
+    testTitle = "Index 0 has col number 0";
+    testPatternLine = new PatternLine();
+    testRunner.assertEquals(testTitle, 0, testPatternLine.colNum(0));
+
+    testTitle = "Index 6 has col number 0";
+    testPatternLine = new PatternLine();
+    testRunner.assertEquals(testTitle, 0, testPatternLine.colNum(6));
+
+    testTitle = "Index 8 has col number 2";
+    testPatternLine = new PatternLine();
+    testRunner.assertEquals(testTitle, 2, testPatternLine.colNum(8));
+
+    testTitle = "Index 14 has col number 4"
+    testPatternLine = new PatternLine();
+    testRunner.assertEquals(testTitle, 4, testPatternLine.colNum(14));
 }
