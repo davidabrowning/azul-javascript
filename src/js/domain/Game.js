@@ -80,7 +80,7 @@ class Game {
                 targetTiles = fd.removeAll(targetTileValue);
                 let extraTiles = fd.clear();
                 this.factoryCenter.addMultiple(extraTiles);
-                fd.isSelected = false;
+                fd.unselect();
             }
         });
 
