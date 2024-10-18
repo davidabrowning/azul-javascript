@@ -56,7 +56,17 @@ class Controller {
     }
 
     handlePatternLineRowClick(player, row) {
-        if (player.id != this.game.activePlayerNum) {
+        // Variables
+        let playerId = player.id;
+        let activePlayerId = this.game.activePlayerNum;
+        let selectedTileValue = this.game.getSelectedTileValue();
+        let targetPatternLine = player.patternLine;
+
+        // Exit criteria
+        if (playerId != activePlayerId) {
+            return;
+        }
+        if (targetPatternLine.canPlaceTileValue(selectedTileValue, row) == false) {
             return;
         }
 
