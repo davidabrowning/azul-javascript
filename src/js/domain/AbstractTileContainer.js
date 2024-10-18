@@ -4,7 +4,7 @@ class AbstractTileContainer {
         this.isSelected = false;
         this.selectedTileValue = -1;
     }
-    
+
     select(tileValue) {
         this.isSelected = true;
         this.selectedTileValue = tileValue;
@@ -45,7 +45,7 @@ class AbstractTileContainer {
         return -1;
     }
 
-    removeAll(tileValue) {
+    removeAll(tileValue) {  // Removes all tiles of a certain value
         let claimedTiles = [];
         while(this.contains(tileValue)) {
             let tileIndex = this.firstIndexOf(tileValue);
@@ -54,12 +54,12 @@ class AbstractTileContainer {
         }
         return claimedTiles;
     }
-    removeAt(tileIndex) {
+    removeAt(tileIndex) {   // Remove a tile at a specific index
         let tile = this.tiles[tileIndex];
         this.tiles.splice(tileIndex, 1);
         return tile;
     }
-    clear() {
+    clear() {               // Removes all tiles
         let removedTiles = [];
         this.tiles.forEach(tile => {
             removedTiles.push(tile);
@@ -67,6 +67,4 @@ class AbstractTileContainer {
         this.tiles = [];
         return removedTiles;
     }
-
-
 }
