@@ -70,7 +70,10 @@ class Controller {
             return;
         }
 
+        // Place tiles
         this.game.placeTilesOnPatternLine(row);
+
+        // Redraw board
         this.game.factoryDisplays.forEach(fd => {
             if (fd.isEmpty()) {
                 this.userInterface.redrawEmptyFactoryDisplay(fd.id);
@@ -83,6 +86,7 @@ class Controller {
         this.userInterface.redrawPatternLineRow(player, row);
         this.userInterface.redrawFloorLine(player);
 
+        // End turn
         this.game.endTurn();
         this.userInterface.printTakeTileMessage(this.game.players[this.game.activePlayerNum]);
     }
