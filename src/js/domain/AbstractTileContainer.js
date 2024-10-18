@@ -24,6 +24,9 @@ class AbstractTileContainer {
     size() {
         return this.tiles.length;
     }
+    isEmpty() {
+        return this.size() == 0;
+    }
     firstIndexOf(tileValue) {
         for (let i = 0; i < this.tiles.length; i++) {
             if (this.tiles[i].value == tileValue) {
