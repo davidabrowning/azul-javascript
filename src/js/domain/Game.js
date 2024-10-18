@@ -56,6 +56,24 @@ class Game {
         this.factoryCenter.addMultiple(discardedTiles);
     }
 
+    placeTilesOnPatternLine(targetRow) {
+        let activePlayer = this.players[this.activePlayerNum];
+        let targetTileValue = -1;
+        let targetTiles = [];
+
+        this.factoryDisplays.forEach(fd => {
+            if (fd.isSelected) {
+                targetTileValue = fd.selectedTileValue;
+                targetTiles = fd.removeAll(targetTileValue);
+                let extraTiles = fd.clear();
+                this.factoryCenter.addMultiple(extraTiles);
+                fd.isSelected = false;
+            }
+        });
+
+        activePlayer.patternLine.place(targetTiles, targetRow);
+    }
+
     isGameOver() {
         return false;
     }
