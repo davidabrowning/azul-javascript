@@ -56,6 +56,10 @@ class Controller {
     }
 
     handlePatternLineRowClick(player, row) {
+        if (player.id != this.game.activePlayerNum) {
+            return;
+        }
+
         this.game.placeTilesOnPatternLine(row);
         this.game.factoryDisplays.forEach(fd => {
             if (fd.isEmpty()) {
@@ -67,5 +71,8 @@ class Controller {
             this.userInterface.addTileToFactoryCenter(tile.value);
         })
         this.userInterface.redrawPatternLineRow(player, row);
+
+        this.game.endTurn();
+        this.userInterface.printTakeTileMessage(this.game.players[this.game.activePlayerNum]);
     }
 }
