@@ -85,6 +85,9 @@ class PatternLine extends AbstractTileContainer {
         }
         return -1;
     }
+    firstOpenTileIndexOnRow(rowNum) {
+        return this.rowFirstIndex(rowNum) + this.rowPlacedTilesNum(rowNum);
+    }
     canPlaceTileValue(tileValue, rowNum) {
         if (this.rowCurrentCapacity(rowNum) == 0) {
             return false;
@@ -95,6 +98,9 @@ class PatternLine extends AbstractTileContainer {
         return true;        
     }
     canPlace(tile, rowNum) {
+        if (tile == null) {
+            return -1;
+        }
         return this.canPlaceTileValue(tile.value, rowNum);
     }
     place(tileArray, rowNum) {
@@ -102,7 +108,7 @@ class PatternLine extends AbstractTileContainer {
             return tileArray;
         }
 
-        for (let i = this.rowFirstIndex(rowNum); i <= this.rowLastIndex(rowNum); i++) {
+        for (let i = this.firstOpenTileIndexOnRow(rowNum); i < this.rowLastIndex(rowNum) + 1; i++) {
             if(tileArray.length == 0) {
                 break;
             }

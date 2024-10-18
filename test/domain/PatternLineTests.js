@@ -103,4 +103,19 @@ function runPatternLineTests(testRunner) {
     testTitle = "Index 14 has col number 4"
     testPatternLine = new PatternLine();
     testRunner.assertEquals(testTitle, 4, testPatternLine.colNum(14));
+
+    testTitle = "First open index on row 2 is 5 after placing 2 tiles";
+    testPatternLine = new PatternLine();
+    testTileArray = [new Tile(1), new Tile(1)];
+    testPatternLine.place(testTileArray, 2);
+    testRunner.assertEquals(testTitle, 5, testPatternLine.firstOpenTileIndexOnRow(2));
+
+    testTitle = "Line 2 is full after placing 2 tiles twice";
+    testPatternLine = new PatternLine();
+    testTileArray = [new Tile(1), new Tile(1)];
+    testPatternLine.place(testTileArray, 2);
+    testTileArray = [new Tile(1), new Tile(1)];
+    testPatternLine.place(testTileArray, 2);
+    testRunner.assertEquals(testTitle, 1, testPatternLine.tiles[5].value);
+
 }

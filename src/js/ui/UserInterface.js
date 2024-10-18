@@ -134,11 +134,14 @@ class UserInterface {
         factoryCenterDiv.innerHTML = "";
     }
 
-    addTileToFactoryCenter(tileValue) {
+    addTileToFactoryCenter(tileId, tileValue) {
         let factoryCenterDiv = document.querySelector("#factory-center");
         let tileDiv = document.createElement("div");
+        tileDiv.setAttribute("id", "factory-center-tile-" + tileId);
         tileDiv.classList.add("tile", "tile-style-" + tileValue);
         factoryCenterDiv.appendChild(tileDiv);
+
+        this.addFactoryCenterTileEventListener(tileId);
     }
 
     redrawPatternLineRow(player, row) {
@@ -158,6 +161,7 @@ class UserInterface {
     redrawFloorLine(player) {
         let playerId = player.id;
         let floorLineDiv = document.querySelector("#floorline-player-" + playerId);
+        floorLineDiv.innerHTML = "";
         player.floorLine.tiles.forEach(t => {
             let tileDiv = document.createElement("div");
             tileDiv.classList.add("tile", "tile-style-" + t.value);
@@ -196,6 +200,18 @@ class UserInterface {
         tileDivs.forEach(tileDiv => {
             tileDiv.classList.remove("tile-selected");
         });
+    }
+
+    addFactoryCenterTileEventListener(tileNum) {
+        let tileDiv = document.querySelector("#factory-center-tile-" + tileNum);
+        tileDiv.addEventListener("click", (event) => {
+            this.controller.handleFactoryCenterTileClick(tileNum);
+        });
+    }
+
+    addSelectedEffectFactoryCenterTile(tileNum) {
+        let tileDiv = document.querySelector("#factory-center-tile-" + tileNum);
+        tileDiv.classList.add("tile-selected");
     }
 
     addPatternlineEventListeners(player, row) {
