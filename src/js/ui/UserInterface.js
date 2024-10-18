@@ -133,8 +133,9 @@ class UserInterface {
         let pl = player.patternLine;
         for (let i = pl.rowFirstIndex(row); i < pl.rowLastIndex(row) + 1; i++) {
             let colNum = pl.colNum(i);
-            let tileValue = pl.tiles[i].value;
-            if (tileValue > -1) {
+            
+            if (pl.tiles[i] != null) {
+                let tileValue = pl.tiles[i].value;
                 let tileDiv = document.querySelector("#patternline-tile-row-" + row + "-col-" + colNum + "-player-" + player.id);
                 tileDiv.classList.remove("tile-style-empty");
                 tileDiv.classList.add("tile-style-" + tileValue);
