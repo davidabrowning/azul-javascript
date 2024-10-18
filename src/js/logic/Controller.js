@@ -71,6 +71,7 @@ class Controller {
             this.userInterface.addTileToFactoryCenter(tile.value);
         })
         this.userInterface.redrawPatternLineRow(player, row);
+        this.userInterface.redrawFloorLine(player);
 
         this.game.endTurn();
         this.userInterface.printTakeTileMessage(this.game.players[this.game.activePlayerNum]);
