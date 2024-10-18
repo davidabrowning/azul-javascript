@@ -60,6 +60,7 @@ class Game {
         let activePlayer = this.players[this.activePlayerNum];
         let targetTileValue = -1;
         let targetTiles = [];
+        let droppedTiles = [];
 
         this.factoryDisplays.forEach(fd => {
             if (fd.isSelected) {
@@ -71,7 +72,8 @@ class Game {
             }
         });
 
-        activePlayer.patternLine.place(targetTiles, targetRow);
+        droppedTiles = activePlayer.patternLine.place(targetTiles, targetRow);
+        activePlayer.floorLine.addMultiple(droppedTiles);
     }
 
     isGameOver() {
