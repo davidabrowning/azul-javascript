@@ -85,21 +85,30 @@ class PatternLine extends AbstractTileContainer {
         }
         return -1;
     }
-    canPlace(tile, rowNum) {
+    firstOpenTileIndexOnRow(rowNum) {
+        return this.rowFirstIndex(rowNum) + this.rowPlacedTilesNum(rowNum);
+    }
+    canPlaceTileValue(tileValue, rowNum) {
         if (this.rowCurrentCapacity(rowNum) == 0) {
             return false;
         }
-        if (this.rowPlacedTilesNum(rowNum) && this.rowPlacedTilesType(rowNum) != tile.value) {
+        if (this.rowPlacedTilesNum(rowNum) && this.rowPlacedTilesType(rowNum) != tileValue) {
             return false;
         }
-        return true;
+        return true;        
+    }
+    canPlace(tile, rowNum) {
+        if (tile == null) {
+            return -1;
+        }
+        return this.canPlaceTileValue(tile.value, rowNum);
     }
     place(tileArray, rowNum) {
         if (this.canPlace(tileArray[0], rowNum) == false) {
             return tileArray;
         }
 
-        for (let i = this.rowFirstIndex(rowNum); i <= this.rowLastIndex(rowNum); i++) {
+        for (let i = this.firstOpenTileIndexOnRow(rowNum); i < this.rowLastIndex(rowNum) + 1; i++) {
             if(tileArray.length == 0) {
                 break;
             }
@@ -109,23 +118,13 @@ class PatternLine extends AbstractTileContainer {
     }
     colNum(index) {
         switch(index) {
-            case 0:
-            case 1:
-            case 3:
-            case 6:
-            case 10:
+            case 0: case 1: case 3: case 6: case 10:
                 return 0;
-            case 2:
-            case 4:
-            case 7:
-            case 11:
+            case 2: case 4: case 7: case 11:
                 return 1;
-            case 5:
-            case 8:
-            case 12:
+            case 5: case 8: case 12:
                 return 2;
-            case 9:
-            case 13:
+            case 9: case 13:
                 return 3;
             case 14:
                 return 4;

@@ -56,10 +56,30 @@ class Game {
         this.factoryCenter.addMultiple(discardedTiles);
     }
 
+    getSelectedTileValue() {
+        let selectedTileValue = -1;
+        this.factoryDisplays.forEach(fd => {
+            if (fd.isSelected) {
+                selectedTileValue = fd.selectedTileValue;
+            }
+        });
+        if (this.factoryCenter.isSelected) {
+            selectedTileValue = this.factoryCenter.selectedTileValue;
+        }
+        return selectedTileValue;
+    }
+
     placeTilesOnPatternLine(targetRow) {
+        // Exit criteria
+        if (this.getSelectedTileValue() == -1) {
+            return;
+        }
+
         let activePlayer = this.players[this.activePlayerNum];
         let targetTileValue = -1;
         let targetTiles = [];
+        let droppedTiles = [];
+        let factoryCenter = this.factoryCenter;
 
         this.factoryDisplays.forEach(fd => {
             if (fd.isSelected) {
@@ -67,11 +87,18 @@ class Game {
                 targetTiles = fd.removeAll(targetTileValue);
                 let extraTiles = fd.clear();
                 this.factoryCenter.addMultiple(extraTiles);
-                fd.isSelected = false;
+                fd.unselect();
             }
         });
 
-        activePlayer.patternLine.place(targetTiles, targetRow);
+        if (factoryCenter.isSelected) {
+            targetTileValue = factoryCenter.selectedTileValue;
+            targetTiles = factoryCenter.removeAll(targetTileValue);
+            factoryCenter.unselect();
+        }
+
+        droppedTiles = activePlayer.patternLine.place(targetTiles, targetRow);
+        activePlayer.floorLine.addMultiple(droppedTiles);
     }
 
     isGameOver() {

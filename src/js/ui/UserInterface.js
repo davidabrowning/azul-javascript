@@ -112,11 +112,11 @@ class UserInterface {
         floorlineDiv.classList.add("floorline");
         scorecardFooter.appendChild(floorlineDiv);
 
-        for (let i = 0; i < 8; i++) {
-            let floorlineTileDiv = document.createElement("div");
-            floorlineTileDiv.classList.add("tile", "tile-style-empty");
-            floorlineDiv.appendChild(floorlineTileDiv);
-        }
+        // for (let i = 0; i < 8; i++) {
+        //     let floorlineTileDiv = document.createElement("div");
+        //     floorlineTileDiv.classList.add("tile", "tile-style-empty");
+        //     floorlineDiv.appendChild(floorlineTileDiv);
+        // }
 
     }
 
@@ -127,6 +127,21 @@ class UserInterface {
             tileDiv.classList.remove("tile-style-0", "tile-style-1", "tile-style-2", "tile-style-3", "tile-style-4");
             tileDiv.classList.add("tile-style-empty", "tile-style-faded");
         }
+    }
+
+    resetFactoryCenter() {
+        let factoryCenterDiv = document.querySelector("#factory-center");
+        factoryCenterDiv.innerHTML = "";
+    }
+
+    addTileToFactoryCenter(tileId, tileValue) {
+        let factoryCenterDiv = document.querySelector("#factory-center");
+        let tileDiv = document.createElement("div");
+        tileDiv.setAttribute("id", "factory-center-tile-" + tileId);
+        tileDiv.classList.add("tile", "tile-style-" + tileValue);
+        factoryCenterDiv.appendChild(tileDiv);
+
+        this.addFactoryCenterTileEventListener(tileId);
     }
 
     redrawPatternLineRow(player, row) {
@@ -141,6 +156,17 @@ class UserInterface {
                 tileDiv.classList.add("tile-style-" + tileValue);
             }
         }
+    }
+
+    redrawFloorLine(player) {
+        let playerId = player.id;
+        let floorLineDiv = document.querySelector("#floorline-player-" + playerId);
+        floorLineDiv.innerHTML = "";
+        player.floorLine.tiles.forEach(t => {
+            let tileDiv = document.createElement("div");
+            tileDiv.classList.add("tile", "tile-style-" + t.value);
+            floorLineDiv.appendChild(tileDiv);
+        });
     }
 
     printTakeTileMessage(activePlayer) {
@@ -174,6 +200,18 @@ class UserInterface {
         tileDivs.forEach(tileDiv => {
             tileDiv.classList.remove("tile-selected");
         });
+    }
+
+    addFactoryCenterTileEventListener(tileNum) {
+        let tileDiv = document.querySelector("#factory-center-tile-" + tileNum);
+        tileDiv.addEventListener("click", (event) => {
+            this.controller.handleFactoryCenterTileClick(tileNum);
+        });
+    }
+
+    addSelectedEffectFactoryCenterTile(tileNum) {
+        let tileDiv = document.querySelector("#factory-center-tile-" + tileNum);
+        tileDiv.classList.add("tile-selected");
     }
 
     addPatternlineEventListeners(player, row) {
