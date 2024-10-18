@@ -120,6 +120,15 @@ class UserInterface {
 
     }
 
+    redrawEmptyFactoryDisplay(factoryDisplayId) {
+        for (let i = 0; i < 4; i++) {            
+            let tileDiv = document.querySelector("#factory-display-" + factoryDisplayId + "-tile-" + i);
+            tileDiv.classList.remove("tile-selected");
+            tileDiv.classList.remove("tile-style-0", "tile-style-1", "tile-style-2", "tile-style-3", "tile-style-4");
+            tileDiv.classList.add("tile-style-empty", "tile-style-faded");
+        }
+    }
+
     redrawPatternLineRow(player, row) {
         let pl = player.patternLine;
         for (let i = pl.rowFirstIndex(row); i < pl.rowLastIndex(row) + 1; i++) {
