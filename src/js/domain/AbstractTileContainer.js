@@ -4,6 +4,15 @@ class AbstractTileContainer {
         this.isSelected = false;
         this.selectedTileValue = -1;
     }
+    
+    select(tileValue) {
+        this.isSelected = true;
+        this.selectedTileValue = tileValue;
+    }
+    unselect() {
+        this.isSelected = false;
+        this.selectedTileValue = -1;
+    }
     add(tile) {
         this.tiles.push(tile);
     }
@@ -45,7 +54,11 @@ class AbstractTileContainer {
         }
         return claimedTiles;
     }
-
+    removeAt(tileIndex) {
+        let tile = this.tiles[tileIndex];
+        this.tiles.splice(tileIndex, 1);
+        return tile;
+    }
     clear() {
         let removedTiles = [];
         this.tiles.forEach(tile => {
@@ -55,19 +68,5 @@ class AbstractTileContainer {
         return removedTiles;
     }
 
-    removeAt(tileIndex) {
-        let tile = this.tiles[tileIndex];
-        this.tiles.splice(tileIndex, 1);
-        return tile;
-    }
 
-    select(tileValue) {
-        this.isSelected = true;
-        this.selectedTileValue = tileValue;
-    }
-
-    unselect() {
-        this.isSelected = false;
-        this.selectedTileValue = -1;
-    }
 }
