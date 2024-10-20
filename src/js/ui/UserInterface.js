@@ -145,9 +145,15 @@ class UserInterface {
     }
 
     redrawScorepip(playerId, playerPoints) {
-        let scorepipDiv = document.querySelector("#scorepip-" + playerPoints + "-p" + playerId);
-        scorepipDiv.classList.remove("scorepip-inactive");
-        scorepipDiv.classList.add("scorepip-active");
+        for (let i = 1; i < playerPoints; i++) {
+            let inactiveScorepipDiv = document.querySelector("#scorepip-" + i + "-p" + playerId);
+            inactiveScorepipDiv.classList.remove("scorepip-active");
+            inactiveScorepipDiv.classList.add("scorepip-inactive");
+        }
+        let activeScorepipDiv = document.querySelector("#scorepip-" + playerPoints + "-p" + playerId);
+        activeScorepipDiv.classList.remove("scorepip-inactive");
+        activeScorepipDiv.classList.add("scorepip-active");
+
     }
 
     redrawPatternLineRow(player, row) {
