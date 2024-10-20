@@ -13,11 +13,24 @@ class Wall {
                         2, 3, 4, 0, 1,
                         1, 2, 3, 4, 0 ];
     }
+    placedTileValueByIndex(placedTileIndex) {
+        return this.tiles[placedTileIndex];
+    }
+    placedTileValueByRowCol(row, col) {
+        let placedTileIndex = row * this.rowSize + col;
+        return this.placedTileValueByIndex(placedTileIndex);
+    }
     targetTileValueByIndex(targetIndex) {
         return this.targets[targetIndex];
     }
+    targetTileRowByIndex(targetIndex) {
+        return targetIndex / 5;
+    }
+    targetTileColByIndex(targetIndex) {
+        return targetIndex % 5;
+    }
     targetTileValueByRowCol(row, col) {
-        let targetIndex = row * 5 + col;
+        let targetIndex = row * this.rowSize + col;
         return this.targetTileValueByIndex(targetIndex);
     }
     targetTileIndexByRow(tileType, row) {
