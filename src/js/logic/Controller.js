@@ -127,10 +127,17 @@ class Controller {
             let player = this.game.players[i];
             let patternLine = player.patternLine;
             let firstFullRow = patternLine.firstFullRow();
-            if (firstFullRow == -1) {
-                continue;
+            if (firstFullRow == -1) {   // If no full rows
+                continue;               // Continue to next player
             }
-            // Probably time to move the Wall's tile placeholders from UI class to Wall class
+            let tileValue = patternLine.rowPlacedTilesType(firstFullRow);
+            let wall = player.wall;
+            let wallTileIndex = wall.targetTileIndexByRow(tileValue, firstFullRow);
+            let incrementalScore = wall.calculateIncrementalScore(tileValue, firstFullRow);
+
+            this.userInterface.redrawWallScoringTile(player.id, wallTileIndex, incrementalScore);
+            // this.userInterface.addWallScoringTileEventListener();
+            return;
         }
     }
 }
