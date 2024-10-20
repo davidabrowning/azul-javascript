@@ -101,12 +101,17 @@ footer { background-color: lightgreen; }
 }
 .scorepip {
     border: 1px solid black;
-    background-color: khaki;
     flex: 1 1;
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
     align-content: center;
     text-align: center;
+}
+.scorepip-inactive {
+    background-color: khaki;
+}
+.scorepip-active {
+    background-color: black; 
 }
 .scorecard-main {
     display: flex;
