@@ -120,6 +120,12 @@ class UserInterface {
 
     }
 
+    redrawFactoryDisplayTile(factoryDisplayId, tileNum, tileValue) {
+        let tileDiv = document.querySelector("#factory-display-" + factoryDisplayId + "-tile-" + tileNum);
+        tileDiv.classList.remove("tile-style-empty", "tile-style-faded");
+        tileDiv.classList.add("tile-style-" + tileValue);
+    }
+
     redrawEmptyFactoryDisplay(factoryDisplayId) {
         for (let i = 0; i < 4; i++) {            
             let tileDiv = document.querySelector("#factory-display-" + factoryDisplayId + "-tile-" + i);
