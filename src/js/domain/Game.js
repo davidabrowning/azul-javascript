@@ -17,7 +17,7 @@ class Game {
         let newFactoryDisplayArray = [];
         let numFactoryDisplaysToCreate = 0;
         if (numPlayers == 2) {
-            numFactoryDisplaysToCreate = 1;
+            numFactoryDisplaysToCreate = 2;
         } else if (numPlayers == 3) {
             numFactoryDisplaysToCreate = 7;
         } else {
