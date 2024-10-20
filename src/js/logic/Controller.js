@@ -35,6 +35,17 @@ class Controller {
         });
     }
 
+    prepareNextRound() {
+        this.game.prepareRound();
+        this.game.factoryDisplays.forEach(factoryDisplay => {
+            let factoryDisplayId = factoryDisplay.id;
+            for (let tileNum = 0; tileNum < 4; tileNum++) {
+                let tileValue = factoryDisplay.tiles[tileNum].value;
+                this.userInterface.redrawFactoryDisplayTile(factoryDisplay.id, tileNum, tileValue);
+            }
+        });
+    }
+
     unselectAllTiles() {
         this.userInterface.removeSelectedEffectFromAllTiles();
         this.game.factoryDisplays.forEach(factoryDisplay => {
