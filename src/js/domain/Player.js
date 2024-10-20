@@ -8,5 +8,8 @@ class Player {
     }
     addPoints(newPoints) {
         this.score += newPoints;
+        if (this.score < 0) {
+            this.score = 0;
+        }
     }
 }

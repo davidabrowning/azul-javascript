@@ -58,6 +58,11 @@ class Controller {
     }
 
     handleFactoryDisplayTileClick(factoryDisplayId, tileNum) {
+        // Exit criteria
+        if (this.game.factoryDisplays[factoryDisplayId].size() == 0) {
+            return;
+        }
+
         this.unselectAllTiles();
 
         // Select these tiles
@@ -156,17 +161,23 @@ class Controller {
             let player = this.game.players[i];
             let patternLine = player.patternLine;
             let firstFullRow = patternLine.firstFullRow();
-            if (firstFullRow == -1) {   // If no full rows
-                continue;               // Continue to next player
-            }
-            let tileValue = patternLine.rowPlacedTilesType(firstFullRow);
-            let wall = player.wall;
-            let wallTileIndex = wall.targetTileIndexByRow(tileValue, firstFullRow);
-            let incrementalScore = wall.calculateIncrementalScore(tileValue, firstFullRow);
+            let floorLine = player.floorLine;
 
-            this.userInterface.redrawWallScoringTile(player.id, wallTileIndex, incrementalScore);
-            this.userInterface.addWallScoringTileEventListener(player.id, wallTileIndex);
-            return;
+            if (firstFullRow != -1) {   
+                let tileValue = patternLine.rowPlacedTilesType(firstFullRow);
+                let wall = player.wall;
+                let wallTileIndex = wall.targetTileIndexByRow(tileValue, firstFullRow);
+                let incrementalScore = wall.calculateIncrementalScore(tileValue, firstFullRow);
+    
+                this.userInterface.redrawWallScoringTile(player.id, wallTileIndex, incrementalScore);
+                this.userInterface.addWallScoringTileEventListener(player.id, wallTileIndex);
+                return;
+            }
+            if (floorLine.isEmpty() == false) {
+                let floorLineScoreTotal = floorLine.calculateScore();
+                this.userInterface.addFloorLineScoreSummaryTile(player.id, floorLineScoreTotal);
+                return;
+            }
         }
 
         this.prepareNextRound();
@@ -210,5 +221,19 @@ class Controller {
         this.redrawBoard();
 
         this.endTurn();
+    }
+
+    handleFloorLineScoringClick(playerId) {
+        let player = this.game.players[playerId];
+        let floorLine = player.floorLine;
+        let scorePenalty = floorLine.calculateScore();
+
+        player.addPoints(scorePenalty);
+        this.game.tileBag.addMultiple(player.floorLine.clear());
+        this.userInterface.redrawScorepip(playerId, player.score);
+        this.userInterface.redrawFloorLine(player);
+        this.userInterface.removeFloorLineScoreSummaryTile(playerId);
+
+        this.prepareNextScoreConfirmation();
     }
 }

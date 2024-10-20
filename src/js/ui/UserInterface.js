@@ -154,15 +154,16 @@ class UserInterface {
     }
 
     redrawScorepip(playerId, playerPoints) {
-        for (let i = 1; i < playerPoints; i++) {
+        for (let i = 1; i < 101; i++) {
             let inactiveScorepipDiv = document.querySelector("#scorepip-" + i + "-p" + playerId);
             inactiveScorepipDiv.classList.remove("scorepip-active");
             inactiveScorepipDiv.classList.add("scorepip-inactive");
         }
-        let activeScorepipDiv = document.querySelector("#scorepip-" + playerPoints + "-p" + playerId);
-        activeScorepipDiv.classList.remove("scorepip-inactive");
-        activeScorepipDiv.classList.add("scorepip-active");
-
+        if (playerPoints > 0) {
+            let activeScorepipDiv = document.querySelector("#scorepip-" + playerPoints + "-p" + playerId);
+            activeScorepipDiv.classList.remove("scorepip-inactive");
+            activeScorepipDiv.classList.add("scorepip-active");
+        }
     }
 
     redrawPatternLineRow(player, row) {
@@ -210,6 +211,24 @@ class UserInterface {
                 floorLineTileDiv.classList.add("tile-style-" + tileValue);
             }
         }
+    }
+
+    addFloorLineScoreSummaryTile(playerId, score) {
+        let floorLineDiv = document.querySelector("#floorline-player-" + playerId);
+        let floorLineScoreDiv = document.createElement("div");
+        floorLineScoreDiv.setAttribute("id", "floorline-score-tile-p" + playerId);
+        floorLineScoreDiv.classList.add("tile", "tile-style-scoring");
+        floorLineScoreDiv.innerHTML = score;
+        floorLineScoreDiv.addEventListener("click", (event) => {
+            this.controller.handleFloorLineScoringClick(playerId);
+        });
+        floorLineDiv.appendChild(floorLineScoreDiv);
+    }
+
+    removeFloorLineScoreSummaryTile(playerId) {
+        let floorLineDiv = document.querySelector("#floorline-player-" + playerId);
+        let floorLineScoreDiv = document.querySelector("#floorline-score-tile-p" + playerId);
+        floorLineDiv.removeChild(floorLineScoreDiv);
     }
 
     printTakeTileMessage(activePlayer) {
