@@ -112,11 +112,14 @@ class UserInterface {
         floorlineDiv.classList.add("floorline");
         scorecardFooter.appendChild(floorlineDiv);
 
-        // for (let i = 0; i < 8; i++) {
-        //     let floorlineTileDiv = document.createElement("div");
-        //     floorlineTileDiv.classList.add("tile", "tile-style-empty");
-        //     floorlineDiv.appendChild(floorlineTileDiv);
-        // }
+        let floorLine = player.floorLine;
+        for (let i = 0; i < floorLine.penalties.length; i++) {
+            let floorLineTileDiv = document.createElement("div");
+            floorLineTileDiv.setAttribute("id", "floorline-tile-" + i + "-p" + player.id);
+            floorLineTileDiv.classList.add("tile", "tile-style-empty");
+            floorLineTileDiv.innerText = floorLine.penalties[i];
+            floorlineDiv.appendChild(floorLineTileDiv);
+        }
 
     }
 
