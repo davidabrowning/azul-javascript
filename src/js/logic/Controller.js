@@ -12,7 +12,6 @@ class Controller {
             this.userInterface.createScorecard(player);
         });
 
-
         // Round preparations
         this.game.prepareRound();
         this.game.factoryDisplays.forEach(factoryDisplay => {
