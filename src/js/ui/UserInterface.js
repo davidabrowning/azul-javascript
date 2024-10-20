@@ -182,17 +182,6 @@ class UserInterface {
         }
     }
 
-    redrawFloorLine(player) {
-        let playerId = player.id;
-        let floorLineDiv = document.querySelector("#floorline-player-" + playerId);
-        floorLineDiv.innerHTML = "";
-        player.floorLine.tiles.forEach(t => {
-            let tileDiv = document.createElement("div");
-            tileDiv.classList.add("tile", "tile-style-" + t.value);
-            floorLineDiv.appendChild(tileDiv);
-        });
-    }
-
     redrawWallScoringTile(playerId, wallTileIndex, incrementalScore) {
         let tileDiv = document.querySelector("#wall-tile-" + wallTileIndex + "-p" + playerId);
         tileDiv.classList.remove("tile-style-faded");
@@ -205,6 +194,22 @@ class UserInterface {
         tileDiv.classList.remove("tile-style-scoring");
         tileDiv.innerText = "";
         tileDiv.classList.add("tile-style-" + tileValue);
+    }
+
+    redrawFloorLine(player) {
+        let playerId = player.id;
+        let floorLine = player.floorLine;
+        for (let tileNum = 0; tileNum < floorLine.penalties.length; tileNum++) {
+            let floorLineTileDiv = document.querySelector("#floorline-tile-" + tileNum + "-p" + playerId);
+            if (floorLine.tiles[tileNum] == null) {
+                floorLineTileDiv.classList.remove("tile-style-0", "tile-style-1", "tile-style-2", "tile-style-3", "tile-style-4");
+                floorLineTileDiv.classList.add("tile-style-empty");
+            } else {
+                let tileValue = floorLine.tiles[tileNum].value;
+                floorLineTileDiv.classList.remove("tile-style-empty");
+                floorLineTileDiv.classList.add("tile-style-" + tileValue);
+            }
+        }
     }
 
     printTakeTileMessage(activePlayer) {
