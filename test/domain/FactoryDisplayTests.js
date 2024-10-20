@@ -5,7 +5,7 @@ function runFactoryDisplayTests(testRunner) {
     testTitle = "Factory display starts round with four tiles";
     testGame = new Game(2);
     testGame.prepareRound();
-    testRunner.assertEquals(testTitle, 4, testGame.factoryDisplays[2].tiles.length);
+    testRunner.assertEquals(testTitle, 4, testGame.factoryDisplays[0].tiles.length);
 
     testTitle = "FactoryDisplay is empty after claiming Tile";
     testGame = new Game(2);
