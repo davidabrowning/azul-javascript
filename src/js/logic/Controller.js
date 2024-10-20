@@ -41,7 +41,7 @@ class Controller {
             let factoryDisplayId = factoryDisplay.id;
             for (let tileNum = 0; tileNum < 4; tileNum++) {
                 let tileValue = factoryDisplay.tiles[tileNum].value;
-                this.userInterface.redrawFactoryDisplayTile(factoryDisplay.id, tileNum, tileValue);
+                this.userInterface.redrawFactoryDisplayTile(factoryDisplayId, tileNum, tileValue);
             }
         });
     }
