@@ -33,6 +33,9 @@ class Controller {
                 this.userInterface.addPatternlineEventListeners(player, row);
             }
         });
+        this.game.players.forEach(player => {
+            this.userInterface.addFloorLineEventListener(player);
+        });
     }
 
     prepareNextRound() {
@@ -109,6 +112,20 @@ class Controller {
         this.game.placeTilesOnPatternLine(row);
 
         // Redraw board
+        this.redrawBoard();
+
+        // Redraw this player's pattern line
+        this.userInterface.redrawPatternLineRow(player, row);
+
+        // End turn
+        this.endTurn();
+    }
+
+    redrawBoard() {
+        let player = this.game.players[this.game.activePlayerNum];
+        let factoryCenter = this.game.factoryCenter;
+
+        // Redraw board
         this.game.factoryDisplays.forEach(fd => {
             if (fd.isEmpty()) {
                 this.userInterface.redrawEmptyFactoryDisplay(fd.id);
@@ -119,9 +136,10 @@ class Controller {
             let tile = factoryCenter.tiles[i];
             this.userInterface.addTileToFactoryCenter(i, tile.value);
         }
-        this.userInterface.redrawPatternLineRow(player, row);
         this.userInterface.redrawFloorLine(player);
+    }
 
+    endTurn() {
         // End turn
         this.game.endTurn();
         this.userInterface.printTakeTileMessage(this.game.players[this.game.activePlayerNum]);
@@ -175,5 +193,22 @@ class Controller {
 
         // Prepare next score confirmation
         this.prepareNextScoreConfirmation();
+    }
+
+    handleFloorLineClick(playerId) {
+        let player = this.game.players[playerId];
+        let activePlayerId = this.game.activePlayerNum;
+        let selectedTileValue = this.game.getSelectedTileValue();
+
+        // Exit criteria
+        if (playerId != activePlayerId) {
+            return;
+        }
+
+        this.game.placeTilesOnFloorLine();
+
+        this.redrawBoard();
+
+        this.endTurn();
     }
 }

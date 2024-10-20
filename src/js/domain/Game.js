@@ -98,8 +98,16 @@ class Game {
             factoryCenter.unselect();
         }
 
-        droppedTiles = activePlayer.patternLine.place(targetTiles, targetRow, wall);
+        if (targetRow == -1) {
+            droppedTiles = targetTiles;
+        } else {
+            droppedTiles = activePlayer.patternLine.place(targetTiles, targetRow, wall);
+        }
         activePlayer.floorLine.addMultiple(droppedTiles);
+    }
+
+    placeTilesOnFloorLine() {
+        this.placeTilesOnPatternLine(-1);
     }
 
     isGameOver() {
