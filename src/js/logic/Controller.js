@@ -136,7 +136,7 @@ class Controller {
             let incrementalScore = wall.calculateIncrementalScore(tileValue, firstFullRow);
 
             this.userInterface.redrawWallScoringTile(player.id, wallTileIndex, incrementalScore);
-            // this.userInterface.addWallScoringTileEventListener();
+            this.userInterface.addWallScoringTileEventListener(player.id, wallTileIndex);
             return;
         }
 
