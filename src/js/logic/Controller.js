@@ -194,4 +194,21 @@ class Controller {
         // Prepare next score confirmation
         this.prepareNextScoreConfirmation();
     }
+
+    handleFloorLineClick(playerId) {
+        let player = this.game.players[playerId];
+        let activePlayerId = this.game.activePlayerNum;
+        let selectedTileValue = this.game.getSelectedTileValue();
+
+        // Exit criteria
+        if (playerId != activePlayerId) {
+            return;
+        }
+
+        this.game.placeTilesOnFloorLine();
+
+        this.redrawBoard();
+
+        this.endTurn();
+    }
 }
