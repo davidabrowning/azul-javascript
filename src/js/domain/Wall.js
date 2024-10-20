@@ -110,6 +110,10 @@ class Wall {
 
         return totalScore;
     }
+    canPlace(tileValue, row) {
+        let tileIndex = this.targetTileIndexByRow(tileValue, row);
+        return this.tiles[tileIndex] == -1;
+    }
     place(tile, row) {
         let tileValue = tile.value;
         let tileIndex = this.targetTileIndexByRow(tileValue, row);
