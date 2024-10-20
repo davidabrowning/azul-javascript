@@ -55,6 +55,11 @@ footer { background-color: lightgreen; }
 .tile-selected {
     opacity: 0.25;
 }
+.tile-style-scoring {
+    background-color: orange;
+    text-align: center;
+    align-content: center;
+}
 #factory-displays {
     display: flex;
     justify-content: space-around;
