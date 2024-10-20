@@ -139,5 +139,30 @@ class Controller {
             // this.userInterface.addWallScoringTileEventListener();
             return;
         }
+
+        alert("Time to set up the next round!");
+    }
+
+    handleWallScoringTileClick(playerId, wallTileIndex) {
+        let player = this.game.players[playerId];
+        let wall = player.wall;
+        let tileValue = wall.targetTileValueByIndex(wallTileIndex);
+        let patternLine = player.patternLine;
+        let scoringRow = patternLine.firstFullRow();
+
+        // Update score and score display
+        let incrementalScore = wall.calculateIncrementalScore(tileValue, scoringRow);
+        player.addPoints(incrementalScore);
+        this.userInterface.redrawScorepip(playerId, player.score);
+
+        // Update pattern line, wall, and wall display
+        let clearedTiles = patternLine.clearRow(scoringRow);
+        this.userInterface.redrawPatternLineRow(player, scoringRow);
+        wall.place(clearedTiles.pop(), scoringRow);
+        this.game.tileBag.addMultiple(clearedTiles);
+        this.userInterface.redrawWallTile(playerId, wallTileIndex, tileValue);
+
+        // Prepare next score confirmation
+        this.prepareNextScoreConfirmation();
     }
 }
