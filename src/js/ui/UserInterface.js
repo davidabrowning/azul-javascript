@@ -169,6 +169,13 @@ class UserInterface {
         });
     }
 
+    redrawWallScoringTile(playerId, wallTileIndex, incrementalScore) {
+        let tileDiv = document.querySelector("#wall-tile-" + wallTileIndex + "-p" + playerId);
+        tileDiv.classList.remove("tile-style-faded");
+        tileDiv.classList.add("tile-style-scoring");
+        tileDiv.innerText = "+" + incrementalScore;
+    }
+
     printTakeTileMessage(activePlayer) {
         let instructionsHeader = document.querySelector("#instructions");
         instructionsHeader.innerText = "Player " + (activePlayer.id + 1) + ", please choose a tile or tiles to take.";
