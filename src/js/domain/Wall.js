@@ -110,4 +110,9 @@ class Wall {
 
         return totalScore;
     }
+    place(tile, row) {
+        let tileValue = tile.value;
+        let tileIndex = this.targetTileIndexByRow(tileValue, row);
+        this.tiles[tileIndex] = tile;
+    }
 }
