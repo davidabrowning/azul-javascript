@@ -271,4 +271,11 @@ class UserInterface {
             this.controller.handleWallScoringTileClick(playerId, wallTileIndex);
         });
     }
+
+    addFloorLineEventListener(player) {
+        let floorLineDiv = document.querySelector("#floorline-player-" + player.id);
+        floorLineDiv.addEventListener("click", (event) => {
+            this.controller.handleFloorLineClick(player.id);
+        })
+    }
 }
