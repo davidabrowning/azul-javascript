@@ -143,4 +143,12 @@ class PatternLine extends AbstractTileContainer {
                 return -1;
         }
     }
+    clearRow(row) {
+        let clearedTiles = [];
+        for (let i = this.rowFirstIndex(row); i < this.rowLastIndex(row) + 1; i++) {
+            clearedTiles.push(this.tiles[i]);
+            this.tiles[i] = null;
+        }
+        return clearedTiles;
+    }
 }
