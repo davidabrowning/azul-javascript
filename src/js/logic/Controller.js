@@ -114,5 +114,23 @@ class Controller {
         // End turn
         this.game.endTurn();
         this.userInterface.printTakeTileMessage(this.game.players[this.game.activePlayerNum]);
+
+        if (this.game.isRoundOver()) {
+            this.prepareNextScoreConfirmation();
+        }
+    }
+
+    prepareNextScoreConfirmation() {
+        let numPlayers = this.game.players.length;
+
+        for (let i = 0; i < numPlayers; i++) {
+            let player = this.game.players[i];
+            let patternLine = player.patternLine;
+            let firstFullRow = patternLine.firstFullRow();
+            if (firstFullRow == -1) {
+                continue;
+            }
+            // Probably time to move the Wall's tile placeholders from UI class to Wall class
+        }
     }
 }
