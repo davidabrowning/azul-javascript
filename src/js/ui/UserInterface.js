@@ -241,4 +241,11 @@ class UserInterface {
             this.controller.handlePatternLineRowClick(player, row);
         });        
     }
+
+    addWallScoringTileEventListener(playerId, wallTileIndex) {
+        let tileDiv = document.querySelector("#wall-tile-" + wallTileIndex + "-p" + playerId);
+        tileDiv.addEventListener("click", (event) => {
+            this.controller.handleWallScoringTileClick(playerId, wallTileIndex);
+        });
+    }
 }
