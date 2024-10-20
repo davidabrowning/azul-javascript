@@ -1,5 +1,7 @@
 class Wall {
     constructor() {
+        this.rowSize = 5;
+        this.colSize = 5;
         this.tiles = [  -1, -1, -1, -1, -1,
                         -1, -1, -1, -1, -1,
                         -1, -1, -1, -1, -1,
