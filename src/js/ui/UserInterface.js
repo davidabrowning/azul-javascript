@@ -154,13 +154,16 @@ class UserInterface {
         let pl = player.patternLine;
         for (let i = pl.rowFirstIndex(row); i < pl.rowLastIndex(row) + 1; i++) {
             let colNum = pl.colNum(i);
+            let tileDiv = document.querySelector("#patternline-tile-row-" + row + "-col-" + colNum + "-player-" + player.id);
             
-            if (pl.tiles[i] != null) {
+            if (pl.tiles[i] == null) {
+                tileDiv.classList.remove("tile-style-0", "tile-style-1", "tile-style-2", "tile-style-3", "tile-style-4");
+                tileDiv.classList.add("tile-style-empty");
+            } else {
                 let tileValue = pl.tiles[i].value;
-                let tileDiv = document.querySelector("#patternline-tile-row-" + row + "-col-" + colNum + "-player-" + player.id);
                 tileDiv.classList.remove("tile-style-empty");
                 tileDiv.classList.add("tile-style-" + tileValue);
-            }
+            } 
         }
     }
 
