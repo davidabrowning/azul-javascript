@@ -150,7 +150,7 @@ class Controller {
             return;
         }
 
-        alert("Time to set up the next round!");
+        this.prepareNextRound();
     }
 
     handleWallScoringTileClick(playerId, wallTileIndex) {
