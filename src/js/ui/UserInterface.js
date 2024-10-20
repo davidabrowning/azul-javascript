@@ -144,6 +144,12 @@ class UserInterface {
         this.addFactoryCenterTileEventListener(tileId);
     }
 
+    redrawScorepip(playerId, playerPoints) {
+        let scorepipDiv = document.querySelector("#scorepip-" + playerPoints + "-p" + playerId);
+        scorepipDiv.classList.remove("scorepip-inactive");
+        scorepipDiv.classList.add("scorepip-active");
+    }
+
     redrawPatternLineRow(player, row) {
         let pl = player.patternLine;
         for (let i = pl.rowFirstIndex(row); i < pl.rowLastIndex(row) + 1; i++) {
