@@ -33,6 +33,9 @@ class Controller {
                 this.userInterface.addPatternlineEventListeners(player, row);
             }
         });
+        this.game.players.forEach(player => {
+            this.userInterface.addFloorLineEventListener(player);
+        });
     }
 
     prepareNextRound() {
