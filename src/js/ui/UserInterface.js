@@ -91,7 +91,7 @@ class UserInterface {
 
             for (let col = 0; col < 5; col++) {
                 let wallTileNum = row * 5 + col;
-                let wallTileStyleNum = (col + (5 - row)) % 5;
+                let wallTileStyleNum = player.wall.targetTileValueByIndex(wallTileNum);
 
                 let wallTileDiv = document.createElement("div");
                 wallTileDiv.setAttribute("id", "wall-row-tile-" + wallTileNum + "-p" + player.id);
