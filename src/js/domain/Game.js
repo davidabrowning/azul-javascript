@@ -80,6 +80,7 @@ class Game {
         let targetTiles = [];
         let droppedTiles = [];
         let factoryCenter = this.factoryCenter;
+        let wall = activePlayer.wall;
 
         this.factoryDisplays.forEach(fd => {
             if (fd.isSelected) {
@@ -97,7 +98,7 @@ class Game {
             factoryCenter.unselect();
         }
 
-        droppedTiles = activePlayer.patternLine.place(targetTiles, targetRow);
+        droppedTiles = activePlayer.patternLine.place(targetTiles, targetRow, wall);
         activePlayer.floorLine.addMultiple(droppedTiles);
     }
 
