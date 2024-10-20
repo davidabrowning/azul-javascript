@@ -19,6 +19,17 @@ class PatternLine extends AbstractTileContainer {
             default: return true;
         }
     }
+    rowIsFull(rowNum) {
+        return this.rowCurrentCapacity(rowNum) == 0;
+    }
+    firstFullRow() {
+        for (let i = 0; i < 5; i++) {
+            if (this.rowIsFull(i)) {
+                return i;
+            }
+        }
+        return -1;
+    }
     rowMaxCapacity(rowNum) {
         return rowNum + 1;
     }
