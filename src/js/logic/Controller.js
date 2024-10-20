@@ -95,12 +95,13 @@ class Controller {
         let selectedTileValue = this.game.getSelectedTileValue();
         let targetPatternLine = player.patternLine;
         let factoryCenter = this.game.factoryCenter;
+        let wall = player.wall;
 
         // Exit criteria
         if (playerId != activePlayerId) {
             return;
         }
-        if (targetPatternLine.canPlaceTileValue(selectedTileValue, row) == false) {
+        if (targetPatternLine.canPlaceTileValue(selectedTileValue, row, wall) == false) {
             return;
         }
 
