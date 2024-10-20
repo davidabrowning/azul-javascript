@@ -43,7 +43,7 @@ class UserInterface {
             for (let col = 0; col < 20; col++) {
                 let scorepipDiv = document.createElement("div");
                 scorepipDiv.setAttribute("id", "scorepip-" + scorepipCounter + "-p" + player.id);
-                scorepipDiv.classList.add("scorepip");
+                scorepipDiv.classList.add("scorepip", "scorepip-inactive");
                 scorepipDiv.innerText = scorepipCounter;
                 scorepipRowDiv.appendChild(scorepipDiv);
 
