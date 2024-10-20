@@ -43,7 +43,7 @@ class UserInterface {
             for (let col = 0; col < 20; col++) {
                 let scorepipDiv = document.createElement("div");
                 scorepipDiv.setAttribute("id", "scorepip-" + scorepipCounter + "-p" + player.id);
-                scorepipDiv.classList.add("scorepip");
+                scorepipDiv.classList.add("scorepip", "scorepip-inactive");
                 scorepipDiv.innerText = scorepipCounter;
                 scorepipRowDiv.appendChild(scorepipDiv);
 
@@ -91,10 +91,10 @@ class UserInterface {
 
             for (let col = 0; col < 5; col++) {
                 let wallTileNum = row * 5 + col;
-                let wallTileStyleNum = (col + (5 - row)) % 5;
+                let wallTileStyleNum = player.wall.targetTileValueByIndex(wallTileNum);
 
                 let wallTileDiv = document.createElement("div");
-                wallTileDiv.setAttribute("id", "wall-row-tile-" + wallTileNum + "-p" + player.id);
+                wallTileDiv.setAttribute("id", "wall-tile-" + wallTileNum + "-p" + player.id);
                 wallTileDiv.classList.add("tile", "tile-style-" + wallTileStyleNum, "tile-style-faded");
                 wallRowDiv.appendChild(wallTileDiv);
             }
@@ -118,6 +118,12 @@ class UserInterface {
         //     floorlineDiv.appendChild(floorlineTileDiv);
         // }
 
+    }
+
+    redrawFactoryDisplayTile(factoryDisplayId, tileNum, tileValue) {
+        let tileDiv = document.querySelector("#factory-display-" + factoryDisplayId + "-tile-" + tileNum);
+        tileDiv.classList.remove("tile-style-empty", "tile-style-faded");
+        tileDiv.classList.add("tile-style-" + tileValue);
     }
 
     redrawEmptyFactoryDisplay(factoryDisplayId) {
@@ -144,17 +150,32 @@ class UserInterface {
         this.addFactoryCenterTileEventListener(tileId);
     }
 
+    redrawScorepip(playerId, playerPoints) {
+        for (let i = 1; i < playerPoints; i++) {
+            let inactiveScorepipDiv = document.querySelector("#scorepip-" + i + "-p" + playerId);
+            inactiveScorepipDiv.classList.remove("scorepip-active");
+            inactiveScorepipDiv.classList.add("scorepip-inactive");
+        }
+        let activeScorepipDiv = document.querySelector("#scorepip-" + playerPoints + "-p" + playerId);
+        activeScorepipDiv.classList.remove("scorepip-inactive");
+        activeScorepipDiv.classList.add("scorepip-active");
+
+    }
+
     redrawPatternLineRow(player, row) {
         let pl = player.patternLine;
         for (let i = pl.rowFirstIndex(row); i < pl.rowLastIndex(row) + 1; i++) {
             let colNum = pl.colNum(i);
+            let tileDiv = document.querySelector("#patternline-tile-row-" + row + "-col-" + colNum + "-player-" + player.id);
             
-            if (pl.tiles[i] != null) {
+            if (pl.tiles[i] == null) {
+                tileDiv.classList.remove("tile-style-0", "tile-style-1", "tile-style-2", "tile-style-3", "tile-style-4");
+                tileDiv.classList.add("tile-style-empty");
+            } else {
                 let tileValue = pl.tiles[i].value;
-                let tileDiv = document.querySelector("#patternline-tile-row-" + row + "-col-" + colNum + "-player-" + player.id);
                 tileDiv.classList.remove("tile-style-empty");
                 tileDiv.classList.add("tile-style-" + tileValue);
-            }
+            } 
         }
     }
 
@@ -167,6 +188,20 @@ class UserInterface {
             tileDiv.classList.add("tile", "tile-style-" + t.value);
             floorLineDiv.appendChild(tileDiv);
         });
+    }
+
+    redrawWallScoringTile(playerId, wallTileIndex, incrementalScore) {
+        let tileDiv = document.querySelector("#wall-tile-" + wallTileIndex + "-p" + playerId);
+        tileDiv.classList.remove("tile-style-faded");
+        tileDiv.classList.add("tile-style-scoring");
+        tileDiv.innerText = "+" + incrementalScore;
+    }
+
+    redrawWallTile(playerId, wallTileIndex, tileValue) {
+        let tileDiv = document.querySelector("#wall-tile-" + wallTileIndex + "-p" + playerId);
+        tileDiv.classList.remove("tile-style-scoring");
+        tileDiv.innerText = "";
+        tileDiv.classList.add("tile-style-" + tileValue);
     }
 
     printTakeTileMessage(activePlayer) {
@@ -220,5 +255,12 @@ class UserInterface {
         rowDiv.addEventListener("click", (event) => {
             this.controller.handlePatternLineRowClick(player, row);
         });        
+    }
+
+    addWallScoringTileEventListener(playerId, wallTileIndex) {
+        let tileDiv = document.querySelector("#wall-tile-" + wallTileIndex + "-p" + playerId);
+        tileDiv.addEventListener("click", (event) => {
+            this.controller.handleWallScoringTileClick(playerId, wallTileIndex);
+        });
     }
 }

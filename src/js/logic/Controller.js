@@ -12,7 +12,6 @@ class Controller {
             this.userInterface.createScorecard(player);
         });
 
-
         // Round preparations
         this.game.prepareRound();
         this.game.factoryDisplays.forEach(factoryDisplay => {
@@ -32,6 +31,17 @@ class Controller {
         this.game.players.forEach(player => {
             for (let row = 0; row < 5; row++) {
                 this.userInterface.addPatternlineEventListeners(player, row);
+            }
+        });
+    }
+
+    prepareNextRound() {
+        this.game.prepareRound();
+        this.game.factoryDisplays.forEach(factoryDisplay => {
+            let factoryDisplayId = factoryDisplay.id;
+            for (let tileNum = 0; tileNum < 4; tileNum++) {
+                let tileValue = factoryDisplay.tiles[tileNum].value;
+                this.userInterface.redrawFactoryDisplayTile(factoryDisplayId, tileNum, tileValue);
             }
         });
     }
@@ -85,12 +95,13 @@ class Controller {
         let selectedTileValue = this.game.getSelectedTileValue();
         let targetPatternLine = player.patternLine;
         let factoryCenter = this.game.factoryCenter;
+        let wall = player.wall;
 
         // Exit criteria
         if (playerId != activePlayerId) {
             return;
         }
-        if (targetPatternLine.canPlaceTileValue(selectedTileValue, row) == false) {
+        if (targetPatternLine.canPlaceTileValue(selectedTileValue, row, wall) == false) {
             return;
         }
 
@@ -114,5 +125,55 @@ class Controller {
         // End turn
         this.game.endTurn();
         this.userInterface.printTakeTileMessage(this.game.players[this.game.activePlayerNum]);
+
+        if (this.game.isRoundOver()) {
+            this.prepareNextScoreConfirmation();
+        }
+    }
+
+    prepareNextScoreConfirmation() {
+        let numPlayers = this.game.players.length;
+
+        for (let i = 0; i < numPlayers; i++) {
+            let player = this.game.players[i];
+            let patternLine = player.patternLine;
+            let firstFullRow = patternLine.firstFullRow();
+            if (firstFullRow == -1) {   // If no full rows
+                continue;               // Continue to next player
+            }
+            let tileValue = patternLine.rowPlacedTilesType(firstFullRow);
+            let wall = player.wall;
+            let wallTileIndex = wall.targetTileIndexByRow(tileValue, firstFullRow);
+            let incrementalScore = wall.calculateIncrementalScore(tileValue, firstFullRow);
+
+            this.userInterface.redrawWallScoringTile(player.id, wallTileIndex, incrementalScore);
+            this.userInterface.addWallScoringTileEventListener(player.id, wallTileIndex);
+            return;
+        }
+
+        this.prepareNextRound();
+    }
+
+    handleWallScoringTileClick(playerId, wallTileIndex) {
+        let player = this.game.players[playerId];
+        let wall = player.wall;
+        let tileValue = wall.targetTileValueByIndex(wallTileIndex);
+        let patternLine = player.patternLine;
+        let scoringRow = patternLine.firstFullRow();
+
+        // Update score and score display
+        let incrementalScore = wall.calculateIncrementalScore(tileValue, scoringRow);
+        player.addPoints(incrementalScore);
+        this.userInterface.redrawScorepip(playerId, player.score);
+
+        // Update pattern line, wall, and wall display
+        let clearedTiles = patternLine.clearRow(scoringRow);
+        this.userInterface.redrawPatternLineRow(player, scoringRow);
+        wall.place(clearedTiles.pop(), scoringRow);
+        this.game.tileBag.addMultiple(clearedTiles);
+        this.userInterface.redrawWallTile(playerId, wallTileIndex, tileValue);
+
+        // Prepare next score confirmation
+        this.prepareNextScoreConfirmation();
     }
 }

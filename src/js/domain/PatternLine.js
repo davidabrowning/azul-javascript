@@ -19,6 +19,17 @@ class PatternLine extends AbstractTileContainer {
             default: return true;
         }
     }
+    rowIsFull(rowNum) {
+        return this.rowCurrentCapacity(rowNum) == 0;
+    }
+    firstFullRow() {
+        for (let i = 0; i < 5; i++) {
+            if (this.rowIsFull(i)) {
+                return i;
+            }
+        }
+        return -1;
+    }
     rowMaxCapacity(rowNum) {
         return rowNum + 1;
     }
@@ -88,23 +99,26 @@ class PatternLine extends AbstractTileContainer {
     firstOpenTileIndexOnRow(rowNum) {
         return this.rowFirstIndex(rowNum) + this.rowPlacedTilesNum(rowNum);
     }
-    canPlaceTileValue(tileValue, rowNum) {
+    canPlaceTileValue(tileValue, rowNum, wall) {
         if (this.rowCurrentCapacity(rowNum) == 0) {
             return false;
         }
         if (this.rowPlacedTilesNum(rowNum) && this.rowPlacedTilesType(rowNum) != tileValue) {
             return false;
         }
+        if (wall.canPlace(tileValue, rowNum) == false) {
+            return false;
+        }
         return true;        
     }
-    canPlace(tile, rowNum) {
+    canPlace(tile, rowNum, wall) {
         if (tile == null) {
             return -1;
         }
-        return this.canPlaceTileValue(tile.value, rowNum);
+        return this.canPlaceTileValue(tile.value, rowNum, wall);
     }
-    place(tileArray, rowNum) {
-        if (this.canPlace(tileArray[0], rowNum) == false) {
+    place(tileArray, rowNum, wall) {
+        if (this.canPlace(tileArray[0], rowNum, wall) == false) {
             return tileArray;
         }
 
@@ -131,5 +145,13 @@ class PatternLine extends AbstractTileContainer {
             default:
                 return -1;
         }
+    }
+    clearRow(row) {
+        let clearedTiles = [];
+        for (let i = this.rowFirstIndex(row); i < this.rowLastIndex(row) + 1; i++) {
+            clearedTiles.push(this.tiles[i]);
+            this.tiles[i] = null;
+        }
+        return clearedTiles;
     }
 }
