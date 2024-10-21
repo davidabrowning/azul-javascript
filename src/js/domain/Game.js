@@ -43,19 +43,6 @@ class Game {
         }
     }
 
-    /**
-     * 
-     * @param {int} factoryDisplayNum 
-     * @param {int} tileValue 
-     * @param {int} targetPatternLine 
-     */
-    claimFactoryDisplay(factoryDisplayNum, tileValue, targetPatternLine) {
-        let factoryDisplay = this.factoryDisplays[factoryDisplayNum];
-        let claimedTiles = factoryDisplay.removeAll(tileValue);
-        let discardedTiles = factoryDisplay.clear();
-        this.factoryCenter.addMultiple(discardedTiles);
-    }
-
     getSelectedTileValue() {
         let selectedTileValue = -1;
         this.factoryDisplays.forEach(fd => {
@@ -82,6 +69,9 @@ class Game {
         let factoryCenter = this.factoryCenter;
         let wall = activePlayer.wall;
 
+        // Set the target Tiles
+        // If necessary, clear and unselect the relevant FactoryDisplay
+        // If necessary, clear and unselect the FactoryCenter
         this.factoryDisplays.forEach(fd => {
             if (fd.isSelected) {
                 targetTileValue = fd.selectedTileValue;
@@ -91,13 +81,14 @@ class Game {
                 fd.unselect();
             }
         });
-
         if (factoryCenter.isSelected) {
             targetTileValue = factoryCenter.selectedTileValue;
             targetTiles = factoryCenter.removeAll(targetTileValue);
             factoryCenter.unselect();
         }
 
+        // If the target is the FloorLine, then drop all Tiles
+        // Else place Tiles and drop any remaining Tiles
         if (targetRow == -1) {
             droppedTiles = targetTiles;
         } else {
@@ -117,15 +108,19 @@ class Game {
     isRoundOver() {
         let tilesRemain = false;
 
+        // Check if Tiles remain on FactoryDisplays
         this.factoryDisplays.forEach(factoryDisplay => {
             if (factoryDisplay.size() > 0) {
                 tilesRemain = true;
             }
         });
+
+        // Check if Tiles remain on FactoryCenter
         if (this.factoryCenter.size() > 0) {
             tilesRemain = true;
         }
 
+        // If any Tiles remain, round is not over (return false)
         if (tilesRemain) {
             return false;
         } else {
