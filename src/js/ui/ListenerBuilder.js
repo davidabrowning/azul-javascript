@@ -1,7 +1,35 @@
 class ListenerBuilder {
     constructor(controller) {
         this.controller = controller;
-    }    
+    }
+
+    buildEventListeners(game) {
+        this.buildFactoryDisplayListeners(game.factoryDisplays);
+        this.buildPatternLineListeners(game.players);
+        this.buildFloorLineListeners(game.players);
+    }
+
+    buildFactoryDisplayListeners(factoryDisplays) {
+        factoryDisplays.forEach(factoryDisplay => {
+            for (let tileNum = 0; tileNum < 4; tileNum++) {
+                this.addFactoryDisplayTileEventListeners(factoryDisplay, tileNum);
+            }
+        });
+    }
+
+    buildPatternLineListeners(players) {
+        players.forEach(player => {
+            for (let row = 0; row < 5; row++) {
+                this.addPatternlineEventListeners(player, row);
+            }
+        });
+    }
+
+    buildFloorLineListeners(players) {
+        players.forEach(player => {
+            this.addFloorLineEventListener(player);
+        });
+    }
 
     addFactoryDisplayTileEventListeners(factoryDisplay, tileNum) {
         let tileDiv = document.querySelector("#factory-display-" + factoryDisplay.id + "-tile-" + tileNum);

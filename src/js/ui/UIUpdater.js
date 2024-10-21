@@ -12,6 +12,14 @@ class UIUpdater {
         instructionsHeader.innerText = "Player " + (activePlayer.id + 1) + ", please choose a pattern or floor line row to place these tiles.";
     }
 
+    redrawFactoryDisplays(factoryDisplays) {
+        factoryDisplays.forEach(factoryDisplay => {
+            for(let i = 0; i < 4; i++) {
+                this.redrawFactoryDisplayTile(factoryDisplay.id, i, factoryDisplay.tiles[i].value);
+            }
+        });
+    }
+
     redrawFactoryDisplayTile(factoryDisplayId, tileNum, tileValue) {
         let tileDiv = document.querySelector("#factory-display-" + factoryDisplayId + "-tile-" + tileNum);
         tileDiv.classList.remove("tile-style-empty", "tile-style-faded");

@@ -20,47 +20,14 @@ class Controller {
 
         // Build game UI
         this.uiBuilder.buildUI(this.game);
-        this.buildEventListeners();
+        this.listenerBuilder.buildEventListeners(this.game);
         this.startNextRound();
-    }
-
-    // Set event listeners
-    buildEventListeners() {
-        this.buildFactoryDisplayListeners();
-        this.buildPatternLineListeners();
-        this.buildFloorLineListeners();
-    }
-
-    buildFactoryDisplayListeners() {
-        this.game.factoryDisplays.forEach(factoryDisplay => {
-            for (let tileNum = 0; tileNum < 4; tileNum++) {
-                this.listenerBuilder.addFactoryDisplayTileEventListeners(factoryDisplay, tileNum);
-            }
-        });
-    }
-
-    buildPatternLineListeners() {
-        this.game.players.forEach(player => {
-            for (let row = 0; row < 5; row++) {
-                this.listenerBuilder.addPatternlineEventListeners(player, row);
-            }
-        });
-    }
-
-    buildFloorLineListeners() {
-        this.game.players.forEach(player => {
-            this.listenerBuilder.addFloorLineEventListener(player);
-        });
     }
 
     startNextRound() {
         // Deal Tiles
         this.game.dealTilesToFactoryDisplays();
-        this.game.factoryDisplays.forEach(factoryDisplay => {
-            for(let i = 0; i < 4; i++) {
-                this.uiUpdater.redrawFactoryDisplayTile(factoryDisplay.id, i, factoryDisplay.tiles[i].value);
-            }
-        });
+        this.uiUpdater.redrawFactoryDisplays(this.game.factoryDisplays);
 
         // Set active player
         let activePlayer = this.game.players[this.game.activePlayerNum];
@@ -69,10 +36,7 @@ class Controller {
 
     unselectAllTiles() {
         this.uiUpdater.removeSelectedEffectFromAllTiles();
-        this.game.factoryDisplays.forEach(factoryDisplay => {
-            factoryDisplay.unselect();
-        });
-        this.game.factoryCenter.unselect();
+        this.game.unselectAllTiles();
     }
 
     handleFactoryDisplayTileClick(factoryDisplayId, tileNum) {
@@ -81,6 +45,7 @@ class Controller {
             return;
         }
 
+        // Unselect any previously selected tiles
         this.unselectAllTiles();
 
         // Select these tiles
@@ -96,6 +61,12 @@ class Controller {
     }
 
     handleFactoryCenterTileClick(tileNum) {
+        // Exit criteria
+        if (this.game.factoryCenter.size() == 0) {
+            return;
+        }
+
+        // Unselect any previously selected tiles
         this.unselectAllTiles();
 
         // Select these tiles
@@ -185,7 +156,7 @@ class Controller {
             let firstFullRow = patternLine.firstFullRow();
             let floorLine = player.floorLine;
 
-            if (firstFullRow != -1) {   
+            if (firstFullRow != -1) {               // If this Player has row Tiles to score
                 let tileValue = patternLine.rowPlacedTilesType(firstFullRow);
                 let wall = player.wall;
                 let wallTileIndex = wall.targetTileIndexByRow(tileValue, firstFullRow);
@@ -195,11 +166,10 @@ class Controller {
                 this.listenerBuilder.addWallScoringTileEventListener(player.id, wallTileIndex);
                 return;
             }
-            if (floorLine.isEmpty() == false) {
+            if (floorLine.isEmpty() == false) {     // If this Player has FloorLine penalty Tiles to score
                 let floorLineScoreTotal = floorLine.calculateScore();
                 this.uiUpdater.addFloorLineScoreSummaryTile(player.id, floorLineScoreTotal);
                 this.listenerBuilder.addFloorLineScoreSummaryTileListener(player.id);
-
                 return;
             }
         }
@@ -237,7 +207,10 @@ class Controller {
 
         // Exit criteria
         if (playerId != activePlayerId) {
-            return;
+            return; // If not this Player's turn
+        }
+        if (selectedTileValue == -1) {
+            return; // If no Tiles are selected
         }
 
         this.game.placeTilesOnFloorLine();

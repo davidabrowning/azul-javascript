@@ -56,6 +56,13 @@ class Game {
         return selectedTileValue;
     }
 
+    unselectAllTiles() {
+        this.game.factoryDisplays.forEach(factoryDisplay => {
+            factoryDisplay.unselect();
+        });
+        this.game.factoryCenter.unselect();        
+    }
+
     placeTilesOnPatternLine(targetRow) {
         // Exit criteria
         if (this.getSelectedTileValue() == -1) {
