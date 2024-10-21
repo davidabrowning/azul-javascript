@@ -32,4 +32,5 @@ function runFactoryCenterTests(testRunner) {
     testGame = new Game(2);
     testGame.prepareRound();
     testRunner.assertEquals(testTitle, 0, testGame.factoryCenter.size());
+
 }
