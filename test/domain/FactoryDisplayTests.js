@@ -2,9 +2,9 @@ function runFactoryDisplayTests(testRunner) {
     let testTitle = "";
     let testGame = null;
 
-    testTitle = "Factory display starts round with four tiles";
+    testTitle = "Factory display starts with four tiles";
     testGame = new Game(2);
-    testGame.prepareRound();
+    testGame.dealTilesToFactoryDisplays();
     testRunner.assertEquals(testTitle, 4, testGame.factoryDisplays[0].tiles.length);
 
     testTitle = "FactoryDisplay at array position 4 has id of 4";

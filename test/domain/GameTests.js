@@ -37,12 +37,11 @@ function runGameTests(testRunner) {
 
     testTitle = "GameOver is false at round start";
     testGame = new Game(2);
-    testGame.prepareRound();
     testRunner.assertEquals(testTitle, false, testGame.isGameOver());
 
-    testTitle = "RoundOver is false at round start";
+    testTitle = "RoundOver is false after dealing tiles to factory displays";
     testGame = new Game(2);
-    testGame.prepareRound();
+    testGame.dealTilesToFactoryDisplays();
     testRunner.assertEquals(testTitle, false, testGame.isRoundOver());
 
     testTitle = "RoundOver is true when no tiles left to draw";

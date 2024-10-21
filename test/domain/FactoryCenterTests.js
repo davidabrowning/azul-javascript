@@ -30,7 +30,6 @@ function runFactoryCenterTests(testRunner) {
 
     testTitle = "Factory center starts round with zero tiles";
     testGame = new Game(2);
-    testGame.prepareRound();
     testRunner.assertEquals(testTitle, 0, testGame.factoryCenter.size());
 
 }
