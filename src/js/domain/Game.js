@@ -28,7 +28,7 @@ class Game {
         }
         return newFactoryDisplayArray;
     }
-    prepareRound() {
+    dealTilesToFactoryDisplays() {
         this.factoryDisplays.forEach(factoryDisplay => {
             for (let i = 0; i < 4; i++) {
                 let tile = this.tileBag.drawTile();

@@ -12,13 +12,17 @@ class UserInterface {
         document.querySelector("#factory-displays").appendChild(div);
 
         for (let i = 0; i < 4; i++) {
-            let tile = factoryDisplay.tiles[i];
-
             let tileDiv = document.createElement("div");
             tileDiv.setAttribute("id", "factory-display-" + factoryDisplay.id + "-tile-" + i);
-            tileDiv.classList.add("tile", "tile-style-" + tile.value);
+            tileDiv.classList.add("tile", "tile-style-empty");
             div.appendChild(tileDiv);
         }
+    }
+    createFactoryCenter() {
+        let factoryCenterDiv = document.querySelector("#factory-center");
+        let placeholderTileDiv = document.createElement("div");
+        placeholderTileDiv.classList.add("tile", "tile-style-empty", "tile-style-faded");
+        factoryCenterDiv.appendChild(placeholderTileDiv);
     }
     createScorecard(player) {
         // Create overall scorecard

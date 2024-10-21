@@ -3,26 +3,33 @@ class Controller {
         this.userInterface = userInterface;
         this.game = null;
     }
+
+    // startSession() is the general entry point for the program
     startSession() {
         this.userInterface.setController(this);
-
-        // Game preparations
         this.game = new Game(2);
-        this.game.players.forEach(player => {
-            this.userInterface.createScorecard(player);
-        });
+        this.buildUI();
+        this.startNextRound();
+    }
 
-        // Round preparations
-        this.game.prepareRound();
+    // Create UI for:
+    //      FactoryDisplays
+    //      FactoryCenter
+    //      Player scorecards
+    // Create actionListeners
+    buildUI() {
         this.game.factoryDisplays.forEach(factoryDisplay => {
             this.userInterface.createFactoryDisplay(factoryDisplay);
         });
+        this.userInterface.createFactoryCenter();
+        this.game.players.forEach(player => {
+            this.userInterface.createScorecard(player);
+        });
+        this.buildEventListeners();
+    }
 
-        // Turn preparations
-        let activePlayer = this.game.players[this.game.activePlayerNum];
-        this.userInterface.printTakeTileMessage(activePlayer);
-
-        // Set event listeners
+    // Set event listeners
+    buildEventListeners() {
         this.game.factoryDisplays.forEach(factoryDisplay => {
             for (let tileNum = 0; tileNum < 4; tileNum++) {
                 this.userInterface.addFactoryDisplayTileEventListeners(factoryDisplay, tileNum);
@@ -38,15 +45,18 @@ class Controller {
         });
     }
 
-    prepareNextRound() {
-        this.game.prepareRound();
+    startNextRound() {
+        // Deal Tiles
+        this.game.dealTilesToFactoryDisplays();
         this.game.factoryDisplays.forEach(factoryDisplay => {
-            let factoryDisplayId = factoryDisplay.id;
-            for (let tileNum = 0; tileNum < 4; tileNum++) {
-                let tileValue = factoryDisplay.tiles[tileNum].value;
-                this.userInterface.redrawFactoryDisplayTile(factoryDisplayId, tileNum, tileValue);
+            for(let i = 0; i < 4; i++) {
+                this.userInterface.redrawFactoryDisplayTile(factoryDisplay.id, i, factoryDisplay.tiles[i].value);
             }
         });
+
+        // Set active player
+        let activePlayer = this.game.players[this.game.activePlayerNum];
+        this.userInterface.printTakeTileMessage(activePlayer);
     }
 
     unselectAllTiles() {
@@ -107,10 +117,13 @@ class Controller {
 
         // Exit criteria
         if (playerId != activePlayerId) {
-            return;
+            return; // If not this Player's turn
+        }
+        if (selectedTileValue == -1) {
+            return; // If no Tiles are selected
         }
         if (targetPatternLine.canPlaceTileValue(selectedTileValue, row, wall) == false) {
-            return;
+            return; // If the selected Tile(s) cannot be placed on this row
         }
 
         // Place tiles
@@ -180,7 +193,7 @@ class Controller {
             }
         }
 
-        this.prepareNextRound();
+        this.startNextRound();
     }
 
     handleWallScoringTileClick(playerId, wallTileIndex) {
@@ -217,9 +230,7 @@ class Controller {
         }
 
         this.game.placeTilesOnFloorLine();
-
         this.redrawBoard();
-
         this.endTurn();
     }
 
@@ -228,12 +239,16 @@ class Controller {
         let floorLine = player.floorLine;
         let scorePenalty = floorLine.calculateScore();
 
+        // Penalize the player for these FloorLine Tiles
+        // Return the Tiles to the TileBag
+        // Redraw the FloorLine
         player.addPoints(scorePenalty);
         this.game.tileBag.addMultiple(player.floorLine.clear());
         this.userInterface.redrawScorepip(playerId, player.score);
         this.userInterface.redrawFloorLine(player);
         this.userInterface.removeFloorLineScoreSummaryTile(playerId);
 
+        // Continue to the next step of the scoring round
         this.prepareNextScoreConfirmation();
     }
 }
