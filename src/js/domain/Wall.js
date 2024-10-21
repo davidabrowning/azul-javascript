@@ -2,11 +2,11 @@ class Wall {
     constructor() {
         this.rowSize = 5;
         this.colSize = 5;
-        this.tiles = [  -1, -1, -1, -1, -1,
-                        -1, -1, -1, -1, -1,
-                        -1, -1, -1, -1, -1,
-                        -1, -1, -1, -1, -1,
-                        -1, -1, -1, -1, -1 ];
+        this.tiles = [  null, null, null, null, null,
+                        null, null, null, null, null,
+                        null, null, null, null, null,
+                        null, null, null, null, null,
+                        null, null, null, null, null ];
         this.targets = [0, 1, 2, 3, 4,
                         4, 0, 1, 2, 3,
                         3, 4, 0, 1, 2,
@@ -45,7 +45,7 @@ class Wall {
     adjacentTilesLeft(row, col) {
         let adjacentTileCounter = 0;
         for (let i = col - 1; i >= 0; i--) {
-            if (this.placedTileValueByRowCol(row, i) == -1) {
+            if (this.placedTileValueByRowCol(row, i) == null) {
                 break;
             }
             adjacentTileCounter++;
@@ -55,7 +55,7 @@ class Wall {
     adjacentTilesRight(row, col) {
         let adjacentTileCounter = 0;
         for (let i = col + 1; i < this.rowSize; i++) {
-            if (this.placedTileValueByRowCol(row, i) == -1) {
+            if (this.placedTileValueByRowCol(row, i) == null) {
                 break;
             }
             adjacentTileCounter++;
@@ -65,7 +65,7 @@ class Wall {
     adjacentTilesAbove(row, col) {
         let adjacentTileCounter = 0;
         for (let i = row - 1; i >= 0; i--) {
-            if (this.placedTileValueByRowCol(i, col) == -1) {
+            if (this.placedTileValueByRowCol(i, col) == null) {
                 break;
             }
             adjacentTileCounter++;
@@ -75,7 +75,7 @@ class Wall {
     adjacentTilesBelow(row, col) {
         let adjacentTileCounter = 0;
         for (let i = row + 1; i < this.colSize; i++) {
-            if (this.placedTileValueByRowCol(i, col) == -1) {
+            if (this.placedTileValueByRowCol(i, col) == null) {
                 break;
             }
             adjacentTileCounter++;
@@ -112,7 +112,7 @@ class Wall {
     }
     canPlace(tileValue, row) {
         let tileIndex = this.targetTileIndexByRow(tileValue, row);
-        return this.tiles[tileIndex] == -1;
+        return this.tiles[tileIndex] == null;
     }
     place(tile, row) {
         let tileValue = tile.value;
