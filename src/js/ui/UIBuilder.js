@@ -170,7 +170,11 @@ class UIBuilder {
         for (let i = 0; i < floorLine.penalties.length; i++) {
             let floorLineTileDiv = document.createElement("div");
             floorLineTileDiv.setAttribute("id", "floorline-tile-" + i + "-p" + player.id);
-            floorLineTileDiv.classList.add("tile", "tile-style-empty");
+            if (floorLine.tiles[i] != null) {
+                floorLineTileDiv.classList.add("tile", "tile-style-99");
+            } else {
+                floorLineTileDiv.classList.add("tile", "tile-style-empty");
+            } 
             floorLineTileDiv.innerText = floorLine.penalties[i];
             floorlineDiv.appendChild(floorLineTileDiv);
         }
