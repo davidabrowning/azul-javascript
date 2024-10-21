@@ -32,11 +32,14 @@
 
         <!-- JavaScript Controller and UI class files -->
          <script src="src/js/logic/Controller.js"></script>
-         <script src="src/js/ui/UserInterface.js"></script>
+         <script src="src/js/ui/ListenerBuilder.js"></script>
+         <script src="src/js/ui/ListenerRemover.js"></script>
+         <script src="src/js/ui/UIBuilder.js"></script>
+         <script src="src/js/ui/UIRemover.js"></script>
+         <script src="src/js/ui/UIUpdater.js"></script>
 
         <script>
-            const userInterface = new UserInterface();
-            const controller = new Controller(userInterface);
+            const controller = new Controller();
             controller.startSession();
         </script>
     </body>
