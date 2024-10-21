@@ -48,6 +48,11 @@ footer { background-color: lightgreen; }
 .tile-style-4 {
     background-color: rgb(84, 221, 231);
 }
+.tile-style-99 {
+    background-color: white;
+    color: blue;
+    font-weight: bolder;
+}
 .tile-style-empty {
     background-color: khaki;
 }

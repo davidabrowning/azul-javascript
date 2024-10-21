@@ -5,6 +5,7 @@ class Game {
         this.activePlayerNum = 0;
         this.factoryDisplays = this.generateFactoryDisplays(numPlayers);
         this.factoryCenter = new FactoryCenter();
+        this.assignStartingPlayerMarker();
     }
     generatePlayers(numPlayers) {
         let newPlayerArray = [];
@@ -27,6 +28,10 @@ class Game {
             newFactoryDisplayArray.push(new FactoryDisplay(i));
         }
         return newFactoryDisplayArray;
+    }
+    assignStartingPlayerMarker() {
+        let startingPlayerMarker = new Tile(99);
+        this.players[0].floorLine.tiles[0] = startingPlayerMarker;
     }
     dealTilesToFactoryDisplays() {
         this.factoryDisplays.forEach(factoryDisplay => {
@@ -57,10 +62,10 @@ class Game {
     }
 
     unselectAllTiles() {
-        this.game.factoryDisplays.forEach(factoryDisplay => {
+        this.factoryDisplays.forEach(factoryDisplay => {
             factoryDisplay.unselect();
         });
-        this.game.factoryCenter.unselect();        
+        this.factoryCenter.unselect();        
     }
 
     placeTilesOnPatternLine(targetRow) {
