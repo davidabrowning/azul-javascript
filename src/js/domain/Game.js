@@ -113,6 +113,15 @@ class Game {
         this.placeTilesOnPatternLine(-1);
     }
 
+    isFirstTakeThisRound() {
+        for (let i = 0; i < this.factoryDisplays.length; i++) {
+            if (this.factoryDisplays[i].size() < 4) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     isGameOver() {
         return false;
     }
