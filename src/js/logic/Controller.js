@@ -112,6 +112,7 @@ class Controller {
         this.redrawBoard();
 
         // Redraw this player's pattern line
+        // Can probably move this into this.redrawBoard()
         this.uiUpdater.redrawPatternLineRow(player, row);
 
         // End turn
