@@ -81,9 +81,14 @@ class Game {
         let factoryCenter = this.factoryCenter;
         let wall = activePlayer.wall;
 
+        // If necessary, move starting player marker to FactoryCenter
         // Set the target Tiles
         // If necessary, clear and unselect the relevant FactoryDisplay
         // If necessary, clear and unselect the FactoryCenter
+        if (this.isFirstTakeThisRound()) {
+            let startingPlayerMarkerArray = activePlayer.floorLine.removeAll(99);
+            this.factoryCenter.add(startingPlayerMarkerArray[0]);
+        }
         this.factoryDisplays.forEach(fd => {
             if (fd.isSelected) {
                 targetTileValue = fd.selectedTileValue;
