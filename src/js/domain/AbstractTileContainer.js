@@ -31,7 +31,7 @@ class AbstractTileContainer {
     contains(tileValue) {
         let foundNeedle = false;
         this.tiles.forEach(tile => {
-            if(tile.value == tileValue) {
+            if(tile != null && tile.value == tileValue) {
                 foundNeedle = true;
             }
         });
