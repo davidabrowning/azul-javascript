@@ -99,6 +99,11 @@ class Game {
             }
         });
         if (factoryCenter.isSelected) {
+            if (factoryCenter.contains(99)) {
+                let startingPlayerMarkerArray = factoryCenter.removeAll(99);
+                activePlayer.floorLine.add(startingPlayerMarkerArray[0]);
+                console.log(activePlayer.floorLine);
+            }
             targetTileValue = factoryCenter.selectedTileValue;
             targetTiles = factoryCenter.removeAll(targetTileValue);
             factoryCenter.unselect();
