@@ -85,7 +85,7 @@ class UIUpdater {
         for (let tileNum = 0; tileNum < floorLine.penalties.length; tileNum++) {
             let floorLineTileDiv = document.querySelector("#floorline-tile-" + tileNum + "-p" + playerId);
             if (floorLine.tiles[tileNum] == null) {
-                floorLineTileDiv.classList.remove("tile-style-0", "tile-style-1", "tile-style-2", "tile-style-3", "tile-style-4");
+                floorLineTileDiv.classList.remove("tile-style-0", "tile-style-1", "tile-style-2", "tile-style-3", "tile-style-4", "tile-style-99");
                 floorLineTileDiv.classList.add("tile-style-empty");
             } else {
                 let tileValue = floorLine.tiles[tileNum].value;
