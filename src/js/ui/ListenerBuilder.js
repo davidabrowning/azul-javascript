@@ -67,7 +67,7 @@ class ListenerBuilder {
         })
     }
 
-    addFloorLineScoringTileEventListener(playerId) {
+    addFloorLineScoreSummaryTileListener(playerId) {
         let floorLineScoreDiv = document.querySelector("#floorline-score-tile-p" + playerId);
         floorLineScoreDiv.addEventListener("click", (event) => {
             this.controller.handleFloorLineScoringClick(playerId);
