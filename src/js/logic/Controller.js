@@ -39,24 +39,21 @@ class Controller {
         this.game.unselectAllTiles();
     }
 
+    selectFactoryDisplayTiles(factoryDisplayId, tileNum) {
+        let factoryDisplay = this.game.factoryDisplays[factoryDisplayId];
+        let tileValue = factoryDisplay.tiles[tileNum].value;
+        this.uiUpdater.addSelectedEffectFactoryDisplay(factoryDisplayId, tileValue);
+        factoryDisplay.select(tileValue);
+    }
+
     handleFactoryDisplayTileClick(factoryDisplayId, tileNum) {
         // Exit criteria
         if (this.game.factoryDisplays[factoryDisplayId].size() == 0) {
             return;
         }
 
-        // Unselect any previously selected tiles
         this.unselectAllTiles();
-
-        // Select these tiles
-        let factoryDisplay = this.game.factoryDisplays[factoryDisplayId];
-        let tile = factoryDisplay.tiles[tileNum];
-        let tileValue = tile.value;
-        this.uiUpdater.addSelectedEffectFactoryDisplay(factoryDisplayId, tileValue);
-        factoryDisplay.select(tileValue);
-
-
-        // Update printed instructions
+        this.selectFactoryDisplayTiles(factoryDisplayId, tileNum);
         this.uiUpdater.printPlaceTileMessage(this.game.players[this.game.activePlayerNum]);
     }
 
