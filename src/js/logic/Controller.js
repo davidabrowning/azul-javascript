@@ -46,6 +46,18 @@ class Controller {
         factoryDisplay.select(tileValue);
     }
 
+    selectFactoryCenterTiles(tileNum) {
+        let factoryCenter = this.game.factoryCenter;
+        let tile = factoryCenter.tiles[tileNum];
+        let tileValue = tile.value;
+        for (let i = 0; i < factoryCenter.size(); i++) {
+            if (factoryCenter.tiles[i].value == tileValue) {
+                this.uiUpdater.addSelectedEffectFactoryCenterTile(i);
+            }
+        }
+        factoryCenter.select(tileValue);
+    }
+
     handleFactoryDisplayTileClick(factoryDisplayId, tileNum) {
         // Exit criteria
         if (this.game.factoryDisplays[factoryDisplayId].size() == 0) {
@@ -63,21 +75,8 @@ class Controller {
             return;
         }
 
-        // Unselect any previously selected tiles
         this.unselectAllTiles();
-
-        // Select these tiles
-        let factoryCenter = this.game.factoryCenter;
-        let tile = factoryCenter.tiles[tileNum];
-        let tileValue = tile.value;
-        for (let i = 0; i < factoryCenter.size(); i++) {
-            if (factoryCenter.tiles[i].value == tileValue) {
-                this.uiUpdater.addSelectedEffectFactoryCenterTile(i);
-            }
-        }
-        factoryCenter.select(tileValue);
-
-        // Update printed instructions
+        this.selectFactoryCenterTiles(tileNum);
         this.uiUpdater.printPlaceTileMessage(this.game.players[this.game.activePlayerNum]);
     }
 
