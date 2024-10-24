@@ -144,11 +144,6 @@ class Controller {
         if (this.game.isRoundOver()) {
             this.prepareNextScoreConfirmation();
         }
-
-        // If necessary, end game
-        if (this.game.isGameOver()) {
-            alert("Game over!");
-        }
     }
 
     prepareNextScoreConfirmation() {
@@ -172,8 +167,13 @@ class Controller {
             }
         }
 
-        // Otherwise, start the next round
-        this.startNextRound();
+        // If necessary, end game
+        if (this.game.isGameOver()) {
+            alert("Game over!");
+        } else {
+            // Otherwise, start the next round
+            this.startNextRound();
+        }
     }
 
     addWallScoringTile(player, firstFullRow) {
