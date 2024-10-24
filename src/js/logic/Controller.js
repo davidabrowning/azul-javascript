@@ -195,9 +195,9 @@ class Controller {
         let tileValue = wall.targetTileValueByIndex(wallTileIndex);
         let patternLine = player.patternLine;
         let scoringRow = patternLine.firstFullRow();
+        let incrementalScore = wall.calculateIncrementalScore(tileValue, scoringRow);
 
         // Update score and score display
-        let incrementalScore = wall.calculateIncrementalScore(tileValue, scoringRow);
         player.addPoints(incrementalScore);
         this.uiUpdater.redrawScorepip(playerId, player.score);
 
