@@ -124,7 +124,13 @@ class Game {
     }
 
     isGameOver() {
-        return false;
+        let gameIsOver = false;
+        players.forEach(player => {
+            if (player.wall.hasACompletedRow()) {
+                gameIsOver = true;
+            }
+        });
+        return gameIsOver;
     }
 
     isRoundOver() {
