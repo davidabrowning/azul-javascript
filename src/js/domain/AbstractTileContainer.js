@@ -21,6 +21,10 @@ class AbstractTileContainer {
 
     /* Basic functions */
     add(tile) {
+        if (tile == null) {
+            console.log("Warning: Attempting to add null tile");
+            return;
+        }
         this.tiles.push(tile);
     }
     addMultiple(tileArray) {
@@ -31,7 +35,7 @@ class AbstractTileContainer {
     contains(tileValue) {
         let foundNeedle = false;
         this.tiles.forEach(tile => {
-            if(tile.value == tileValue) {
+            if(tile != null && tile.value == tileValue) {
                 foundNeedle = true;
             }
         });
@@ -70,7 +74,9 @@ class AbstractTileContainer {
     clear() {               // Removes all tiles
         let removedTiles = [];
         this.tiles.forEach(tile => {
-            removedTiles.push(tile);
+            if (tile != null) {
+                removedTiles.push(tile);
+            }
         });
         this.tiles = [];
         return removedTiles;

@@ -4,6 +4,16 @@ class FloorLine extends AbstractTileContainer {
         this.tiles = [null, null, null, null, null, null, null];
         this.penalties = [-1, -1, -2, -2, -2, -3, -3];
     }
+    add(tile) {
+        for (let i = 0; i < this.size(); i++) {
+            if (this.tiles[i] != null) {
+                continue;
+            }
+            this.tiles[i] = tile;
+            return true;
+        }
+        return false;
+    }
     addMultiple(tileArray) {
         for (let i = 0; i < this.size(); i++) {
             if (tileArray.length == 0) {

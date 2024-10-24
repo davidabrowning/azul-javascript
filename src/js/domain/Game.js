@@ -18,7 +18,7 @@ class Game {
         let newFactoryDisplayArray = [];
         let numFactoryDisplaysToCreate = 0;
         if (numPlayers == 2) {
-            numFactoryDisplaysToCreate = 1;
+            numFactoryDisplaysToCreate = 5;
         } else if (numPlayers == 3) {
             numFactoryDisplaysToCreate = 7;
         } else {
@@ -31,7 +31,7 @@ class Game {
     }
     assignStartingPlayerMarker() {
         let startingPlayerMarker = new Tile(99);
-        this.players[0].floorLine.tiles[0] = startingPlayerMarker;
+        this.factoryCenter.add(startingPlayerMarker);
     }
     dealTilesToFactoryDisplays() {
         this.factoryDisplays.forEach(factoryDisplay => {
@@ -81,9 +81,6 @@ class Game {
         let factoryCenter = this.factoryCenter;
         let wall = activePlayer.wall;
 
-        // Set the target Tiles
-        // If necessary, clear and unselect the relevant FactoryDisplay
-        // If necessary, clear and unselect the FactoryCenter
         this.factoryDisplays.forEach(fd => {
             if (fd.isSelected) {
                 targetTileValue = fd.selectedTileValue;
@@ -94,6 +91,10 @@ class Game {
             }
         });
         if (factoryCenter.isSelected) {
+            if (factoryCenter.contains(99)) {
+                let startingPlayerMarkerArray = factoryCenter.removeAll(99);
+                activePlayer.floorLine.add(startingPlayerMarkerArray[0]);
+            }
             targetTileValue = factoryCenter.selectedTileValue;
             targetTiles = factoryCenter.removeAll(targetTileValue);
             factoryCenter.unselect();
@@ -111,6 +112,15 @@ class Game {
 
     placeTilesOnFloorLine() {
         this.placeTilesOnPatternLine(-1);
+    }
+
+    isFirstTakeThisRound() {
+        for (let i = 0; i < this.factoryDisplays.length; i++) {
+            if (this.factoryDisplays[i].size() < 4) {
+                return false;
+            }
+        }
+        return true;
     }
 
     isGameOver() {
