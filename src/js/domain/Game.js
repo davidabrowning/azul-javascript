@@ -18,7 +18,7 @@ class Game {
         let newFactoryDisplayArray = [];
         let numFactoryDisplaysToCreate = 0;
         if (numPlayers == 2) {
-            numFactoryDisplaysToCreate = 1;
+            numFactoryDisplaysToCreate = 5;
         } else if (numPlayers == 3) {
             numFactoryDisplaysToCreate = 7;
         } else {
@@ -31,7 +31,7 @@ class Game {
     }
     assignStartingPlayerMarker() {
         let startingPlayerMarker = new Tile(99);
-        this.players[0].floorLine.tiles[0] = startingPlayerMarker;
+        this.factoryCenter.add(startingPlayerMarker);
     }
     dealTilesToFactoryDisplays() {
         this.factoryDisplays.forEach(factoryDisplay => {
@@ -81,14 +81,6 @@ class Game {
         let factoryCenter = this.factoryCenter;
         let wall = activePlayer.wall;
 
-        // If necessary, move starting player marker to FactoryCenter
-        // Set the target Tiles
-        // If necessary, clear and unselect the relevant FactoryDisplay
-        // If necessary, clear and unselect the FactoryCenter
-        if (this.isFirstTakeThisRound()) {
-            let startingPlayerMarkerArray = activePlayer.floorLine.removeAll(99);
-            this.factoryCenter.add(startingPlayerMarkerArray[0]);
-        }
         this.factoryDisplays.forEach(fd => {
             if (fd.isSelected) {
                 targetTileValue = fd.selectedTileValue;
@@ -102,7 +94,6 @@ class Game {
             if (factoryCenter.contains(99)) {
                 let startingPlayerMarkerArray = factoryCenter.removeAll(99);
                 activePlayer.floorLine.add(startingPlayerMarkerArray[0]);
-                console.log(activePlayer.floorLine);
             }
             targetTileValue = factoryCenter.selectedTileValue;
             targetTiles = factoryCenter.removeAll(targetTileValue);
