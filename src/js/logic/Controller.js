@@ -155,9 +155,6 @@ class Controller {
             let firstFullRow = patternLine.firstFullRow();
             let floorLine = player.floorLine;
 
-            console.log(player);
-            console.log(firstFullRow);
-
             // If this Player has row Tiles to score, add a Wall scoring tile
             // If this player has FloorLine penalty Tiles to score, add a FloorLine scoring tile
             if (firstFullRow != -1) {
