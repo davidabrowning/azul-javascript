@@ -62,7 +62,7 @@ function runWallTests(testRunner) {
 
     testTitle = "Wall has no completed horizontal rows initially";
     testWall = new Wall();
-    testRunner.assertEquals(testTitle, false, testWall.hasACompletedHorizontalRow());
+    testRunner.assertEquals(testTitle, false, testWall.hasACompletedRow());
 
     testTitle = "Wall has a completed row when one row is full";
     testWall = new Wall();
@@ -72,4 +72,39 @@ function runWallTests(testRunner) {
     testWall.tiles[13] = new Tile(0);
     testWall.tiles[14] = new Tile(0);
     testRunner.assertEquals(testTitle, true, testWall.hasACompletedRow());
+
+    testTitle = "Complete col is completed";
+    testWall = new Wall();
+    testWall.tiles[1] = new Tile(0);
+    testWall.tiles[6] = new Tile(0);
+    testWall.tiles[11] = new Tile(0);
+    testWall.tiles[16] = new Tile(0);
+    testWall.tiles[21] = new Tile(0);
+    testRunner.assertEquals(testTitle, true, testWall.colIsCompleted(1));
+
+    testTitle = "Incomplete col is not completed";
+    testWall = new Wall();
+    testWall.tiles[1] = new Tile(0);
+    testWall.tiles[6] = new Tile(0);
+    testWall.tiles[11] = new Tile(0);
+    testWall.tiles[16] = new Tile(0);
+    testRunner.assertEquals(testTitle, false, testWall.colIsCompleted(1));
+
+    testTitle = "Complete color is completed";
+    testWall = new Wall();
+    testWall.tiles[1] = new Tile(0);
+    testWall.tiles[7] = new Tile(0);
+    testWall.tiles[13] = new Tile(0);
+    testWall.tiles[19] = new Tile(0);
+    testWall.tiles[20] = new Tile(0);
+    testRunner.assertEquals(testTitle, true, testWall.colorIsCompleted(1));
+
+    testTitle = "Incomplete color is not completed";
+    testWall = new Wall();
+    testWall.tiles[1] = new Tile(0);
+    testWall.tiles[7] = new Tile(0);
+    testWall.tiles[13] = new Tile(0);
+    testWall.tiles[19] = new Tile(0);
+    testWall.tiles[24] = new Tile(0);
+    testRunner.assertEquals(testTitle, false, testWall.colorIsCompleted(1));
 }
