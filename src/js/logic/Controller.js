@@ -93,6 +93,8 @@ class Controller {
         //  - If not this Player's turn
         //  - If no Tiles are selected
         //  - If the selectedTile(s) cannot be placed on this row
+        //  - If this round id over
+        //  - If this game is over
         if (playerId != activePlayerId) {
             return; 
         }
@@ -100,6 +102,12 @@ class Controller {
             return;
         }
         if (targetPatternLine.canPlaceTileValue(selectedTileValue, row, wall) == false) {
+        if (this.game.isRoundOver()) {
+            return;
+        }
+        if (this.game.isGameOver()) {
+            return;
+        }
             return;
         }
 
