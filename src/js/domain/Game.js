@@ -1,6 +1,7 @@
 class Game {
     constructor(numPlayers) {
         this.tileBag = new TileBag();
+        this.tileTrash = new TileTrash();
         this.players = this.generatePlayers(numPlayers);
         this.activePlayerNum = 0;
         this.factoryDisplays = this.generateFactoryDisplays(numPlayers);
