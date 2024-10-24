@@ -102,12 +102,12 @@ class Controller {
             return;
         }
         if (targetPatternLine.canPlaceTileValue(selectedTileValue, row, wall) == false) {
+            return;
+        }
         if (this.game.isRoundOver()) {
             return;
         }
         if (this.game.isGameOver()) {
-            return;
-        }
             return;
         }
 
