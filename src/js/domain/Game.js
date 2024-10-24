@@ -37,6 +37,10 @@ class Game {
     dealTilesToFactoryDisplays() {
         this.factoryDisplays.forEach(factoryDisplay => {
             for (let i = 0; i < 4; i++) {
+                if (this.tileBag.size() == 0) {
+                    let recycledTiles = this.tileTrash.clear();
+                    this.tileBag.addMultiple(recycledTiles);
+                }
                 let tile = this.tileBag.drawTile();
                 factoryDisplay.add(tile);
             }
