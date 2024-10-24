@@ -205,7 +205,7 @@ class Controller {
         let clearedTiles = patternLine.clearRow(scoringRow);
         this.uiUpdater.redrawPatternLineRow(player, scoringRow);
         wall.place(clearedTiles.pop(), scoringRow);
-        this.game.tileBag.addMultiple(clearedTiles);
+        this.game.tileTrash.addMultiple(clearedTiles);
         this.uiUpdater.redrawWallTile(playerId, wallTileIndex, tileValue);
 
         // Prepare next score confirmation
@@ -248,7 +248,7 @@ class Controller {
             this.redrawBoard();
         }
         player.addPoints(scorePenalty);
-        this.game.tileBag.addMultiple(player.floorLine.clear());
+        this.game.tileTrash.addMultiple(player.floorLine.clear());
         this.uiUpdater.redrawScorepip(playerId, player.score);
         this.uiUpdater.redrawFloorLine(player);
         this.uiRemover.removeFloorLineScoreSummaryTile(playerId);

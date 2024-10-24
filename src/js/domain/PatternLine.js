@@ -55,6 +55,7 @@ class PatternLine extends AbstractTileContainer {
                 if (this.tiles[7] == null) { return 1; }
                 if (this.tiles[8] == null) { return 2; }
                 if (this.tiles[9] == null) { return 3; }
+                return 4;
             case 4:
                 if (this.tiles[10] == null) { return 0; }
                 if (this.tiles[11] == null) { return 1; }
