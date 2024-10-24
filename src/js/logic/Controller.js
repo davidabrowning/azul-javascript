@@ -144,6 +144,11 @@ class Controller {
         if (this.game.isRoundOver()) {
             this.prepareNextScoreConfirmation();
         }
+
+        // If necessary, end game
+        if (this.game.isGameOver()) {
+            alert("Game over!");
+        }
     }
 
     prepareNextScoreConfirmation() {

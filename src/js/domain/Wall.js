@@ -119,4 +119,21 @@ class Wall {
         let tileIndex = this.targetTileIndexByRow(tileValue, row);
         this.tiles[tileIndex] = tile;
     }
+    hasACompletedRow() {
+        for (let row = 0; row < 5; row++) {
+            if (this.rowIsCompleted(row)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    rowIsCompleted(rowNum) {
+        let startIndex = rowNum * 5;
+        for (let i = startIndex; i < startIndex + 5; i++) {
+            if (this.tiles[i] == null) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

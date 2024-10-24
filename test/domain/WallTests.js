@@ -59,4 +59,17 @@ function runWallTests(testRunner) {
     testWall.tiles[19] = new Tile(0);
     testWall.tiles[23] = new Tile(0);
     testRunner.assertEquals(testTitle, 6, testWall.calculateIncrementalScore(0, 3));
+
+    testTitle = "Wall has no completed horizontal rows initially";
+    testWall = new Wall();
+    testRunner.assertEquals(testTitle, false, testWall.hasACompletedHorizontalRow());
+
+    testTitle = "Wall has a completed row when one row is full";
+    testWall = new Wall();
+    testWall.tiles[10] = new Tile(0);
+    testWall.tiles[11] = new Tile(0);
+    testWall.tiles[12] = new Tile(0);
+    testWall.tiles[13] = new Tile(0);
+    testWall.tiles[14] = new Tile(0);
+    testRunner.assertEquals(testTitle, true, testWall.hasACompletedRow());
 }
