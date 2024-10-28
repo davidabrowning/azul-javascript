@@ -67,6 +67,8 @@ class ClickRouter {
 
         this.controller.placeTilesOnFloorLineAndEndTurn();
     }
-    
 
+    handleFloorLineScoringClick(playerId) {
+        this.controller.scoreTheFloorLine(playerId);
+    }
 }

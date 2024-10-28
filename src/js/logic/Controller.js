@@ -186,7 +186,7 @@ class Controller {
         this.prepareNextScoreConfirmation();
     }
 
-    handleFloorLineScoringClick(playerId) {
+    scoreTheFloorLine(playerId) {
         let player = this.game.players[playerId];
         let floorLine = player.floorLine;
         let scorePenalty = floorLine.calculateScore();
