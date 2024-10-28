@@ -71,34 +71,11 @@ class Controller {
         this.uiUpdater.printPlaceTileMessage(this.game.players[this.game.activePlayerNum]);        
     }
 
-    handlePatternLineRowClick(player, row) {
-
-        // Variables
-        let playerId = player.id;
-        let activePlayerId = this.game.activePlayerNum;
-        let selectedTileValue = this.game.getSelectedTileValue();
-        let targetPatternLine = player.patternLine;
-        let factoryCenter = this.game.factoryCenter;
-        let wall = player.wall;
-
-        // Exit criteria:
-        //  - If not this Player's turn
-        //  - If no Tiles are selected
-        //  - If the selectedTile(s) cannot be placed on this row
-        if (playerId != activePlayerId) {
-            return; 
-        }
-        if (selectedTileValue == -1) {
-            return;
-        }
-        if (targetPatternLine.canPlaceTileValue(selectedTileValue, row, wall) == false) {
-            return;
-        }
-
+    placeTilesOnPatternLineAndEndTurn(rowNum) {
         // Place tiles, redraw board, and end turn
         this.game.placeTilesOnPatternLine(row);
         this.redrawBoard();
-        this.endTurn();
+        this.endTurn();        
     }
 
     redrawBoard() {
