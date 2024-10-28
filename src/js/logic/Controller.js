@@ -65,15 +65,10 @@ class Controller {
         this.uiUpdater.printPlaceTileMessage(this.game.players[this.game.activePlayerNum]);
     }
 
-    handleFactoryCenterTileClick(tileNum) {
-        // Exit criteria
-        if (this.game.factoryCenter.size() == 0) {
-            return;
-        }
-
+    updateSelectedTilesToFactoryCenter(tileNum) {
         this.unselectAllTiles();
         this.selectFactoryCenterTiles(tileNum);
-        this.uiUpdater.printPlaceTileMessage(this.game.players[this.game.activePlayerNum]);
+        this.uiUpdater.printPlaceTileMessage(this.game.players[this.game.activePlayerNum]);        
     }
 
     handlePatternLineRowClick(player, row) {
