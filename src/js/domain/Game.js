@@ -70,7 +70,7 @@ class Game {
         this.factoryDisplays.forEach(factoryDisplay => {
             factoryDisplay.unselect();
         });
-        this.factoryCenter.unselect();        
+        this.factoryCenter.unselect();
     }
 
     placeTilesOnPatternLine(targetRow) {
