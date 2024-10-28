@@ -5,6 +5,7 @@ class Controller {
         this.uiUpdater = null;
         this.listenerBuilder = null;
         this.listenerRemover = null;
+        this.clickRouter = null;
         this.game = null;
     }
 
@@ -16,6 +17,7 @@ class Controller {
         this.uiUpdater = new UIUpdater();
         this.listenerBuilder = new ListenerBuilder(this);
         this.listenerRemover = new ListenerRemover(this);
+        this.clickRouter = new ClickRouter(this, this.game);
         this.game = new Game(2);
 
         // Build game UI
@@ -57,12 +59,7 @@ class Controller {
         factoryCenter.select(tileValue);
     }
 
-    handleFactoryDisplayTileClick(factoryDisplayId, tileNum) {
-        // Exit criteria
-        if (this.game.factoryDisplays[factoryDisplayId].size() == 0) {
-            return;
-        }
-
+    updateSelectedTilesToFactoryDisplay(factoryDisplayId, tileNum) {
         this.unselectAllTiles();
         this.selectFactoryDisplayTiles(factoryDisplayId, tileNum);
         this.uiUpdater.printPlaceTileMessage(this.game.players[this.game.activePlayerNum]);
