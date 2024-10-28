@@ -12,13 +12,13 @@ class Controller {
     // startSession() is the general entry point for the program
     startSession() {
         // Initialize properties
+        this.game = new Game(2);
         this.uiBuilder = new UIBuilder();
         this.uiRemover = new UIRemover();
         this.uiUpdater = new UIUpdater();
-        this.listenerBuilder = new ListenerBuilder(this);
+        this.clickRouter = new ClickRouter(this, this.game);        
+        this.listenerBuilder = new ListenerBuilder(this.clickRouter);
         this.listenerRemover = new ListenerRemover(this);
-        this.clickRouter = new ClickRouter(this, this.game);
-        this.game = new Game(2);
 
         // Build game UI
         this.uiBuilder.buildUI(this.game);
@@ -72,7 +72,7 @@ class Controller {
     }
 
     placeTilesOnPatternLineAndEndTurn(rowNum) {
-        this.game.placeTilesOnPatternLine(row);
+        this.game.placeTilesOnPatternLine(rowNum);
         this.redrawBoard();
         this.endTurn();        
     }
