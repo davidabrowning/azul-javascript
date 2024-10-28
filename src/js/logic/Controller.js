@@ -72,10 +72,15 @@ class Controller {
     }
 
     placeTilesOnPatternLineAndEndTurn(rowNum) {
-        // Place tiles, redraw board, and end turn
         this.game.placeTilesOnPatternLine(row);
         this.redrawBoard();
         this.endTurn();        
+    }
+
+    placeTilesOnFloorLineAndEndTurn() {
+        this.game.placeTilesOnFloorLine();
+        this.redrawBoard();
+        this.endTurn();
     }
 
     redrawBoard() {
@@ -179,24 +184,6 @@ class Controller {
 
         // Prepare next score confirmation
         this.prepareNextScoreConfirmation();
-    }
-
-    handleFloorLineClick(playerId) {
-        let player = this.game.players[playerId];
-        let activePlayerId = this.game.activePlayerNum;
-        let selectedTileValue = this.game.getSelectedTileValue();
-
-        // Exit criteria
-        if (playerId != activePlayerId) {
-            return; // If not this Player's turn
-        }
-        if (selectedTileValue == -1) {
-            return; // If no Tiles are selected
-        }
-
-        this.game.placeTilesOnFloorLine();
-        this.redrawBoard();
-        this.endTurn();
     }
 
     handleFloorLineScoringClick(playerId) {

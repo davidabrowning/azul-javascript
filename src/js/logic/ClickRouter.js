@@ -49,26 +49,23 @@ class ClickRouter {
     }
 
     handleWallScoringTileClick(playerId, wallTileIndex) {
+        this.controller.moveTilesFromPatternLineToWall(playerId, wallTileIndex);
+    }
+
+    handleFloorLineClick(playerId) {
         let player = this.game.players[playerId];
-        let wall = player.wall;
-        let tileValue = wall.targetTileValueByIndex(wallTileIndex);
-        let patternLine = player.patternLine;
-        let scoringRow = patternLine.firstFullRow();
-        let incrementalScore = wall.calculateIncrementalScore(tileValue, scoringRow);
+        let activePlayerId = this.game.activePlayerNum;
+        let selectedTileValue = this.game.getSelectedTileValue();
 
-        // Update score and score display
-        player.addPoints(incrementalScore);
-        this.uiUpdater.redrawScorepip(playerId, player.score);
+        // Exit criteria
+        if (playerId != activePlayerId) {
+            return; // If not this Player's turn
+        }
+        if (selectedTileValue == -1) {
+            return; // If no Tiles are selected
+        }
 
-        // Update pattern line, wall, and wall display
-        let clearedTiles = patternLine.clearRow(scoringRow);
-        this.uiUpdater.redrawPatternLineRow(player, scoringRow);
-        wall.place(clearedTiles.pop(), scoringRow);
-        this.game.tileBag.addMultiple(clearedTiles);
-        this.uiUpdater.redrawWallTile(playerId, wallTileIndex, tileValue);
-
-        // Prepare next score confirmation
-        this.prepareNextScoreConfirmation();
+        this.controller.placeTilesOnFloorLineAndEndTurn();
     }
     
 
