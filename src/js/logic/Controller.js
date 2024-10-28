@@ -158,7 +158,7 @@ class Controller {
         this.listenerBuilder.addFloorLineScoreSummaryTileListener(player.id);
     }
 
-    handleWallScoringTileClick(playerId, wallTileIndex) {
+    moveTilesFromPatternLineToWall(playerId, wallTileIndex) {
         let player = this.game.players[playerId];
         let wall = player.wall;
         let tileValue = wall.targetTileValueByIndex(wallTileIndex);

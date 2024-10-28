@@ -47,6 +47,29 @@ class ClickRouter {
 
         this.controller.placeTilesOnPatternLineAndEndTurn(rowNum);
     }
+
+    handleWallScoringTileClick(playerId, wallTileIndex) {
+        let player = this.game.players[playerId];
+        let wall = player.wall;
+        let tileValue = wall.targetTileValueByIndex(wallTileIndex);
+        let patternLine = player.patternLine;
+        let scoringRow = patternLine.firstFullRow();
+        let incrementalScore = wall.calculateIncrementalScore(tileValue, scoringRow);
+
+        // Update score and score display
+        player.addPoints(incrementalScore);
+        this.uiUpdater.redrawScorepip(playerId, player.score);
+
+        // Update pattern line, wall, and wall display
+        let clearedTiles = patternLine.clearRow(scoringRow);
+        this.uiUpdater.redrawPatternLineRow(player, scoringRow);
+        wall.place(clearedTiles.pop(), scoringRow);
+        this.game.tileBag.addMultiple(clearedTiles);
+        this.uiUpdater.redrawWallTile(playerId, wallTileIndex, tileValue);
+
+        // Prepare next score confirmation
+        this.prepareNextScoreConfirmation();
+    }
     
 
 }
