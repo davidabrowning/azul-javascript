@@ -1,0 +1,2 @@
+class TileTrash extends AbstractTileContainer {
+}
