@@ -12,6 +12,9 @@ class Wall {
                         3, 4, 0, 1, 2,
                         2, 3, 4, 0, 1,
                         1, 2, 3, 4, 0 ];
+        this.rowBonuses = [0, 0, 0, 0, 0];
+        this.colBonuses = [0, 0, 0, 0, 0];
+        this.colorBonuses = [0, 0, 0, 0, 0];
     }
     placedTileValueByIndex(placedTileIndex) {
         return this.tiles[placedTileIndex];
@@ -118,5 +121,89 @@ class Wall {
         let tileValue = tile.value;
         let tileIndex = this.targetTileIndexByRow(tileValue, row);
         this.tiles[tileIndex] = tile;
+    }
+    hasACompletedRow() {
+        for (let row = 0; row < 5; row++) {
+            if (this.rowIsCompleted(row)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    rowIsCompleted(rowNum) {
+        let startIndex = rowNum * 5;
+        for (let i = startIndex; i < startIndex + 5; i++) {
+            if (this.tiles[i] == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+    colIsCompleted(colNum) {
+        let startIndex = colNum;
+        for (let i = colNum; i < 25; i+= 5) {
+            if (this.tiles[i] == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+    colorIsCompleted(colorNum) {
+        switch(colorNum) {
+            case 0:
+                if (this.tiles[0] == null) { return false; }
+                if (this.tiles[6] == null) { return false; }
+                if (this.tiles[12] == null) { return false; }
+                if (this.tiles[18] == null) { return false; }
+                if (this.tiles[24] == null) { return false; }
+                return true;
+            case 1:
+                if (this.tiles[1] == null) { return false; }
+                if (this.tiles[7] == null) { return false; }
+                if (this.tiles[13] == null) { return false; }
+                if (this.tiles[19] == null) { return false; }
+                if (this.tiles[20] == null) { return false; }
+                return true;                
+            case 2:
+                if (this.tiles[2] == null) { return false; }
+                if (this.tiles[8] == null) { return false; }
+                if (this.tiles[14] == null) { return false; }
+                if (this.tiles[15] == null) { return false; }
+                if (this.tiles[21] == null) { return false; }
+                return true;                
+            case 3:
+                if (this.tiles[3] == null) { return false; }
+                if (this.tiles[9] == null) { return false; }
+                if (this.tiles[10] == null) { return false; }
+                if (this.tiles[16] == null) { return false; }
+                if (this.tiles[22] == null) { return false; }
+                return true;                
+            case 4:
+                if (this.tiles[4] == null) { return false; }
+                if (this.tiles[5] == null) { return false; }
+                if (this.tiles[11] == null) { return false; }
+                if (this.tiles[17] == null) { return false; }
+                if (this.tiles[23] == null) { return false; }
+                return true;
+            default:
+                return false;                
+        }
+    }
+    calculateBonuses() {
+        for (let row = 0; row < 5; row++) {
+            if (this.rowIsCompleted(row)) {
+                this.rowBonuses[row] = 2;
+            }
+        }
+        for (let col = 0; col < 5; col++) {
+            if (this.colIsCompleted(col)) {
+                this.colBonuses[col] = 7;
+            }
+        }
+        for (let color = 0; color < 5; color++) {
+            if (this.colorIsCompleted(color)) {
+                this.colorBonuses[color] = 10;
+            }
+        }
     }
 }

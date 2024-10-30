@@ -105,6 +105,7 @@ footer { background-color: lightgreen; }
     display: flex;
 }
 .scorepip {
+    min-height: 1rem;
     border: 1px solid black;
     flex: 1 1;
     padding-top: 0.25rem;

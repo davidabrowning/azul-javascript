@@ -140,8 +140,22 @@ class Controller {
             }
         }
 
-        // Otherwise, start the next round
-        this.startNextRound();
+        // If necessary, end game
+        if (this.game.isGameOver()) {
+            this.scoreGameEnd();
+        } else {
+            // Otherwise, start the next round
+            this.startNextRound();
+        }
+    }
+
+    scoreGameEnd() {
+        alert("Good game! Calculating game-end bonuses.");
+
+        this.game.players.forEach(player => {
+            player.wall.calculateBonuses();
+            console.log(player);
+        });
     }
 
     addWallScoringTile(player, firstFullRow) {
