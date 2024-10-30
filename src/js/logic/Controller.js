@@ -7,12 +7,14 @@ class Controller {
         this.listenerRemover = null;
         this.clickRouter = null;
         this.game = null;
+        this.gameLogic = null;
     }
 
     // startSession() is the general entry point for the program
     startSession() {
         // Initialize properties
         this.game = new Game(2);
+        this.gameLogic = this.game.gameLogic;
         this.uiBuilder = new UIBuilder();
         this.uiRemover = new UIRemover();
         this.uiUpdater = new UIUpdater();
@@ -27,11 +29,9 @@ class Controller {
     }
 
     startNextRound() {
-        // Deal Tiles
-        this.game.dealTilesToFactoryDisplays();
+        this.gameLogic.dealTilesToFactoryDisplays();
         this.uiUpdater.redrawFactoryDisplays(this.game.factoryDisplays);
 
-        // Update take tile message active player
         this.uiUpdater.printTakeTileMessage(this.game.players[this.game.activePlayerNum]);
     }
 
@@ -43,20 +43,22 @@ class Controller {
     selectFactoryDisplayTiles(factoryDisplayId, tileNum) {
         let factoryDisplay = this.game.factoryDisplays[factoryDisplayId];
         let tileValue = factoryDisplay.tiles[tileNum].value;
+
+        this.game.selectFactoryDisplay(factoryDisplayId, tileValue);
         this.uiUpdater.addSelectedEffectFactoryDisplay(factoryDisplayId, tileValue);
-        factoryDisplay.select(tileValue);
     }
 
     selectFactoryCenterTiles(tileNum) {
         let factoryCenter = this.game.factoryCenter;
         let tile = factoryCenter.tiles[tileNum];
         let tileValue = tile.value;
+
+        factoryCenter.select(tileValue);
         for (let i = 0; i < factoryCenter.size(); i++) {
             if (factoryCenter.tiles[i].value == tileValue) {
                 this.uiUpdater.addSelectedEffectFactoryCenterTile(i);
             }
         }
-        factoryCenter.select(tileValue);
     }
 
     updateSelectedTilesToFactoryDisplay(factoryDisplayId, tileNum) {
@@ -72,19 +74,20 @@ class Controller {
     }
 
     placeTilesOnPatternLineAndEndTurn(rowNum) {
-        this.game.placeTilesOnPatternLine(rowNum);
+        this.gameLogic.placeTilesOnPatternLine(rowNum);
         this.redrawBoard();
         this.endTurn();        
     }
 
     placeTilesOnFloorLineAndEndTurn() {
-        this.game.placeTilesOnFloorLine();
+        this.gameLogic.placeTilesOnFloorLine();
         this.redrawBoard();
         this.endTurn();
     }
 
     redrawBoard() {
         let player = this.game.players[this.game.activePlayerNum];
+        let factoryDisplays = this.game.factoryDisplays;
         let factoryCenter = this.game.factoryCenter;
 
         // Redraw:
@@ -92,11 +95,7 @@ class Controller {
         //  - FactoryCenter
         //  - PatternLines
         //  - FloorLine
-        this.game.factoryDisplays.forEach(fd => {
-            if (fd.isEmpty()) {
-                this.uiUpdater.redrawEmptyFactoryDisplay(fd.id);
-            }
-        });
+        this.uiUpdater.redrawFactoryDisplays(factoryDisplays);
         this.uiRemover.resetFactoryCenter();
         for (let i = 0; i < factoryCenter.size(); i++) {
             let tile = factoryCenter.tiles[i];
@@ -111,7 +110,7 @@ class Controller {
 
     endTurn() {
         // End turn
-        this.game.endTurn();
+        this.gameLogic.endTurn();
         this.uiUpdater.printTakeTileMessage(this.game.players[this.game.activePlayerNum]);
 
         // If necessary, end round

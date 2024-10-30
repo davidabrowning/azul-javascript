@@ -15,7 +15,11 @@ class UIUpdater {
     redrawFactoryDisplays(factoryDisplays) {
         factoryDisplays.forEach(factoryDisplay => {
             for(let i = 0; i < 4; i++) {
-                this.redrawFactoryDisplayTile(factoryDisplay.id, i, factoryDisplay.tiles[i].value);
+                if (factoryDisplay.tiles[i] != null) {
+                    this.redrawFactoryDisplayTile(factoryDisplay.id, i, factoryDisplay.tiles[i].value);
+                } else {
+                    this.redrawEmptyFactoryDisplayTile(factoryDisplay.id, i);
+                }
             }
         });
     }
@@ -26,13 +30,11 @@ class UIUpdater {
         tileDiv.classList.add("tile-style-" + tileValue);
     }
 
-    redrawEmptyFactoryDisplay(factoryDisplayId) {
-        for (let i = 0; i < 4; i++) {            
-            let tileDiv = document.querySelector("#factory-display-" + factoryDisplayId + "-tile-" + i);
-            tileDiv.classList.remove("tile-selected");
-            tileDiv.classList.remove("tile-style-0", "tile-style-1", "tile-style-2", "tile-style-3", "tile-style-4");
-            tileDiv.classList.add("tile-style-empty", "tile-style-faded");
-        }
+    redrawEmptyFactoryDisplayTile(factoryDisplayId, tileNum) {         
+        let tileDiv = document.querySelector("#factory-display-" + factoryDisplayId + "-tile-" + tileNum);
+        tileDiv.classList.remove("tile-selected");
+        tileDiv.classList.remove("tile-style-0", "tile-style-1", "tile-style-2", "tile-style-3", "tile-style-4");
+        tileDiv.classList.add("tile-style-empty", "tile-style-faded");
     }
 
     redrawScorepip(playerId, playerPoints) {
