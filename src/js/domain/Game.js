@@ -1,56 +1,13 @@
 class Game {
     constructor(numPlayers) {
+        this.gameLogic = new GameLogic(this);
         this.tileBag = new TileBag();
         this.tileTrash = new TileTrash();
-        this.players = this.generatePlayers(numPlayers);
+        this.players = this.gameLogic.generatePlayers(numPlayers);
         this.activePlayerNum = 0;
-        this.factoryDisplays = this.generateFactoryDisplays(numPlayers);
+        this.factoryDisplays = this.gameLogic.generateFactoryDisplays(numPlayers);
         this.factoryCenter = new FactoryCenter();
-        this.assignStartingPlayerMarker();
-    }
-    generatePlayers(numPlayers) {
-        let newPlayerArray = [];
-        for (let i = 0; i < numPlayers; i++) {
-            newPlayerArray.push(new Player(i));
-        }
-        return newPlayerArray;
-    }
-    generateFactoryDisplays(numPlayers) {
-        let newFactoryDisplayArray = [];
-        let numFactoryDisplaysToCreate = 0;
-        if (numPlayers == 2) {
-            numFactoryDisplaysToCreate = 5;
-        } else if (numPlayers == 3) {
-            numFactoryDisplaysToCreate = 7;
-        } else {
-            numFactoryDisplaysToCreate = 9;
-        }
-        for (let i = 0; i < numFactoryDisplaysToCreate; i++) {
-            newFactoryDisplayArray.push(new FactoryDisplay(i));
-        }
-        return newFactoryDisplayArray;
-    }
-    assignStartingPlayerMarker() {
-        let startingPlayerMarker = new Tile(99);
-        this.factoryCenter.add(startingPlayerMarker);
-    }
-    dealTilesToFactoryDisplays() {
-        this.factoryDisplays.forEach(factoryDisplay => {
-            for (let i = 0; i < 4; i++) {
-                if (this.tileBag.size() == 0) {
-                    let recycledTiles = this.tileTrash.clear();
-                    this.tileBag.addMultiple(recycledTiles);
-                }
-                let tile = this.tileBag.drawTile();
-                factoryDisplay.add(tile);
-            }
-        });
-    }
-    endTurn() {
-        this.activePlayerNum++;
-        if (this.activePlayerNum == this.players.length) {
-            this.activePlayerNum = 0;
-        }
+        this.gameLogic.assignStartingPlayerMarker();
     }
 
     getSelectedTileValue() {
@@ -66,57 +23,16 @@ class Game {
         return selectedTileValue;
     }
 
+    selectFactoryDisplay(factoryDisplayId, tileValue) {
+        let factoryDisplay = this.factoryDisplays[factoryDisplayId];
+        factoryDisplay.select(tileValue);
+    }
+
     unselectAllTiles() {
         this.factoryDisplays.forEach(factoryDisplay => {
             factoryDisplay.unselect();
         });
         this.factoryCenter.unselect();
-    }
-
-    placeTilesOnPatternLine(targetRow) {
-        // Exit criteria
-        if (this.getSelectedTileValue() == -1) {
-            return;
-        }
-
-        let activePlayer = this.players[this.activePlayerNum];
-        let targetTileValue = -1;
-        let targetTiles = [];
-        let droppedTiles = [];
-        let factoryCenter = this.factoryCenter;
-        let wall = activePlayer.wall;
-
-        this.factoryDisplays.forEach(fd => {
-            if (fd.isSelected) {
-                targetTileValue = fd.selectedTileValue;
-                targetTiles = fd.removeAll(targetTileValue);
-                let extraTiles = fd.clear();
-                this.factoryCenter.addMultiple(extraTiles);
-                fd.unselect();
-            }
-        });
-        if (factoryCenter.isSelected) {
-            if (factoryCenter.contains(99)) {
-                let startingPlayerMarkerArray = factoryCenter.removeAll(99);
-                activePlayer.floorLine.add(startingPlayerMarkerArray[0]);
-            }
-            targetTileValue = factoryCenter.selectedTileValue;
-            targetTiles = factoryCenter.removeAll(targetTileValue);
-            factoryCenter.unselect();
-        }
-
-        // If the target is the FloorLine, then drop all Tiles
-        // Else place Tiles and drop any remaining Tiles
-        if (targetRow == -1) {
-            droppedTiles = targetTiles;
-        } else {
-            droppedTiles = activePlayer.patternLine.place(targetTiles, targetRow, wall);
-        }
-        activePlayer.floorLine.addMultiple(droppedTiles);
-    }
-
-    placeTilesOnFloorLine() {
-        this.placeTilesOnPatternLine(-1);
     }
 
     isFirstTakeThisRound() {
