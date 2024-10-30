@@ -5,18 +5,22 @@ class Controller {
         this.uiUpdater = null;
         this.listenerBuilder = null;
         this.listenerRemover = null;
+        this.clickRouter = null;
         this.game = null;
+        this.gameLogic = null;
     }
 
     // startSession() is the general entry point for the program
     startSession() {
         // Initialize properties
+        this.game = new Game(2);
+        this.gameLogic = this.game.gameLogic;
         this.uiBuilder = new UIBuilder();
         this.uiRemover = new UIRemover();
         this.uiUpdater = new UIUpdater();
-        this.listenerBuilder = new ListenerBuilder(this);
+        this.clickRouter = new ClickRouter(this, this.game);        
+        this.listenerBuilder = new ListenerBuilder(this.clickRouter);
         this.listenerRemover = new ListenerRemover(this);
-        this.game = new Game(2);
 
         // Build game UI
         this.uiBuilder.buildUI(this.game);
@@ -25,11 +29,9 @@ class Controller {
     }
 
     startNextRound() {
-        // Deal Tiles
-        this.game.dealTilesToFactoryDisplays();
+        this.gameLogic.dealTilesToFactoryDisplays();
         this.uiUpdater.redrawFactoryDisplays(this.game.factoryDisplays);
 
-        // Update take tile message active player
         this.uiUpdater.printTakeTileMessage(this.game.players[this.game.activePlayerNum]);
     }
 
@@ -41,84 +43,51 @@ class Controller {
     selectFactoryDisplayTiles(factoryDisplayId, tileNum) {
         let factoryDisplay = this.game.factoryDisplays[factoryDisplayId];
         let tileValue = factoryDisplay.tiles[tileNum].value;
+
+        this.game.selectFactoryDisplay(factoryDisplayId, tileValue);
         this.uiUpdater.addSelectedEffectFactoryDisplay(factoryDisplayId, tileValue);
-        factoryDisplay.select(tileValue);
     }
 
     selectFactoryCenterTiles(tileNum) {
         let factoryCenter = this.game.factoryCenter;
         let tile = factoryCenter.tiles[tileNum];
         let tileValue = tile.value;
+
+        factoryCenter.select(tileValue);
         for (let i = 0; i < factoryCenter.size(); i++) {
             if (factoryCenter.tiles[i].value == tileValue) {
                 this.uiUpdater.addSelectedEffectFactoryCenterTile(i);
             }
         }
-        factoryCenter.select(tileValue);
     }
 
-    handleFactoryDisplayTileClick(factoryDisplayId, tileNum) {
-        // Exit criteria
-        if (this.game.factoryDisplays[factoryDisplayId].size() == 0) {
-            return;
-        }
-
+    updateSelectedTilesToFactoryDisplay(factoryDisplayId, tileNum) {
         this.unselectAllTiles();
         this.selectFactoryDisplayTiles(factoryDisplayId, tileNum);
         this.uiUpdater.printPlaceTileMessage(this.game.players[this.game.activePlayerNum]);
     }
 
-    handleFactoryCenterTileClick(tileNum) {
-        // Exit criteria
-        if (this.game.factoryCenter.size() == 0) {
-            return;
-        }
-
+    updateSelectedTilesToFactoryCenter(tileNum) {
         this.unselectAllTiles();
         this.selectFactoryCenterTiles(tileNum);
-        this.uiUpdater.printPlaceTileMessage(this.game.players[this.game.activePlayerNum]);
+        this.uiUpdater.printPlaceTileMessage(this.game.players[this.game.activePlayerNum]);        
     }
 
-    handlePatternLineRowClick(player, row) {
+    placeTilesOnPatternLineAndEndTurn(rowNum) {
+        this.gameLogic.placeTilesOnPatternLine(rowNum);
+        this.redrawBoard();
+        this.endTurn();        
+    }
 
-        // Variables
-        let playerId = player.id;
-        let activePlayerId = this.game.activePlayerNum;
-        let selectedTileValue = this.game.getSelectedTileValue();
-        let targetPatternLine = player.patternLine;
-        let factoryCenter = this.game.factoryCenter;
-        let wall = player.wall;
-
-        // Exit criteria:
-        //  - If not this Player's turn
-        //  - If no Tiles are selected
-        //  - If the selectedTile(s) cannot be placed on this row
-        //  - If this round id over
-        //  - If this game is over
-        if (playerId != activePlayerId) {
-            return; 
-        }
-        if (selectedTileValue == -1) {
-            return;
-        }
-        if (targetPatternLine.canPlaceTileValue(selectedTileValue, row, wall) == false) {
-            return;
-        }
-        if (this.game.isRoundOver()) {
-            return;
-        }
-        if (this.game.isGameOver()) {
-            return;
-        }
-
-        // Place tiles, redraw board, and end turn
-        this.game.placeTilesOnPatternLine(row);
+    placeTilesOnFloorLineAndEndTurn() {
+        this.gameLogic.placeTilesOnFloorLine();
         this.redrawBoard();
         this.endTurn();
     }
 
     redrawBoard() {
         let player = this.game.players[this.game.activePlayerNum];
+        let factoryDisplays = this.game.factoryDisplays;
         let factoryCenter = this.game.factoryCenter;
 
         // Redraw:
@@ -126,11 +95,7 @@ class Controller {
         //  - FactoryCenter
         //  - PatternLines
         //  - FloorLine
-        this.game.factoryDisplays.forEach(fd => {
-            if (fd.isEmpty()) {
-                this.uiUpdater.redrawEmptyFactoryDisplay(fd.id);
-            }
-        });
+        this.uiUpdater.redrawFactoryDisplays(factoryDisplays);
         this.uiRemover.resetFactoryCenter();
         for (let i = 0; i < factoryCenter.size(); i++) {
             let tile = factoryCenter.tiles[i];
@@ -145,7 +110,7 @@ class Controller {
 
     endTurn() {
         // End turn
-        this.game.endTurn();
+        this.gameLogic.endTurn();
         this.uiUpdater.printTakeTileMessage(this.game.players[this.game.activePlayerNum]);
 
         // If necessary, end round
@@ -211,15 +176,15 @@ class Controller {
         this.listenerBuilder.addFloorLineScoreSummaryTileListener(player.id);
     }
 
-    handleWallScoringTileClick(playerId, wallTileIndex) {
+    moveTilesFromPatternLineToWall(playerId, wallTileIndex) {
         let player = this.game.players[playerId];
         let wall = player.wall;
         let tileValue = wall.targetTileValueByIndex(wallTileIndex);
         let patternLine = player.patternLine;
         let scoringRow = patternLine.firstFullRow();
+        let incrementalScore = wall.calculateIncrementalScore(tileValue, scoringRow);
 
         // Update score and score display
-        let incrementalScore = wall.calculateIncrementalScore(tileValue, scoringRow);
         player.addPoints(incrementalScore);
         this.uiUpdater.redrawScorepip(playerId, player.score);
 
@@ -227,32 +192,14 @@ class Controller {
         let clearedTiles = patternLine.clearRow(scoringRow);
         this.uiUpdater.redrawPatternLineRow(player, scoringRow);
         wall.place(clearedTiles.pop(), scoringRow);
-        this.game.tileBag.addMultiple(clearedTiles);
+        this.game.tileTrash.addMultiple(clearedTiles);
         this.uiUpdater.redrawWallTile(playerId, wallTileIndex, tileValue);
 
         // Prepare next score confirmation
         this.prepareNextScoreConfirmation();
     }
 
-    handleFloorLineClick(playerId) {
-        let player = this.game.players[playerId];
-        let activePlayerId = this.game.activePlayerNum;
-        let selectedTileValue = this.game.getSelectedTileValue();
-
-        // Exit criteria
-        if (playerId != activePlayerId) {
-            return; // If not this Player's turn
-        }
-        if (selectedTileValue == -1) {
-            return; // If no Tiles are selected
-        }
-
-        this.game.placeTilesOnFloorLine();
-        this.redrawBoard();
-        this.endTurn();
-    }
-
-    handleFloorLineScoringClick(playerId) {
+    scoreTheFloorLine(playerId) {
         let player = this.game.players[playerId];
         let floorLine = player.floorLine;
         let scorePenalty = floorLine.calculateScore();
@@ -270,7 +217,7 @@ class Controller {
             this.redrawBoard();
         }
         player.addPoints(scorePenalty);
-        this.game.tileBag.addMultiple(player.floorLine.clear());
+        this.game.tileTrash.addMultiple(player.floorLine.clear());
         this.uiUpdater.redrawScorepip(playerId, player.score);
         this.uiUpdater.redrawFloorLine(player);
         this.uiRemover.removeFloorLineScoreSummaryTile(playerId);
