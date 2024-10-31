@@ -73,4 +73,11 @@ class ListenerBuilder {
             this.clickRouter.handleFloorLineScoringClick(playerId);
         });
     }
+
+    addFloorLineBonusTileListener(playerId) {
+        let floorLineBonusDiv = document.querySelector("#floorline-bonus-tile-p" + playerId);
+        floorLineBonusDiv.addEventListener("click", (event) => {
+            this.clickRouter.handleFloorLineBonusClick(playerId);
+        });
+    }
 }

@@ -87,21 +87,17 @@ class Controller {
         }
 
         // If necessary, end game
+        // Otherwise, start the next round
         if (this.game.isGameOver()) {
-            this.scoreGameEnd();
+            this.addGameEndBonusButtons();
         } else {
-            // Otherwise, start the next round
             this.startNextRound();
         }
     }
 
-    scoreGameEnd() {
-        alert("Good game! Calculating game-end bonuses.");
-
-        this.game.players.forEach(player => {
-            player.wall.calculateBonuses();
-            console.log(player);
-        });
+    addGameEndBonusButtons() {
+        this.gameLogic.calculateGameEndBonuses();
+        this.uiController.addBonusScoreTiles();
     }
 
     moveTilesFromPatternLineToWall(playerId, wallTileIndex) {
@@ -116,5 +112,11 @@ class Controller {
         this.uiController.redrawScorecard(playerId);
         this.uiController.removeFloorLineSummaryTile(playerId);
         this.prepareNextScoreConfirmation();
+    }
+
+    scoreGameEndBonuses(playerId) {
+        this.gameLogic.scoreGameEndBonuses(playerId);
+        this.uiController.redrawScorecard(playerId);
+        this.uiController.removeFloorLineBonusTile(playerId);
     }
 }

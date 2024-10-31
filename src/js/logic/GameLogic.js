@@ -15,7 +15,7 @@ class GameLogic {
         let newFactoryDisplayArray = [];
         let numFactoryDisplaysToCreate = 0;
         if (numPlayers == 2) {
-            numFactoryDisplaysToCreate = 1;
+            numFactoryDisplaysToCreate = 5;
         } else if (numPlayers == 3) {
             numFactoryDisplaysToCreate = 7;
         } else {
@@ -172,5 +172,18 @@ class GameLogic {
         }
         player.addPoints(scorePenalty);
         this.game.tileTrash.addMultiple(player.floorLine.clear());
+    }
+
+    calculateGameEndBonuses() {
+        this.game.players.forEach(player => {
+            player.wall.calculateBonuses();
+        });
+    }
+
+    scoreGameEndBonuses(playerId) {
+        let player = this.game.players[playerId];
+        let wall = player.wall;
+        let bonusScore = wall.getBonusTotal();
+        player.addPoints(bonusScore);
     }
 }
