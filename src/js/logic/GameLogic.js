@@ -173,4 +173,17 @@ class GameLogic {
         player.addPoints(scorePenalty);
         this.game.tileTrash.addMultiple(player.floorLine.clear());
     }
+
+    calculateGameEndBonuses() {
+        this.game.players.forEach(player => {
+            player.wall.calculateBonuses();
+        });
+    }
+
+    scoreGameEndBonuses(playerId) {
+        let player = this.game.players[playerId];
+        let wall = player.wall;
+        let bonusScore = wall.getBonusTotal();
+        player.addPoints(bonusScore);
+    }
 }

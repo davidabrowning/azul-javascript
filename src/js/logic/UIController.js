@@ -101,13 +101,10 @@ class UIController {
             let row = pl.firstFullRow();
             
             if (row != -1) {
-                console.log("Found score for player " + p.id);
                 player = p;
                 firstFullRow = row;
             }
         });
-
-        console.log("Adding scoring tile for player " + player.id);
 
         let patternLine = player.patternLine;
         let tileValue = patternLine.rowPlacedTilesType(firstFullRow);
@@ -142,4 +139,17 @@ class UIController {
     removeFloorLineSummaryTile(playerId) {
         this.uiRemover.removeFloorLineScoreSummaryTile(playerId);
     }
+
+    addBonusScoreTiles() {
+        this.game.players.forEach(player => {
+            let bonusScore = player.wall.getBonusTotal();
+            this.uiUpdater.addFloorLineBonusTile(player.id, bonusScore);
+            this.listenerBuilder.addFloorLineBonusTileListener(player.id);
+        });
+    }
+
+    removeFloorLineBonusTile(playerId) {
+        this.uiRemover.removeFloorLineBonusTile(playerId);
+    }
+    
 }

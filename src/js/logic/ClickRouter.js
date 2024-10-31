@@ -71,4 +71,8 @@ class ClickRouter {
     handleFloorLineScoringClick(playerId) {
         this.controller.scoreTheFloorLine(playerId);
     }
+
+    handleFloorLineBonusClick(playerId) {
+        this.controller.scoreGameEndBonuses(playerId);
+    }
 }

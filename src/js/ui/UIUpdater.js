@@ -134,4 +134,13 @@ class UIUpdater {
         floorLineScoreDiv.innerHTML = score;
         floorLineDiv.appendChild(floorLineScoreDiv);
     }
+
+    addFloorLineBonusTile(playerId, bonusScore) {
+        let floorLineDiv = document.querySelector("#floorline-player-" + playerId);
+        let floorLineBonusDiv = document.createElement("div");
+        floorLineBonusDiv.setAttribute("id", "floorline-bonus-tile-p" + playerId);
+        floorLineBonusDiv.classList.add("tile", "tile-style-scoring");
+        floorLineBonusDiv.innerHTML = bonusScore;
+        floorLineDiv.appendChild(floorLineBonusDiv);
+    }
 }

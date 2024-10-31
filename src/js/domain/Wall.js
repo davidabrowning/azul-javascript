@@ -209,4 +209,17 @@ class Wall {
             }
         }
     }
+    getBonusTotal() {
+        let bonusTotal = 0;
+        this.rowBonuses.forEach(rowBonus => {
+            bonusTotal += rowBonus;
+        });
+        this.colBonuses.forEach(colBonus => {
+            bonusTotal += colBonus;
+        });
+        this.colorBonuses.forEach(colorBonus => {
+            bonusTotal += colorBonus;
+        });
+        return bonusTotal;
+    }
 }
