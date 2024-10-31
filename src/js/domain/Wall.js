@@ -16,6 +16,9 @@ class Wall {
         this.colBonuses = [0, 0, 0, 0, 0];
         this.colorBonuses = [0, 0, 0, 0, 0];
     }
+    size() {
+        return this.rowSize * this.colSize;
+    }
     placedTileValueByIndex(placedTileIndex) {
         return this.tiles[placedTileIndex];
     }
