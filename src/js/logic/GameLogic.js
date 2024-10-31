@@ -102,4 +102,75 @@ class GameLogic {
     placeTilesOnFloorLine() {
         this.placeTilesOnPatternLine(-1);
     }
+
+    selectFactoryDisplayTiles(factoryDisplayId, tileNum) {
+        let factoryDisplay = this.game.factoryDisplays[factoryDisplayId];
+        let tileValue = factoryDisplay.tiles[tileNum].value;
+        this.game.selectFactoryDisplay(factoryDisplayId, tileValue);      
+    }
+
+    selectFactoryCenterTiles(tileNum) {
+        let factoryCenter = this.game.factoryCenter;
+        let tile = factoryCenter.tiles[tileNum];
+        let tileValue = tile.value;
+
+        factoryCenter.select(tileValue);        
+    }
+
+    gameHasAnUnscoredPatternLine() {
+        let foundUnscoredPatternLine = false;
+        this.game.players.forEach(player => {
+            let patternLine = player.patternLine;
+            let firstFullRow = patternLine.firstFullRow();
+            
+            if (firstFullRow != -1) {
+                foundUnscoredPatternLine = true;
+            }
+        });
+        return foundUnscoredPatternLine;
+    }
+
+    gameHasAnUnscoredFloorLine() {
+        let foundUnscoredFloorLine = false;
+        this.game.players.forEach(player => {
+            let floorLine = player.floorLine;
+            
+            if (floorLine.isEmpty() == false) {
+                foundUnscoredFloorLine = true;
+            }
+        });
+        return foundUnscoredFloorLine;
+    }
+
+    scorePatternLineRow(playerId, wallTileIndex) {
+        let player = this.game.players[playerId];
+        let wall = player.wall;
+        let tileValue = wall.targetTileValueByIndex(wallTileIndex);
+        let patternLine = player.patternLine;
+        let scoringRow = patternLine.firstFullRow();
+        let incrementalScore = wall.calculateIncrementalScore(tileValue, scoringRow);
+
+        player.addPoints(incrementalScore);
+        let clearedTiles = patternLine.clearRow(scoringRow);
+        wall.place(clearedTiles.pop(), scoringRow);
+        this.game.tileTrash.addMultiple(clearedTiles);
+    }
+
+    scoreTheFloorLine(playerId) {
+        let player = this.game.players[playerId];
+        let floorLine = player.floorLine;
+        let scorePenalty = floorLine.calculateScore();
+
+        // If this player has the next player marker:
+        //  - Return the marker to the FactoryCenter
+        // Penalize the player for these FloorLine Tiles
+        // Return the Tiles to the TileBag
+        if (floorLine.contains(99)) {
+            this.game.activePlayerNum = playerId;
+            let startingPlayerMarkerArray = floorLine.removeAll(99);
+            this.game.factoryCenter.add(startingPlayerMarkerArray[0]);
+        }
+        player.addPoints(scorePenalty);
+        this.game.tileTrash.addMultiple(player.floorLine.clear());
+    }
 }
