@@ -87,10 +87,10 @@ class Controller {
         }
 
         // If necessary, end game
+        // Otherwise, start the next round
         if (this.game.isGameOver()) {
             this.scoreGameEnd();
         } else {
-            // Otherwise, start the next round
             this.startNextRound();
         }
     }
