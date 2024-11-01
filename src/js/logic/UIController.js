@@ -120,6 +120,9 @@ class UIController {
         let player = null;
 
         this.game.players.forEach(p => {
+            if (player != null) {   // If we already have an unscored player, don't look for another
+                return;
+            }
             if (p.floorLine.isEmpty() == false) {
                 player = p;
                 return; // Exits the foreach
