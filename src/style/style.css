@@ -25,28 +25,34 @@ footer { background-color: lightgreen; }
     padding: 2rem;
 }
 .tile {
-    border: 1px solid black;
+    border: 1px solid gray;
     border-radius: 5px;
     height: 2rem;
     width: 2rem;
     display: inline-block;
+    background-size: cover;
     text-align: center;
     align-content: center;
 }
 .tile-style-0 {
     background-color: rgb(26, 102, 202);
+    background-image: url("../../img/blue.png");
 }
 .tile-style-1 {
     background-color: rgb(252, 227, 8);
+    background-image: url("../../img/yellow.png");
 }
 .tile-style-2 {
     background-color: rgb(194, 22, 22);
+    background-image: url("../../img/red.png");
 }
 .tile-style-3 {
     background-color: black;
+    background-image: url("../../img/black.png");
 }
 .tile-style-4 {
     background-color: rgb(84, 221, 231);
+    background-image: url("../../img/cyan.png");
 }
 .tile-style-99 {
     background-color: white;
@@ -55,6 +61,7 @@ footer { background-color: lightgreen; }
 }
 .tile-style-empty {
     background-color: khaki;
+    background-image: url("../../img/empty.png");
 }
 .tile-style-faded {
     opacity: 0.25;
