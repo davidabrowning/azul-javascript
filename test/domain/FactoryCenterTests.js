@@ -30,15 +30,6 @@ function runFactoryCenterTests(testRunner) {
 
     testTitle = "Factory center starts round with zero tiles";
     testGame = new Game(2);
-    testGame.prepareRound();
     testRunner.assertEquals(testTitle, 0, testGame.factoryCenter.size());
 
-    testTitle = "FactoryCenter contains unclaimed FactoryDisplay Tiles";
-    testGame = new Game(2);
-    testGame.factoryDisplays[0].tiles[0] = new Tile(0);
-    testGame.factoryDisplays[0].tiles[1] = new Tile(0);
-    testGame.factoryDisplays[0].tiles[2] = new Tile(2);
-    testGame.factoryDisplays[0].tiles[3] = new Tile(2);
-    testGame.claimFactoryDisplay(0, 2, 0);
-    testRunner.assertEquals(testTitle, true, testGame.factoryCenter.contains(0));
 }

@@ -1,59 +1,13 @@
 class Game {
     constructor(numPlayers) {
+        this.gameLogic = new GameLogic(this);
         this.tileBag = new TileBag();
-        this.players = this.generatePlayers(numPlayers);
+        this.tileTrash = new TileTrash();
+        this.players = this.gameLogic.generatePlayers(numPlayers);
         this.activePlayerNum = 0;
-        this.factoryDisplays = this.generateFactoryDisplays(numPlayers);
+        this.factoryDisplays = this.gameLogic.generateFactoryDisplays(numPlayers);
         this.factoryCenter = new FactoryCenter();
-    }
-    generatePlayers(numPlayers) {
-        let newPlayerArray = [];
-        for (let i = 0; i < numPlayers; i++) {
-            newPlayerArray.push(new Player(i));
-        }
-        return newPlayerArray;
-    }
-    generateFactoryDisplays(numPlayers) {
-        let newFactoryDisplayArray = [];
-        let numFactoryDisplaysToCreate = 0;
-        if (numPlayers == 2) {
-            numFactoryDisplaysToCreate = 5;
-        } else if (numPlayers == 3) {
-            numFactoryDisplaysToCreate = 7;
-        } else {
-            numFactoryDisplaysToCreate = 9;
-        }
-        for (let i = 0; i < numFactoryDisplaysToCreate; i++) {
-            newFactoryDisplayArray.push(new FactoryDisplay(i));
-        }
-        return newFactoryDisplayArray;
-    }
-    prepareRound() {
-        this.factoryDisplays.forEach(factoryDisplay => {
-            for (let i = 0; i < 4; i++) {
-                let tile = this.tileBag.drawTile();
-                factoryDisplay.add(tile);
-            }
-        });
-    }
-    endTurn() {
-        this.activePlayerNum++;
-        if (this.activePlayerNum == this.players.length) {
-            this.activePlayerNum = 0;
-        }
-    }
-
-    /**
-     * 
-     * @param {int} factoryDisplayNum 
-     * @param {int} tileValue 
-     * @param {int} targetPatternLine 
-     */
-    claimFactoryDisplay(factoryDisplayNum, tileValue, targetPatternLine) {
-        let factoryDisplay = this.factoryDisplays[factoryDisplayNum];
-        let claimedTiles = factoryDisplay.removeAll(tileValue);
-        let discardedTiles = factoryDisplay.clear();
-        this.factoryCenter.addMultiple(discardedTiles);
+        this.gameLogic.assignStartingPlayerMarker();
     }
 
     getSelectedTileValue() {
@@ -69,54 +23,53 @@ class Game {
         return selectedTileValue;
     }
 
-    placeTilesOnPatternLine(targetRow) {
-        // Exit criteria
-        if (this.getSelectedTileValue() == -1) {
-            return;
-        }
+    selectFactoryDisplay(factoryDisplayId, tileValue) {
+        let factoryDisplay = this.factoryDisplays[factoryDisplayId];
+        factoryDisplay.select(tileValue);
+    }
 
-        let activePlayer = this.players[this.activePlayerNum];
-        let targetTileValue = -1;
-        let targetTiles = [];
-        let droppedTiles = [];
-        let factoryCenter = this.factoryCenter;
-
-        this.factoryDisplays.forEach(fd => {
-            if (fd.isSelected) {
-                targetTileValue = fd.selectedTileValue;
-                targetTiles = fd.removeAll(targetTileValue);
-                let extraTiles = fd.clear();
-                this.factoryCenter.addMultiple(extraTiles);
-                fd.unselect();
-            }
+    unselectAllTiles() {
+        this.factoryDisplays.forEach(factoryDisplay => {
+            factoryDisplay.unselect();
         });
+        this.factoryCenter.unselect();
+    }
 
-        if (factoryCenter.isSelected) {
-            targetTileValue = factoryCenter.selectedTileValue;
-            targetTiles = factoryCenter.removeAll(targetTileValue);
-            factoryCenter.unselect();
+    isFirstTakeThisRound() {
+        for (let i = 0; i < this.factoryDisplays.length; i++) {
+            if (this.factoryDisplays[i].size() < 4) {
+                return false;
+            }
         }
-
-        droppedTiles = activePlayer.patternLine.place(targetTiles, targetRow);
-        activePlayer.floorLine.addMultiple(droppedTiles);
+        return true;
     }
 
     isGameOver() {
-        return false;
+        let gameIsOver = false;
+        this.players.forEach(player => {
+            if (player.wall.hasACompletedRow()) {
+                gameIsOver = true;
+            }
+        });
+        return gameIsOver;
     }
 
     isRoundOver() {
         let tilesRemain = false;
 
+        // Check if Tiles remain on FactoryDisplays
         this.factoryDisplays.forEach(factoryDisplay => {
             if (factoryDisplay.size() > 0) {
                 tilesRemain = true;
             }
         });
+
+        // Check if Tiles remain on FactoryCenter
         if (this.factoryCenter.size() > 0) {
             tilesRemain = true;
         }
 
+        // If any Tiles remain, round is not over (return false)
         if (tilesRemain) {
             return false;
         } else {

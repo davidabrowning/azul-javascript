@@ -31,6 +31,8 @@ footer { background-color: lightgreen; }
     width: 2rem;
     display: inline-block;
     background-size: cover;
+    text-align: center;
+    align-content: center;
 }
 .tile-style-0 {
     background-color: rgb(26, 102, 202);
@@ -52,6 +54,11 @@ footer { background-color: lightgreen; }
     background-color: rgb(84, 221, 231);
     background-image: url("../../img/cyan.png");
 }
+.tile-style-99 {
+    background-color: white;
+    color: blue;
+    font-weight: bolder;
+}
 .tile-style-empty {
     background-color: khaki;
     background-image: url("../../img/empty.png");
@@ -61,6 +68,9 @@ footer { background-color: lightgreen; }
 }
 .tile-selected {
     opacity: 0.25;
+}
+.tile-style-scoring {
+    background-color: orange;
 }
 #factory-displays {
     display: flex;
@@ -102,13 +112,19 @@ footer { background-color: lightgreen; }
     display: flex;
 }
 .scorepip {
+    min-height: 1rem;
     border: 1px solid black;
-    background-color: khaki;
     flex: 1 1;
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
     align-content: center;
     text-align: center;
+}
+.scorepip-inactive {
+    background-color: khaki;
+}
+.scorepip-active {
+    background-color: black; 
 }
 .scorecard-main {
     display: flex;

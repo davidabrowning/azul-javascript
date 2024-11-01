@@ -9,12 +9,11 @@
         <header id="instructions">
         </header>
         <div id="playing-area">
+            <div id="scorecards">                           
+            </div>
             <div id="factory-displays">
             </div>
-            <div id="factory-center">
-                <div class="tile tile-style-empty tile-style-faded"></div>              
-            </div>
-            <div id="scorecards">                           
+            <div id="factory-center">              
             </div>
         </div>
         <!-- JavaScript domain abstract class files -->
@@ -28,16 +27,25 @@
         <script src="src/js/domain/PatternLine.js"></script>
         <script src="src/js/domain/Player.js"></script>
         <script src="src/js/domain/Tile.js"></script>
-        <script src="src/js/domain/TileBag.js"></script>        
+        <script src="src/js/domain/TileBag.js"></script>   
+        <script src="src/js/domain/TileTrash.js"></script>     
         <script src="src/js/domain/Wall.js"></script>
 
-        <!-- JavaScript Controller and UI class files -->
+        <!-- JavaScript logic class files -->
+         <script src="src/js/logic/ClickRouter.js"></script>
          <script src="src/js/logic/Controller.js"></script>
-         <script src="src/js/ui/UserInterface.js"></script>
+         <script src="src/js/logic/GameLogic.js"></script>
+         <script src="src/js/logic/UIController.js"></script>
+
+         <!-- JavaScript UI class files -->
+         <script src="src/js/ui/ListenerBuilder.js"></script>
+         <script src="src/js/ui/ListenerRemover.js"></script>
+         <script src="src/js/ui/UIBuilder.js"></script>
+         <script src="src/js/ui/UIRemover.js"></script>
+         <script src="src/js/ui/UIUpdater.js"></script>
 
         <script>
-            const userInterface = new UserInterface();
-            const controller = new Controller(userInterface);
+            const controller = new Controller();
             controller.startSession();
         </script>
     </body>

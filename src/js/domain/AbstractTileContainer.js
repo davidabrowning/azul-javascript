@@ -5,6 +5,11 @@ class AbstractTileContainer {
         this.selectedTileValue = -1;
     }
 
+    /**
+     * Specifies this Container as targeted by the Player.
+     * Used during the playing phase where Players select Tiles.
+     * @param {int} tileValue The value of the Tile the Player is targeting.
+     */
     select(tileValue) {
         this.isSelected = true;
         this.selectedTileValue = tileValue;
@@ -13,7 +18,13 @@ class AbstractTileContainer {
         this.isSelected = false;
         this.selectedTileValue = -1;
     }
+
+    /* Basic functions */
     add(tile) {
+        if (tile == null) {
+            console.log("Warning: Attempting to add null tile");
+            return;
+        }
         this.tiles.push(tile);
     }
     addMultiple(tileArray) {
@@ -24,7 +35,7 @@ class AbstractTileContainer {
     contains(tileValue) {
         let foundNeedle = false;
         this.tiles.forEach(tile => {
-            if(tile.value == tileValue) {
+            if(tile != null && tile.value == tileValue) {
                 foundNeedle = true;
             }
         });
@@ -45,6 +56,7 @@ class AbstractTileContainer {
         return -1;
     }
 
+    /* Removal functions */
     removeAll(tileValue) {  // Removes all tiles of a certain value
         let claimedTiles = [];
         while(this.contains(tileValue)) {
@@ -62,7 +74,9 @@ class AbstractTileContainer {
     clear() {               // Removes all tiles
         let removedTiles = [];
         this.tiles.forEach(tile => {
-            removedTiles.push(tile);
+            if (tile != null) {
+                removedTiles.push(tile);
+            }
         });
         this.tiles = [];
         return removedTiles;
