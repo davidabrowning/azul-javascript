@@ -88,7 +88,9 @@ class UIBuilder {
                 let scorepipDiv = document.createElement("div");
                 scorepipDiv.setAttribute("id", "scorepip-" + scorepipCounter + "-p" + player.id);
                 scorepipDiv.classList.add("scorepip", "scorepip-inactive");
-                // scorepipDiv.innerText = scorepipCounter;
+                if (scorepipCounter % 10 == 0) {
+                    scorepipDiv.classList.add("scorepip-multiple-of-5");
+                }
                 scorepipRowDiv.appendChild(scorepipDiv);
 
                 scorepipCounter++;
