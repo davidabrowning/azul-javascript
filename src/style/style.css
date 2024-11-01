@@ -16,7 +16,6 @@ footer { background-color: lightgreen; }
 
 #instructions {
     background-color: lightgray;
-    border-bottom: 1px solid black;
     height: 2rem;
     align-content: center;
     text-align: center;
@@ -25,6 +24,7 @@ footer { background-color: lightgreen; }
     padding: 2rem;
 }
 .tile {
+    font-size: 0rem;
     border: 1px solid gray;
     border-radius: 5px;
     height: 2rem;
@@ -58,10 +58,13 @@ footer { background-color: lightgreen; }
     background-color: white;
     color: blue;
     font-weight: bolder;
+    background-image: url("../../img/one.png");
 }
 .tile-style-empty {
+    font-size: 1rem;
     background-color: khaki;
     background-image: url("../../img/empty.png");
+    opacity: 0.80;
 }
 .tile-style-faded {
     opacity: 0.25;
@@ -70,16 +73,17 @@ footer { background-color: lightgreen; }
     opacity: 0.25;
 }
 .tile-style-scoring {
-    background-color: orange;
+    font-size: 1rem;
+    background-color: greenyellow;
+    background-image: url("../../img/scoring.png");
 }
 #factory-displays {
     display: flex;
     justify-content: space-around;
 }
 .factory-display {
-    border: 15px solid gold;
-    border-radius: 50px;
-    background-color: white;
+    background-image: url("../../img/factory-display.png");
+    background-size: cover;
     padding: 2rem;
     display: grid;
     grid-template-rows: 1fr 1fr;
@@ -97,9 +101,9 @@ footer { background-color: lightgreen; }
 }
 .scorecard {
     padding: 1rem;
-    border: 1px solid black;
-    border-radius: 15px;
     background-color: royalblue;
+    background-image: url("../../img/scorecard.png");
+    background-size: cover;
     display: inline-block;
 }
 .scorecard-header {
@@ -110,18 +114,27 @@ footer { background-color: lightgreen; }
 }
 .scorepip-row {
     display: flex;
+    border: 1px solid gray;
+}
+.scorepip-row+.scorepip-row {
+    border-top: none;
 }
 .scorepip {
     min-height: 1rem;
-    border: 1px solid black;
     flex: 1 1;
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
     align-content: center;
     text-align: center;
 }
+.scorepip+.scorepip {
+    border-left: 1px solid gray;
+}
 .scorepip-inactive {
-    background-color: khaki;
+    background-color: white;
+}
+.scorepip-multiple-of-5 {
+    background-color: burlywood;
 }
 .scorepip-active {
     background-color: black; 
