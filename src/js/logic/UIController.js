@@ -18,12 +18,8 @@ class UIController {
         this.uiUpdater.redrawFactoryDisplays(this.game.factoryDisplays);
     }
 
-    printTakeTileMessage() {
-        this.uiUpdater.printTakeTileMessage(this.game.players[this.game.activePlayerNum]);
-    }
-
-    printPlaceTileMessage() {
-        this.uiUpdater.printPlaceTileMessage(this.game.players[this.game.activePlayerNum]);
+    updateCurrentTurnMessage() {
+        this.uiUpdater.updateCurrentTurnMessage(this.game.players[this.game.activePlayerNum]);
     }
 
     addSelectedEffectFactoryDisplay(factoryDisplayId, tileNum) {

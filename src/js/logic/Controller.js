@@ -22,7 +22,7 @@ class Controller {
     startNextRound() {
         this.gameLogic.dealTilesToFactoryDisplays();
         this.uiController.updateFactoryDisplays();
-        this.uiController.printTakeTileMessage();
+        this.uiController.updateCurrentTurnMessage();
     }
 
     unselectAllTiles() {
@@ -43,13 +43,11 @@ class Controller {
     updateSelectedTilesToFactoryDisplay(factoryDisplayId, tileNum) {
         this.unselectAllTiles();
         this.selectFactoryDisplayTiles(factoryDisplayId, tileNum);
-        this.uiController.printPlaceTileMessage();
     }
 
     updateSelectedTilesToFactoryCenter(tileNum) {
         this.unselectAllTiles();
         this.selectFactoryCenterTiles(tileNum);
-        this.uiController.printPlaceTileMessage();  
     }
 
     placeTilesOnPatternLineAndEndTurn(rowNum) {
@@ -67,7 +65,7 @@ class Controller {
     endTurn() {
         // End turn
         this.gameLogic.endTurn();
-        this.uiController.printTakeTileMessage();
+        this.uiController.updateCurrentTurnMessage();
 
         // If necessary, end round
         if (this.game.isRoundOver()) {
