@@ -15,7 +15,7 @@ class GameLogic {
         let newFactoryDisplayArray = [];
         let numFactoryDisplaysToCreate = 0;
         if (numPlayers == 2) {
-            numFactoryDisplaysToCreate = 1;
+            numFactoryDisplaysToCreate = 5;
         } else if (numPlayers == 3) {
             numFactoryDisplaysToCreate = 7;
         } else {
