@@ -2,14 +2,9 @@ class UIUpdater {
     constructor() {
     }
 
-    printTakeTileMessage(activePlayer) {
+    updateCurrentTurnMessage(activePlayer) {
         let instructionsHeader = document.querySelector("#instructions");
-        instructionsHeader.innerText = "Player " + (activePlayer.id + 1) + ", please choose a tile or tiles to take.";
-    }
-
-    printPlaceTileMessage(activePlayer) {
-        let instructionsHeader = document.querySelector("#instructions");
-        instructionsHeader.innerText = "Player " + (activePlayer.id + 1) + ", please choose a pattern or floor line row to place these tiles.";
+        instructionsHeader.innerText = "Player " + (activePlayer.id + 1) + "'s turn";        
     }
 
     redrawFactoryDisplays(factoryDisplays) {
