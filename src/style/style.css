@@ -67,7 +67,7 @@ footer { background-color: lightgreen; }
     opacity: 0.80;
 }
 .tile-style-faded {
-    opacity: 0.25;
+    opacity: 0.15;
 }
 .tile-selected {
     opacity: 0.25;
