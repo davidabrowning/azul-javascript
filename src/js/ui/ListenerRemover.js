@@ -1,4 +1,5 @@
 class ListenerRemover {
-    constructor() {
+    constructor(clickRouter) {
+        this.clickRouter = clickRouter;
     }
 }

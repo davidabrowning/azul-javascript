@@ -6,7 +6,7 @@ class UIController {
         this.uiRemover = new UIRemover();
         this.uiUpdater = new UIUpdater();
         this.listenerBuilder = new ListenerBuilder(this.clickRouter);
-        this.listenerRemover = new ListenerRemover();
+        this.listenerRemover = new ListenerRemover(this.clickRouter);
     }
 
     buildUI() {
