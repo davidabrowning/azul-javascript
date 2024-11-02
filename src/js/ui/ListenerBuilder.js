@@ -57,7 +57,7 @@ class ListenerBuilder {
         let tileDiv = document.querySelector("#wall-tile-" + wallTileIndex + "-p" + playerId);
         tileDiv.addEventListener("click", (event) => {
             this.clickRouter.handleWallScoringTileClick(playerId, wallTileIndex);
-        });
+        }, { once: true }); // Remove the listener after being clicked once
     }
 
     addFloorLineEventListener(player) {
